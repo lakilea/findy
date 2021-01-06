@@ -12,11 +12,9 @@ import StoreNavigator from "../screens/tabNavigators/StoreNavigator";
 import NotificationsNavigator from "../screens/tabNavigators/NotificationsNavigator";
 import SettingsNavigator from "../screens/tabNavigators/SettingsNavigator";
 
-//const Stack = createStackNavigator();
-
 const Tab = createBottomTabNavigator();
 
-const AppStack = ({ navigation }) => {
+const AppStack = () => {
 
   const {user} = useContext(AuthContext);
   const [notificationCount, setNotificationCount] = useState(null);
@@ -49,24 +47,6 @@ const AppStack = ({ navigation }) => {
     });
   }, []);
 
-  // return (
-    // <Stack.Navigator>
-    //   <Stack.Screen name="findy!" component={HomeScreen}/>
-    //   <Stack.Screen name="ProfileSettings" component={ProfileSettingsScreen} options={{ title:"Profile Settings" }}/>
-    //   <Stack.Screen name="ManageAddresses" component={ManageAddressesScreen} options={{ title:"Manage Addresses" }}/>
-    //   <Stack.Screen name="AddAddress" component={AddAddressScreen} options={({ route }) => ({ title: route.params.title })} />
-    //   <Stack.Screen name="ManagePhones" component={ManagePhonesScreen} options={{ title:"Manage Phone Numbers" }}/>
-    //   <Stack.Screen name="AddPhone" component={AddPhoneScreen} options={({ route }) => ({ title: route.params.title })} />
-    //   <Stack.Screen name="ManageEmails" component={ManageEmailsScreen} options={{ title:"Manage Email Addresses" }}/>
-    //   <Stack.Screen name="AddEmail" component={AddEmailScreen} options={({ route }) => ({ title: route.params.title })} />
-    //   <Stack.Screen name="ManageSocial" component={ManageSocialScreen} options={{ title:"Manage Social Accounts" }}/>
-    //   <Stack.Screen name="AddSocial" component={AddSocialScreen} options={({ route }) => ({ title: route.params.title })} />
-    //   <Stack.Screen name="ShowQR" component={ShowQRScreen} options={({ route }) => ({ title: route.params.title })} />
-    //   <Stack.Screen name="TermsOfService" component={TermsOfServiceScreen} options={{ title:"Terms Of Services" }}/>
-    //   <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicyScreen} options={{ title:"Privacy Policy" }}/>
-    // </Stack.Navigator>
-  // );
-
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -97,11 +77,10 @@ const AppStack = ({ navigation }) => {
         options={{
           tabBarLabel: 'Create',
           tabBarIcon: ({ color, size }) => (
-            //<FontAwesome name="plus" color={color} size={size} />
             <View
               style={{
                 position: 'absolute',
-                bottom: 6, // space from bottombar
+                bottom: 6,
                 height: 58,
                 width: 58,
                 borderRadius: 58,
