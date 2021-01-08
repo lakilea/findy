@@ -4,7 +4,7 @@ to setup project in your local, you need to follow below instructions.
 ## firebase setup
 go **android > build.gradle**
 
-```json
+```java
 buildscript {
 	ext {
 		...
