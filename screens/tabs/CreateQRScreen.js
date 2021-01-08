@@ -303,7 +303,7 @@ const CreateQRScreen = ({navigation}) => {
         />
       </View>
 
-      <SaveCancelButton style={{bottom:20}} navigation={navigation} onSavePress={createQrCode} />
+      <SaveCancelButton style={{bottom:20}} navigation={navigation} onSavePress={createQrCode} page="CreateQR" />
     </View>
   );
 };

@@ -7,6 +7,7 @@ import { windowWidth } from '../../../utils/Dimensions';
 import Spinner from 'react-native-loading-spinner-overlay';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import firestore from '@react-native-firebase/firestore';
+import Toast from 'react-native-tiny-toast'
 import * as Print from 'expo-print';
 import * as MediaLibrary from "expo-media-library";
 import * as Sharing from "expo-sharing";
@@ -68,7 +69,7 @@ const ShowQRScreen = ({ navigation, route }) => {
                 album: album,
                 sortBy: MediaLibrary.SortBy.creationTime,
               });
-              console.log(assetResult.assets[0].uri);
+              Toast.show("PDF has been saved to /findy");
             }
           }
         }
@@ -100,6 +101,8 @@ const ShowQRScreen = ({ navigation, route }) => {
         } else {
           await MediaLibrary.addAssetsToAlbumAsync([asset], album, false);
         }
+
+        Toast.show("Image has been saved to your gallery");
 
         Linking.openURL("content://media/internal/images/media");
       }

@@ -23,7 +23,6 @@ const AppStack = () => {
     AsyncStorage.getItem('alreadyLogined').then(value => {
       if(value == null) {
         firestore().collection('UserNotifications').where('userId', '==', user.uid).onSnapshot(querySnapshot => { 
-          console.log(querySnapshot)
           if (querySnapshot._docs.length === 0) {
             firestore().collection('UserNotifications').add({
               text:"Welcome to findy, to create a first QR, you need to add a contact item on the 'Settings' screen.",

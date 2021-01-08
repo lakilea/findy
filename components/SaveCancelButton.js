@@ -3,20 +3,20 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 // create a component
-const SaveCancelButton = ({ navigation, onSavePress, ... rest }) => {
+const SaveCancelButton = ({ navigation, onSavePress, page, ... rest }) => {
   return (
     <View style={[styles.container, rest.style]}>
       <View style={styles.textPrivate}>
         <Text style={styles.color_textPrivate}>
           By saving, you confirm that you accept our{' '}
         </Text>
-        <TouchableOpacity onPress={() => navigation.navigate("TermsOfService")}>
+        <TouchableOpacity onPress={() => navigation.navigate(page + "/TermsOfService")}>
           <Text style={[styles.color_textPrivate, {color: '#e88832'}]}>
             Terms of service
           </Text>
         </TouchableOpacity>
         <Text style={styles.color_textPrivate}> and </Text>
-        <TouchableOpacity onPress={() => navigation.navigate("PrivacyPolicy")}>
+        <TouchableOpacity onPress={() => navigation.navigate(page + "/PrivacyPolicy")}>
           <Text style={[styles.color_textPrivate, {color: '#e88832'}]}>
             Privacy Policy
           </Text>

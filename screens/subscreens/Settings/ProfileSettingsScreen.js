@@ -98,7 +98,8 @@ const ProfileSettingsScreen = ({ navigation }) => {
 
       <SaveCancelButton 
         navigation={ navigation }
-        onSavePress={ onSavePress } />
+        onSavePress={ onSavePress }
+        page="Settings" />
     </View>
   );
 };

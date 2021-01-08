@@ -31,8 +31,8 @@ const SettingsNavigator = () => {
       <Stack.Screen name="AddEmail" component={AddEmailScreen} options={({ route }) => ({ title: route.params.title })} />
       <Stack.Screen name="ManageSocial" component={ManageSocialScreen} options={{ title:"Manage Social Accounts" }}/>
       <Stack.Screen name="AddSocial" component={AddSocialScreen} options={({ route }) => ({ title: route.params.title })} />
-      <Stack.Screen name="TermsOfService" component={TermsOfServiceScreen} options={{ title:"Terms Of Services" }}/>
-      <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicyScreen} options={{ title:"Privacy Policy" }}/>
+      <Stack.Screen name="Settings/TermsOfService" component={TermsOfServiceScreen} options={{ title:"Terms Of Services" }}/>
+      <Stack.Screen name="Settings/PrivacyPolicy" component={PrivacyPolicyScreen} options={{ title:"Privacy Policy" }}/>
     </Stack.Navigator>
   );
 };

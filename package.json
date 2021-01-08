@@ -42,6 +42,7 @@
     "react-native-sectioned-multi-select": "^0.8.1",
     "react-native-snap-carousel": "^3.9.1",
     "react-native-svg": "^12.1.0",
+    "react-native-tiny-toast": "^1.0.7",
     "react-native-unimodules": "~0.12.0",
     "react-native-vector-icons": "^7.1.0",
     "react-native-web": "~0.13.12"

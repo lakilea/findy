@@ -104,7 +104,8 @@ const AddEmailScreen = ({ navigation, route }) => {
 
       <SaveCancelButton 
         navigation={ navigation }
-        onSavePress={ onSavePress } />
+        onSavePress={ onSavePress }
+        page="Settings" />
 
     </ScrollView>
   );
