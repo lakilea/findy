@@ -54,3 +54,15 @@ android {
     }
 }
 ```
+
+## Expo Settings
+
+add following settings to **AndroidManifest.xml**
+
+```xml
+<manifest ... >
+  <application android:requestLegacyExternalStorage="true" ... >
+    ...
+  </application>
+</manifest>
+```
