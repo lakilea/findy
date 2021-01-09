@@ -7,9 +7,7 @@ import { windowWidth } from '../../../utils/Dimensions';
 import Spinner from 'react-native-loading-spinner-overlay';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import firestore from '@react-native-firebase/firestore';
-import Toast from 'react-native-tiny-toast'
 import * as Print from 'expo-print';
-import * as MediaLibrary from "expo-media-library";
 import * as Sharing from "expo-sharing";
 import * as FileSystem from "expo-file-system";
 
@@ -53,25 +51,7 @@ const ShowQRScreen = ({ navigation, route }) => {
         if (Platform.OS === "ios") {
           await Sharing.shareAsync(uri);
         } else {
-          const permission = await MediaLibrary.requestPermissionsAsync();
-          console.log(uri)
-
-          if (permission.granted) {
-            const asset = await MediaLibrary.createAssetAsync(uri);
-            const album = await MediaLibrary.getAlbumAsync('findy.ws');
-            if (album == null) {
-            await MediaLibrary.createAlbumAsync('findy.ws', asset, false);
-            } else {
-              await MediaLibrary.addAssetsToAlbumAsync([asset], album, false);
-
-              const assetResult = await MediaLibrary.getAssetsAsync({
-                first: 1,
-                album: album,
-                sortBy: MediaLibrary.SortBy.creationTime,
-              });
-              Toast.show("PDF has been saved to /findy");
-            }
-          }
+          await Sharing.shareAsync(uri);
         }
       } catch (err) {
           console.log(err);
@@ -88,24 +68,7 @@ const ShowQRScreen = ({ navigation, route }) => {
         encoding: FileSystem.EncodingType.Base64,
       });
 
-      console.log(filename);
-
-      const permission = await MediaLibrary.requestPermissionsAsync();
-      if (permission.granted) {
-        const asset = await MediaLibrary.createAssetAsync(filename);
-      
-        const album = await MediaLibrary.getAlbumAsync('findy.ws');
-        
-        if (album == null) {
-          await MediaLibrary.createAlbumAsync('findy.ws', asset, false);
-        } else {
-          await MediaLibrary.addAssetsToAlbumAsync([asset], album, false);
-        }
-
-        Toast.show("Image has been saved to your gallery");
-
-        Linking.openURL("content://media/internal/images/media");
-      }
+      await Sharing.shareAsync(filename);
     });
   }
 
@@ -154,10 +117,10 @@ const ShowQRScreen = ({ navigation, route }) => {
         {qr.qrDescription}
       </Text>
       <TouchableOpacity style={styles.buttonContainer} onPress={saveAsPDF}>
-        <Text style={styles.textStyle}>Save QR as a PDF file</Text>
+        <Text style={styles.textStyle}>View QR as a PDF file</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.buttonContainer} onPress={saveAsImage}>
-        <Text style={styles.textStyle}>Save QR as an image file</Text>
+        <Text style={styles.textStyle}>View QR as an image file</Text>
       </TouchableOpacity>
     </View>
   );
