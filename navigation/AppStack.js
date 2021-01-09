@@ -1,23 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage'
-import FontAwesome from 'react-native-vector-icons/FontAwesome5';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import {AuthContext} from '../navigation/AuthProvider';
+import {AuthContext} from './AuthProvider';
 import firestore from '@react-native-firebase/firestore';
+import SetupProfile from "../screens/SetupProfile";
+import { createStackNavigator } from '@react-navigation/stack';
+import AppNavigator from "./AppNavigator";
 
-import MyQRsNavigator from "../screens/tabNavigators/MyQRsNavigator";
-import CreateQRNavigator from "../screens/tabNavigators/CreateQRNavigator";
-import StoreNavigator from "../screens/tabNavigators/StoreNavigator";
-import NotificationsNavigator from "../screens/tabNavigators/NotificationsNavigator";
-import SettingsNavigator from "../screens/tabNavigators/SettingsNavigator";
+const Stack = createStackNavigator();
 
-const Tab = createBottomTabNavigator();
-
+// create a component
 const AppStack = () => {
 
   const {user} = useContext(AuthContext);
-  const [notificationCount, setNotificationCount] = useState(null);
+  
+  const [alreadyLogined, setAlreadyLogined] = useState(null);
+  let routeName;
 
   useEffect(() => {
     AsyncStorage.getItem('alreadyLogined').then(value => {
@@ -32,86 +29,30 @@ const AppStack = () => {
             });
           }
         });
+        setAlreadyLogined(false);
+      } else {
+        setAlreadyLogined(true);
       }
-    });
-
-    firestore().collection('UserNotifications')
-    .where('userId', '==', user.uid)
-    .where('isRead', '==', false)
-    .onSnapshot(querySnapshot => { 
-      if (querySnapshot._docs.length === 0)
-        setNotificationCount(null);
-      else
-        setNotificationCount(querySnapshot._docs.length);
     });
   }, []);
 
-  return (
-    <Tab.Navigator
-      tabBarOptions={{
-        activeTintColor: '#e91e63',
-      }}
-    >
-      <Tab.Screen 
-        name="StoreNavigator" 
-        component={StoreNavigator}
-        options={{
-          tabBarLabel: 'Store',
-          tabBarIcon: ({ color, size }) => (
-            <FontAwesome name="store" color={color} size={size} />
-          ),
-        }}/>
-      <Tab.Screen 
-        name="MyQRList" 
-        component={MyQRsNavigator}
-        options={{
-          tabBarLabel: 'My QRs',
-          tabBarIcon: ({ color, size }) => (
-            <FontAwesome name="list" color={color} size={size} />
-          ),
-        }} />
-      <Tab.Screen 
-        name="Create" 
-        component={CreateQRNavigator}
-        options={{
-          tabBarLabel: 'Create',
-          tabBarIcon: ({ color, size }) => (
-            <View
-              style={{
-                position: 'absolute',
-                bottom: 6,
-                height: 58,
-                width: 58,
-                borderRadius: 58,
-                backgroundColor: '#f55951',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <FontAwesome name="plus" color="#FFF" size={size} />
-            </View>
-          ),
-        }} />
-      <Tab.Screen 
-        name="Notifications" 
-        component={NotificationsNavigator}
-        options={{
-          tabBarLabel: 'Notifications',
-          tabBarIcon: ({ color, size }) => (
-            <FontAwesome name="bell" color={color} size={size} />
-          ),
-          tabBarBadge: notificationCount
-        }} />
-      <Tab.Screen 
-        name="Settings" 
-        component={SettingsNavigator}
-        options={{
-          tabBarLabel: 'Settings',
-          tabBarIcon: ({ color, size }) => (
-            <FontAwesome name="cog" color={color} size={size} />
-          )
-        }} />
-    </Tab.Navigator>
-  );
-}
+  if (alreadyLogined === null) {
+    return null;
+  } else if (alreadyLogined === true) {
+    routeName = "App";
+  } else {
+    routeName = "SetupProfile";
+  }
 
+  console.log(routeName)
+  
+  return (
+    <Stack.Navigator initialRouteName={routeName}>
+      <Stack.Screen name="SetupProfile" component={SetupProfile} options={{header: ()=> null}} />
+      <Stack.Screen name="App" component={AppNavigator} options={{header: ()=> null}} />
+    </Stack.Navigator>
+  );
+};
+
+//make this component available to the app
 export default AppStack;

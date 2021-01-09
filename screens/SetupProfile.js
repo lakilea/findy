@@ -1,18 +1,18 @@
 //import liraries
 import React, { useContext, useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { windowHeight, windowWidth } from '../../../utils/Dimensions';
-import { AuthContext } from '../../../navigation/AuthProvider';
-import FormInput from '../../../components/FormInput'
-import { Picker} from '@react-native-picker/picker';
+import { View, Text, StyleSheet, TouchableOpacity, DevSettings } from 'react-native';
+import { AuthContext } from '../navigation/AuthProvider';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import SaveCancelButton from '../../../components/SaveCancelButton';
-import Spinner from 'react-native-loading-spinner-overlay';
 import firestore from '@react-native-firebase/firestore';
+import Spinner from 'react-native-loading-spinner-overlay';
+import FormInput from '../components/FormInput'
+import { Picker} from '@react-native-picker/picker';
+import { windowHeight, windowWidth } from '../utils/Dimensions';
+import AsyncStorage from '@react-native-community/async-storage'
 
 // create a component
-const ProfileSettingsScreen = ({ navigation }) => {
-  const {user} = useContext(AuthContext);
+const SetupProfile = ({ navigation }) => {
+  const {user, setUser} = useContext(AuthContext);
   
   const [fullname,setFullname] = useState("");
   const [language,setLanguage] = useState("English");
@@ -45,12 +45,13 @@ const ProfileSettingsScreen = ({ navigation }) => {
       })
       .then(() => {
         console.log('User saved!');
+
+        setTimeout(() => {
+          setIsLoading(false);
+          AsyncStorage.setItem('alreadyLogined','true');
+          navigation.navigate("App");
+        }, 500);
       });
-    
-    setTimeout(() => {
-      setIsLoading(false);
-      navigation.goBack();
-    }, 500);
   }
 
   return (
@@ -61,9 +62,6 @@ const ProfileSettingsScreen = ({ navigation }) => {
         textStyle={{ color: '#FFF' }}
       />
 
-      <Text style={[ styles.textStyle, { marginBottom: 10, marginTop: 10, fontWeight: 'bold' } ]}>
-        Bellow fields are not required, When you fill any of your information that will be visible on QR screen.
-      </Text>
       <FormInput
         labelValue={fullname}
         onChangeText={(fullname) => setFullname(fullname)}
@@ -96,10 +94,9 @@ const ProfileSettingsScreen = ({ navigation }) => {
         </Picker>
       </View>
 
-      <SaveCancelButton 
-        navigation={ navigation }
-        onSavePress={ onSavePress }
-        page="Settings" />
+      <TouchableOpacity style={[styles.buttonContainer, { backgroundColor: "#543c52" }]} onPress={onSavePress}>
+        <Text style={styles.buttonText}>Continue</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -108,7 +105,7 @@ const ProfileSettingsScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "flex-start",
+    justifyContent: "center",
     alignItems: "flex-start",
     backgroundColor: "#FFF",
     padding:10
@@ -137,7 +134,23 @@ const styles = StyleSheet.create({
     borderRightWidth: 1,
     width: 50,
   },
+  buttonContainer: {
+    marginTop: 10,
+    width: '100%',
+    height: windowHeight / 15,
+    backgroundColor: '#361d32',
+    padding: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 3
+  },
+  buttonText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: "#ffffff",
+    fontFamily: "Lato-Regular"
+  }
 });
 
 //make this component available to the app
-export default ProfileSettingsScreen;
+export default SetupProfile;
