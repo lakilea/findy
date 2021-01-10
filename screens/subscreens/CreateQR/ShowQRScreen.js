@@ -14,7 +14,7 @@ import * as FileSystem from "expo-file-system";
 // create a component
 const ShowQRScreen = ({ navigation, route }) => {
   const qr = route.params.qr;
-  const qrKey = "https://findy.ws/qr/" + qr.key;
+  const qrKey = "https://findy.croone.co.uk/qr?code=" + qr.key;
   const [qrGenerator, setQrGenerator] = useState();
   const [isLoading,setIsLoading] = useState(false);
 
@@ -40,7 +40,7 @@ const ShowQRScreen = ({ navigation, route }) => {
               </style>
           </head>
           <body>
-              <h1>@findy.ws</h1>
+              <h1>@findy</h1>
               <img src="data:image/jpeg;base64,`+ dataURL +`"></img>
               <h1>`+qr.qrDescription+`</h1>
           </body>

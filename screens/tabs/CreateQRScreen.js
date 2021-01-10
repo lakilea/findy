@@ -192,8 +192,6 @@ const CreateQRScreen = ({navigation}) => {
     firestore().collection('UserQRCodes')
       .add(state).then((docRef) => {
         console.log(docRef.id);
-        var url = "https://findy.ws/qr/" + docRef.id;
-
         setIsLoading(false);
 
         navigation.navigate("ShowQR", { qr : docRef, title: "QR : " + state.qrName });
