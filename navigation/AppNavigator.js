@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View } from 'react-native';
+import { View, Image } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {AuthContext} from './AuthProvider';
@@ -9,6 +9,7 @@ import CreateQRNavigator from "../screens/tabNavigators/CreateQRNavigator";
 import StoreNavigator from "../screens/tabNavigators/StoreNavigator";
 import NotificationsNavigator from "../screens/tabNavigators/NotificationsNavigator";
 import SettingsNavigator from "../screens/tabNavigators/SettingsNavigator";
+import MyTabBar from "../components/MyTabBar";
 
 const Tab = createBottomTabNavigator();
 
@@ -31,8 +32,9 @@ const AppNavigator = () => {
   return (
     <Tab.Navigator
       tabBarOptions={{
-        activeTintColor: '#e91e63',
+        activeTintColor: '#f69833',
       }}
+      tabBar={props => <MyTabBar {...props} />}
     >
       <Tab.Screen 
         name="StoreNavigator" 
@@ -40,58 +42,59 @@ const AppNavigator = () => {
         options={{
           tabBarLabel: 'Store',
           tabBarIcon: ({ color, size }) => (
-            <FontAwesome name="store" color={color} size={size} />
+            <FontAwesome name="store" color={color} size={25} />
           ),
-        }}/>
+        }}
+        key={1}
+        />
       <Tab.Screen 
         name="MyQRList" 
         component={MyQRsNavigator}
         options={{
           tabBarLabel: 'My QRs',
           tabBarIcon: ({ color, size }) => (
-            <FontAwesome name="list" color={color} size={size} />
+            <FontAwesome name="list" color={color} size={25} />
           ),
-        }} />
+        }}
+        key={2} 
+        />
       <Tab.Screen 
         name="Create" 
         component={CreateQRNavigator}
         options={{
           tabBarLabel: 'Create',
           tabBarIcon: ({ color, size }) => (
-            <View
-              style={{
-                position: 'absolute',
-                bottom: 6,
-                height: 58,
-                width: 58,
-                borderRadius: 58,
-                backgroundColor: '#f55951',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <FontAwesome name="plus" color="#FFF" size={size} />
-            </View>
+            <Image 
+              source={require('../assets/icons/new.png')}
+              style={{width: 50,height: 50}}
+            />
           ),
-        }} />
+        }} 
+        key={3} 
+      />
       <Tab.Screen 
         name="Notifications" 
         component={NotificationsNavigator}
         options={{
           tabBarLabel: 'Notifications',
           tabBarIcon: ({ color, size }) => (
-            <FontAwesome name="bell" color={color} size={size} />
+            <FontAwesome name="bell" color={color} size={25} />
           ),
           tabBarBadge: notificationCount
-        }} />
+        }}
+        key={4} 
+      />
       <Tab.Screen 
         name="Settings" 
         component={SettingsNavigator}
         options={{
           tabBarLabel: 'Settings',
           tabBarIcon: ({ color, size }) => (
-            <FontAwesome name="cog" color={color} size={size} />
+            <FontAwesome name="cog" color={color} size={25} />
           )
-        }} />
+        }}
+        key={5} 
+      />
     </Tab.Navigator>
   );
 }

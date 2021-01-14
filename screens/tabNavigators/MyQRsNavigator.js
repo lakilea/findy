@@ -3,6 +3,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import MyQRListScreen from '../tabs/MyQRListScreen';
 import ShowQRScreen from "../subscreens/CreateQR/ShowQRScreen";
+import HeaderLogo from '../../components/HeaderLogo';
 
 const Stack = createStackNavigator();
 
@@ -10,7 +11,7 @@ const Stack = createStackNavigator();
 const MyQRsNavigator = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="MyQRs" component={MyQRListScreen} options={{ title:"My QRs" }}/>
+      <Stack.Screen name="MyQRs" component={MyQRListScreen} options={{ title:"My QRs", headerLeft: ()=> null, header: HeaderLogo }} />
       <Stack.Screen name="ShowQR" component={ShowQRScreen} options={({ route }) => ({ title: route.params.title })} />
     </Stack.Navigator>
   );

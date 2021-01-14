@@ -2,6 +2,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import NotificationsScreen from '../tabs/NotificationsScreen';
+import HeaderLogo from '../../components/HeaderLogo';
 
 const Stack = createStackNavigator();
 
@@ -9,7 +10,7 @@ const Stack = createStackNavigator();
 const NotificationsNavigator = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Notifications" component={NotificationsScreen} options={{ title:"Notifications" }}/>
+      <Stack.Screen name="Notifications" component={NotificationsScreen} options={{ title:"Notifications", headerLeft: ()=> null, header: HeaderLogo }} />
     </Stack.Navigator>
   );
 };

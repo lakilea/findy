@@ -3,22 +3,34 @@ import { View, Text, Button, Image, StyleSheet, TouchableOpacity } from 'react-n
 
 import Onboarding from 'react-native-onboarding-swiper';
 
-const Skip = ({ ... props }) => {
+const Square = ({ isLight, selected }) => {
+  let backgroundColor;
+  if (isLight) {
+    backgroundColor = selected ? '#f69833' : '#e9e9e9';
+  } else {
+    backgroundColor = selected ? '#fff' : 'rgba(255, 255, 255, 0.5)';
+  }
   return (
-    <TouchableOpacity 
-      { ... props }
-      style={{marginHorizontal:8}}>
-      <Text>Skip</Text>
-    </TouchableOpacity>
-  )
-}
+    <View
+      style={{
+        width: 40,
+        height: 6,
+        marginHorizontal: 1,
+        backgroundColor,
+      }}
+    />
+  );
+};
+
+const backgroundColor = isLight => (isLight ? 'blue' : 'lightblue');
+const color = isLight => backgroundColor(!isLight);
 
 const Next = ({ ... props }) => {
   return (
     <TouchableOpacity 
       { ... props }
       style={{marginHorizontal:8}}>
-      <Text>Next</Text>
+      <Image source={require('../assets/icons/right.png')} />
     </TouchableOpacity>
   )
 }
@@ -28,40 +40,62 @@ const Done = ({ ... props }) => {
     <TouchableOpacity 
       { ... props }
       style={{marginHorizontal:8}}>
-      <Text>Done</Text>
+      <Image source={require('../assets/icons/right.png')} />
     </TouchableOpacity>
   )
 }
 
 const OnBoarding = ({navigation}) => {
   return (
-    <Onboarding
-      onSkip={()=>navigation.replace("Login")}
-      onDone={()=>navigation.navigate("Login")}
-      SkipButtonComponent={Skip}
-      NextButtonComponent={Next}
-      DoneButtonComponent={Done}
-      pages={[
-        {
-          backgroundColor: '#fdeb93',
-          image: <Image source={require('../assets/onboarding-1.png')} />,
-          title: 'Sign Up',
-          subtitle: 'First step, create a user',
-        },
-        {
-          backgroundColor: '#a6e4d0',
-          image: <Image source={require('../assets/onboarding-2.png')} />,
-          title: 'Contact Info',
-          subtitle: "Enter contact info from the 'Settings' screen.",
-        },
-        {
-          backgroundColor: '#fff',
-          image: <Image source={require('../assets/onboarding-1.png')} />,
-          title: 'Create a QR',
-          subtitle: "You can create a QR for your staff",
-        },
-      ]}
-    />
+    <View style={styles.container}>
+      <Onboarding
+        onSkip={()=>navigation.replace("Login")}
+        onDone={()=>navigation.navigate("Login")}
+        NextButtonComponent={Next}
+        DoneButtonComponent={Done}
+        DotComponent={Square}
+        containerStyles={{paddingBottom:100, alignItems: 'flex-start'}}
+        imageContainerStyles={{paddingBottom:100}}
+        titleStyles={styles.titleStyle}
+        subTitleStyles={styles.subTitleStyle}
+        showSkip={false}
+        bottomBarHeight={100}
+        bottomBarColor="#FFF"
+        pages={[
+          {
+            backgroundColor: '#FFF',
+            image: 
+            <View>
+              <Image source={require('../assets/logo.png')} style={{marginBottom:30, marginLeft:-50, marginTop: -100}}></Image>
+              <Image source={require('../assets/onboarding/step1.png')} />
+            </View>,
+            title: 'Sign Up',
+            subtitle: 'First step, create a user',
+           
+          },
+          {
+            backgroundColor: '#FFF',
+            image: 
+            <View>
+              <Image source={require('../assets/logo.png')} style={{marginBottom:30, marginLeft:-20, marginTop: -100}}></Image>
+              <Image source={require('../assets/onboarding/step2.png')} />
+            </View>,
+            title: 'Contact Info',
+            subtitle: 'Enter contact info from the "Settings"\nscreen',
+          },
+          {
+            backgroundColor: '#fff',
+            image: 
+            <View>
+              <Image source={require('../assets/logo.png')} style={{marginBottom:30, marginLeft:-20, marginTop: -100}}></Image>
+              <Image source={require('../assets/onboarding/step3.png')} />
+            </View>,
+            title: 'Create a QR',
+            subtitle: "You can create a QR for your stuff",
+          },
+        ]}
+      />
+      </View>
   );
 };
 
@@ -70,7 +104,28 @@ export default OnBoarding;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center"
+    backgroundColor: "#FFF"
+  },
+  titleStyle : {
+    marginTop: -50,
+    paddingLeft: 20,
+    fontFamily: "SF-Pro-Display",
+    fontSize: 24,
+    fontWeight: "bold",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    color: "#2f2e41"
+  },
+  subTitleStyle: {
+    paddingLeft: 20,
+    fontFamily: "SF-Pro-Display",
+    fontSize: 17,
+    letterSpacing: 0,
+    textAlign: 'left',
+    fontSize: 17,
+    fontWeight: "normal",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    color: "#2f2e41"
   }
 });

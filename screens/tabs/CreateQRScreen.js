@@ -312,7 +312,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    backgroundColor: '#FFF',
+    backgroundColor: '#f4f4f4',
     padding: 15
   },
   createqr: {

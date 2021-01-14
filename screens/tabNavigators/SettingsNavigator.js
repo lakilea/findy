@@ -14,6 +14,7 @@ import ManageSocialScreen from "../subscreens/Settings/ManageSocialScreen";
 import AddSocialScreen from "../subscreens/Settings/AddSocialScreen";
 import TermsOfServiceScreen from "../TermsOfServiceScreen";
 import PrivacyPolicyScreen from "../PrivacyPolicyScreen";
+import HeaderLogo from '../../components/HeaderLogo';
 
 const Stack = createStackNavigator();
 
@@ -21,7 +22,7 @@ const Stack = createStackNavigator();
 const SettingsNavigator = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Settings" component={SettingsScreen} options={{ title:"Settings" }}/>
+      <Stack.Screen name="Settings" component={SettingsScreen} options={{ title:"Settings", headerLeft: ()=> null, header: HeaderLogo }} />
       <Stack.Screen name="ProfileSettings" component={ProfileSettingsScreen} options={{ title:"Profile Settings" }}/>
       <Stack.Screen name="ManageAddresses" component={ManageAddressesScreen} options={{ title:"Manage Addresses" }}/>
       <Stack.Screen name="AddAddress" component={AddAddressScreen} options={({ route }) => ({ title: route.params.title })} />

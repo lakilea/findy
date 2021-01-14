@@ -24,14 +24,12 @@ const StoreScreen = ({ navigation }) => {
     navigation.setOptions({ title : "Store" });
   }, [])
   
+  const cellWidth = windowWidth / 5;
+
+  console.log(cellWidth)
   
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <ImageBackground source={require('../../assets/header.jpg')} style={styles.headerImage} blurRadius={3}>
-          <Text style={styles.headerText}>Welcome to findy</Text>
-        </ImageBackground>
-      </View>
       <Text style={styles.descText}>
         You will be able to order any of the stickers below, keep following... 
       </Text>
@@ -67,7 +65,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#f4f4f4',
   },
   header: {
     borderWidth: 1,

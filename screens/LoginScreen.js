@@ -7,7 +7,7 @@ import {
   Platform,
   StyleSheet,
   ScrollView,
-  ImageBackground
+  TextInput
 } from 'react-native';
 import { BottomModal, ModalContent, SlideAnimation } from 'react-native-modals';
 import FormInput from '../components/FormInput';
@@ -51,7 +51,6 @@ const LoginScreen = ({navigation}) => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <ImageBackground source={require('../assets/header.jpg')} style={styles.pageBackground} blurRadius={3}>
         <Spinner
           visible={state.isLoading}
           textContent={'Loading...'}
@@ -59,65 +58,90 @@ const LoginScreen = ({navigation}) => {
         />
 
         <Image
-          source={require('../assets/onboarding-1.png')}
+          source={require('../assets/logo.png')}
           style={styles.logo}
         />
-        <Text style={styles.text}>Find Me!</Text>
 
-        <FormInput
-          labelValue={email}
-          onChangeText={(userEmail) => setEmail(userEmail)}
-          placeholderText="Email"
-          iconType="user"
-          keyboardType="email-address"
-          autoCapitalize="none"
-          autoCorrect={false}
-        />
+        <View style={styles.rectangle}>
+          <TextInput
+            value={email}
+            style={styles.input}
+            numberOfLines={1}
+            placeholder="E-mail"
+            placeholderTextColor="#666"
+            onChangeText={(userEmail) => setEmail(userEmail)}
+            keyboardType="email-address"
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
 
-        <FormInput
-          labelValue={password}
-          onChangeText={(userPassword) => setPassword(userPassword)}
-          placeholderText="Password"
-          iconType="lock"
-          secureTextEntry={true}
-        />
+          <View style={styles.line}></View>
 
-        <FormButton
-          buttonTitle="Sign In"
-          onPress={() => loginWithUserNamePass(email, password)}
-        />
+          <View style={{flexDirection:"row"}}>
+            <TextInput
+              value={password}
+              style={[styles.input, {width:"80%"}]}
+              numberOfLines={1}
+              placeholder="Password"
+              placeholderTextColor="#666"
+              onChangeText={(userPassword) => setPassword(userPassword)}
+              secureTextEntry={true}
+            />
 
-        <TouchableOpacity style={styles.forgotButton} onPress={() => {}}>
-          <Text style={styles.navButtonText}>Forgot Password?</Text>
+            <Text style={[styles.forgotText]}>Forgot?</Text>
+
+          </View>
+        </View>
+
+        <TouchableOpacity style={styles.signInButton} onPress={() => loginWithUserNamePass(email, password)}>
+          <Text style={styles.buttonText}>Sign In</Text>
         </TouchableOpacity>
 
-        {Platform.OS === 'android' ? (
-          <View>
-            <SocialButton
-              buttonTitle="Sign In with Facebook"
-              btnType="facebook"
-              color="#4867aa"
-              backgroundColor="#e6eaf4"
-              //onPress={() => fbLogin()}
-            />
+        <View style={{flexDirection:"row", marginTop: 35, alignItems: 'center', justifyContent: 'center'}}>
+          <View style={[styles.line, {width:"40%"}]}>
 
-            <SocialButton
-              buttonTitle="Sign In with Google"
-              btnType="google"
-              color="#de4d41"
-              backgroundColor="#f5e7ea"
+          </View>
+          <Text style={{width:"20%", textAlign: 'center', fontFamily: "SFProDisplay",fontSize: 13, color: "#e0dfdf" }}>OR</Text>
+          <View style={[styles.line, {width:"40%"}]}>
+
+          </View>
+        </View>
+
+        {Platform.OS === 'android' ? (
+          <View style={{flexDirection:"row", marginTop: 35, justifyContent: 'space-between', width: "100%"}}>
+            <TouchableOpacity style={styles.socialButton} 
               onPress={() => googleLogin()}
-            />
+              >
+              <Image
+                source={require('../assets/icons/google.png')}
+                style={{width: 16,height: 16}}
+              />
+              <Text style={styles.socialButtonText}>Google</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.socialButton} 
+              //onPress={() => fbLogin()}
+              >
+              <Image
+                source={require('../assets/icons/facebook.png')}
+                style={{width: 16,height: 16}}
+              />
+              <Text style={styles.socialButtonText}>Facebook</Text>
+            </TouchableOpacity>
           </View>
         ) : null}
 
-        <TouchableOpacity
-          style={styles.forgotButton}
-          onPress={() => navigation.navigate('Signup')}>
+        <View style={{flexDirection:"row", marginTop: 50, alignItems: 'center', justifyContent: 'center', width: "100%"}}>
           <Text style={styles.navButtonText}>
-            Don't have an acount? Create here
+            Don't have an acount? 
           </Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Signup')}>
+            <Text style={[styles.navButtonText, { color: "#f69833" }]}>
+              {" "}Sign Up
+            </Text>
+          </TouchableOpacity>
+        </View>
 
         <BottomModal
             visible={!state.isFormValid}
@@ -139,7 +163,6 @@ const LoginScreen = ({navigation}) => {
             
           </ModalContent>
         </BottomModal>
-      </ImageBackground>
     </ScrollView>
   );
 };
@@ -148,10 +171,11 @@ export default LoginScreen;
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: "#fff",
-    flex: 1
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    backgroundColor: "#f4f4f4",
+    flex: 1,
+    padding:25
   },
   errorText:{
     flexDirection: "row",
@@ -159,37 +183,109 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   logo: {
-    height: 150,
-    width: 150,
-    resizeMode: 'cover',
+    width: 130,
+    height: 55.5,
+    marginTop: 30
   },
-  text: {
-    fontFamily: 'Kufam-SemiBoldItalic',
-    fontSize: 28,
-    marginBottom: 10,
-    color: '#051d5f',
+  rectangle : {
+    width: "100%",
+    height: 135,
+    borderRadius: 5,
+    backgroundColor: "#ffffff",
+    shadowColor: "rgba(171, 180, 189, 0.21)",
+    shadowOffset: {
+      width: 0,
+      height: 5
+    },
+    shadowRadius: 25,
+    shadowOpacity: 1,
+    elevation: 4,
+    borderStyle: "solid",
+    borderWidth: 0.5,
+    borderColor: "rgba(171, 180, 189, 0.35)",
+    marginTop: 40,
   },
-  navButton: {
-    marginTop: 15,
+  input : {
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+    fontFamily: "SF-Pro-Display",
+    fontSize: 14,
+    fontStyle: "normal",
+    letterSpacing: 0,
+    color: "#2f2e41"
   },
-  forgotButton: {
-    marginVertical: 35,
+  line : {
+    width: "100%",
+    height: 1,
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderColor: "#f0f0f0"
   },
-  navButtonText: {
-    fontSize: 18,
-    fontWeight: '500',
-    color: '#361d32',
-    fontFamily: 'Lato-Regular',
+  forgotText: {
+    paddingVertical: 20,
+    fontFamily: "SF-Pro-Display",
+    fontSize: 13,
+    fontWeight: "bold",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    textAlign: "center",
+    color: "#f69833",
+    marginTop: 5
   },
-  spinnerTextStyle: {
-    color: '#FFF'
+  signInButton: {
+    width: '100%',
+    height: windowHeight / 15,
+    borderRadius: 7,
+    backgroundColor: "#f69833",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 35
   },
-  pageBackground: {
-    height: windowHeight,
-    width: windowWidth,
+  buttonText: {
+    fontFamily: "SF-Pro-Display",
+    fontSize: 15,
+    fontWeight: "bold",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    textAlign: "center",
+    color: "#ffffff"
+  },
+  socialButton: {
+    width: "45%",
+    borderRadius: 5,
+    backgroundColor: "#ffffff",
+    shadowColor: "rgba(171, 180, 189, 0.21)",
+    shadowOffset: {
+      width: 0,
+      height: 10
+    },
+    shadowRadius: 20,
+    shadowOpacity: 1,
+    borderStyle: "solid",
+    borderWidth: 0.5,
+    borderColor: "rgba(171, 180, 189, 0.35)",
+    paddingVertical: 15,
     alignItems: 'center',
     justifyContent: 'center',
-    flex:1,
-    padding:20
+    flexDirection: 'row',
+    elevation: 4,
+  },
+  socialButtonText: {
+    fontFamily: "SF-Pro-Display",
+    fontSize: 12,
+    fontWeight: "normal",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    color: "#2f2e41",
+    marginLeft: 5
+  },
+  navButtonText: {
+    fontFamily: "SF-Pro-Display",
+    fontSize: 15,
+    fontWeight: "normal",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    textAlign: "center",
+    color: "#2f2e41"
   }
 });

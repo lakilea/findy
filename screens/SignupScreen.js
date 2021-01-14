@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import {View, Text, TouchableOpacity, Platform, StyleSheet, ImageBackground } from 'react-native';
+import {View, Text, TouchableOpacity, Platform, StyleSheet, Image, TextInput } from 'react-native';
 import { BottomModal, ModalContent } from 'react-native-modals';
 import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
@@ -45,86 +45,120 @@ const SignupScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <ImageBackground source={require('../assets/header.jpg')} style={styles.pageBackground} blurRadius={3}>
         <Spinner
           visible={state.isLoading}
           textContent={'Loading...'}
           textStyle={styles.spinnerTextStyle}
         />
 
-        <Text style={styles.text}>Create an account</Text>
-
-        <FormInput
-          labelValue={email}
-          onChangeText={(userEmail) => setEmail(userEmail)}
-          placeholderText="Email"
-          iconType="user"
-          keyboardType="email-address"
-          autoCapitalize="none"
-          autoCorrect={false}
+        <Image
+          source={require('../assets/logo.png')}
+          style={styles.logo}
         />
 
-        <FormInput
-          labelValue={password}
-          onChangeText={(userPassword) => setPassword(userPassword)}
-          placeholderText="Password"
-          iconType="lock"
-          secureTextEntry={true}
-        />
+        <View style={styles.rectangle}>
+          <TextInput
+            value={email}
+            style={styles.input}
+            numberOfLines={1}
+            placeholder="E-mail"
+            placeholderTextColor="#666"
+            onChangeText={(userEmail) => setEmail(userEmail)}
+            keyboardType="email-address"
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
 
-        <FormInput
-          labelValue={confirmPassword}
-          onChangeText={(confirmPassword) => setConfirmPassword(confirmPassword)}
-          placeholderText="Confirm Password"
-          iconType="lock"
-          secureTextEntry={true}
-        />
+          <View style={styles.line}></View>
 
-        <FormButton
-          buttonTitle="Sign Up"
-          onPress={() => signUpWithEmailAndPassword(email, password, confirmPassword)}
-        />
+          <TextInput
+            value={password}
+            style={[styles.input, {width:"80%"}]}
+            numberOfLines={1}
+            placeholder="Password"
+            placeholderTextColor="#666"
+            onChangeText={(userPassword) => setPassword(userPassword)}
+            secureTextEntry={true}
+          />
 
-        <View style={styles.textPrivate}>
-          <Text style={styles.color_textPrivate}>
-            By registering, you confirm that you accept our{' '}
+          <View style={styles.line}></View>
+
+          <TextInput
+            value={confirmPassword}
+            style={[styles.input, {width:"80%"}]}
+            numberOfLines={1}
+            placeholder="Confirm Password"
+            placeholderTextColor="#666"
+            onChangeText={(confirmPassword) => setConfirmPassword(confirmPassword)}
+            secureTextEntry={true}
+          />
+        </View>
+
+        <View style={{flexDirection:"row", marginTop: 25, alignItems: 'center', justifyContent: 'center', width: "100%"}}>
+          <Text style={[styles.navButtonText, {fontSize: 13}]}>
+            By registering, you accept the{' '}
           </Text>
           <TouchableOpacity onPress={() => alert('Terms Clicked!')}>
-            <Text style={[styles.color_textPrivate, {color: '#e88832'}]}>
+            <Text style={[styles.navButtonText, {color: '#e88832',fontSize: 13}]}>
               Terms of service
             </Text>
           </TouchableOpacity>
-          <Text style={styles.color_textPrivate}> and </Text>
-          <Text style={[styles.color_textPrivate, {color: '#e88832'}]}>
-            Privacy Policy
-          </Text>
+          <Text style={styles.navButtonText}> and </Text>
+        </View>
+
+        <Text style={[styles.navButtonText, {color: '#e88832', width: "100%", fontSize: 13}]}>
+          Privacy Policy
+        </Text>
+
+        <TouchableOpacity style={styles.signInButton} onPress={() => signUpWithEmailAndPassword(email, password, confirmPassword)}>
+          <Text style={styles.buttonText}>Sign Up</Text>
+        </TouchableOpacity>
+
+        <View style={{flexDirection:"row", marginTop: 35, alignItems: 'center', justifyContent: 'center'}}>
+          <View style={[styles.line, {width:"40%"}]}>
+
+          </View>
+          <Text style={{width:"20%", textAlign: 'center', fontFamily: "SFProDisplay",fontSize: 13, color: "#e0dfdf" }}>OR</Text>
+          <View style={[styles.line, {width:"40%"}]}>
+
+          </View>
         </View>
 
         {Platform.OS === 'android' ? (
-          <View>
-            <SocialButton
-              buttonTitle="Sign Up with Facebook"
-              btnType="facebook"
-              color="#4867aa"
-              backgroundColor="#e6eaf4"
-              onPress={() => {}}
-            />
-      
-            <SocialButton
-              buttonTitle="Sign Up with Google"
-              btnType="google"
-              color="#de4d41"
-              backgroundColor="#f5e7ea"
-              onPress={() => {}}
-            />
+          <View style={{flexDirection:"row", marginTop: 35, justifyContent: 'space-between', width: "100%"}}>
+            <TouchableOpacity style={styles.socialButton} 
+              onPress={() => googleLogin()}
+              >
+              <Image
+                source={require('../assets/icons/google.png')}
+                style={{width: 16,height: 16}}
+              />
+              <Text style={styles.socialButtonText}>Google</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.socialButton} 
+              //onPress={() => fbLogin()}
+              >
+              <Image
+                source={require('../assets/icons/facebook.png')}
+                style={{width: 16,height: 16}}
+              />
+              <Text style={styles.socialButtonText}>Facebook</Text>
+            </TouchableOpacity>
           </View>
         ) : null}
 
-        <TouchableOpacity
-          style={styles.navButton}
-          onPress={() => navigation.navigate('Login')}>
-          <Text style={styles.navButtonText}>Have an account? Sign In</Text>
-        </TouchableOpacity>
+        <View style={{flexDirection:"row", marginTop: 30, alignItems: 'center', justifyContent: 'center', width: "100%"}}>
+          <Text style={styles.navButtonText}>
+            Have an account? 
+          </Text>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Login')}>
+            <Text style={[styles.navButtonText, { color: "#f69833" }]}>
+              {" "}Sign In
+            </Text>
+          </TouchableOpacity>
+        </View>
 
         <BottomModal
             visible={!state.isFormValid}
@@ -146,7 +180,6 @@ const SignupScreen = ({navigation}) => {
             
           </ModalContent>
         </BottomModal>
-      </ImageBackground>
     </View>
   );
 };
@@ -155,52 +188,105 @@ export default SignupScreen;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#fff",
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    backgroundColor: "#f4f4f4",
     flex: 1,
-    justifyContent: 'center',
+    padding:25
+  },
+  logo: {
+    width: 130,
+    height: 55.5,
+    marginTop: 30
+  },
+  rectangle : {
+    width: "100%",
+    height: 210,
+    borderRadius: 5,
+    backgroundColor: "#ffffff",
+    shadowColor: "rgba(171, 180, 189, 0.21)",
+    shadowOffset: {
+      width: 0,
+      height: 5
+    },
+    shadowRadius: 25,
+    shadowOpacity: 1,
+    borderStyle: "solid",
+    borderWidth: 0.5,
+    borderColor: "rgba(171, 180, 189, 0.35)",
+    marginTop: 40,
+    elevation: 4,
+  },
+  input : {
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+    fontFamily: "SF-Pro-Display",
+    fontSize: 14,
+    fontStyle: "normal",
+    letterSpacing: 0,
+    color: "#2f2e41"
+  },
+  line : {
+    width: "100%",
+    height: 1,
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderColor: "#f0f0f0"
+  },
+  signInButton: {
+    width: '100%',
+    height: windowHeight / 15,
+    borderRadius: 7,
+    backgroundColor: "#f69833",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 25
+  },
+  buttonText: {
+    fontFamily: "SF-Pro-Display",
+    fontSize: 15,
+    fontWeight: "bold",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    textAlign: "center",
+    color: "#ffffff"
+  },
+  socialButton: {
+    width: "45%",
+    borderRadius: 5,
+    backgroundColor: "#ffffff",
+    shadowColor: "rgba(171, 180, 189, 0.21)",
+    shadowOffset: {
+      width: 0,
+      height: 10
+    },
+    shadowRadius: 20,
+    shadowOpacity: 1,
+    borderStyle: "solid",
+    borderWidth: 0.5,
+    borderColor: "rgba(171, 180, 189, 0.35)",
+    paddingVertical: 15,
     alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    elevation: 4,
   },
-  text: {
-    fontFamily: 'Kufam-SemiBoldItalic',
-    fontSize: 28,
-    marginBottom: 10,
-    color: '#051d5f',
-  },
-  navButton: {
-    marginTop: 15,
+  socialButtonText: {
+    fontFamily: "SF-Pro-Display",
+    fontSize: 12,
+    fontWeight: "normal",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    color: "#2f2e41",
+    marginLeft: 5
   },
   navButtonText: {
-    fontSize: 18,
-    fontWeight: '500',
-    color: '#361d32',
-    fontFamily: 'Lato-Regular',
-  },
-  textPrivate: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    marginVertical: 35,
-    justifyContent: 'center',
-  },
-  color_textPrivate: {
-    fontSize: 13,
-    fontWeight: '400',
-    fontFamily: 'Lato-Regular',
-    color: 'grey',
-  },
-  errorText:{
-    flexDirection: "row",
-    justifyContent: "flex-start",
-    alignItems: "center"
-  },
-  spinnerTextStyle: {
-    color: '#FFF'
-  },
-  pageBackground: {
-    height: windowHeight,
-    width: windowWidth,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex:1,
-    padding:20
+    fontFamily: "SF-Pro-Display",
+    fontSize: 15,
+    fontWeight: "normal",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    textAlign: "center",
+    color: "#2f2e41"
   }
 });
