@@ -134,31 +134,48 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     alignItems: "flex-start",
-    backgroundColor: "#f1e8e6",
-    padding:10
+    backgroundColor: "#f4f4f4",
   },
   textArea: {
-    borderColor: '#ccc',
-    borderRadius: 3,
-    borderWidth: 1,
     width: '100%',
-    backgroundColor: '#fff',
-    paddingLeft: 10
+    textAlignVertical: "top",
+    paddingLeft: 10,
+    marginTop : 15,
+    backgroundColor: "#ffffff",
+    shadowColor: "rgba(0, 0, 0, 0.06)",
+    shadowOffset: {
+      width: 0,
+      height: 5
+    },
+    shadowRadius: 25,
+    shadowOpacity: 1,
+    borderStyle: "solid",
+    borderWidth: 0.5,
+    borderColor: "rgba(171, 180, 189, 0.35)",
+    elevation: 4
   },
   pickerStyle: {
     width: '100%',
   },
   pickerContainer: {
-    marginTop: 5,
+    marginTop: 15,
     marginBottom: 10,
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
-    borderColor: '#ccc',
-    borderRadius: 3,
-    borderWidth: 1,
-    backgroundColor: '#fff',
     height: windowHeight / 15,
+    backgroundColor: "#ffffff",
+    shadowColor: "rgba(0, 0, 0, 0.06)",
+    shadowOffset: {
+      width: 0,
+      height: 5
+    },
+    shadowRadius: 25,
+    shadowOpacity: 1,
+    borderStyle: "solid",
+    borderWidth: 0.5,
+    borderColor: "rgba(171, 180, 189, 0.35)",
+    elevation: 4
   },
   iconStyle: {
     padding: 8,
@@ -166,14 +183,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRightColor: '#ccc',
-    borderRightWidth: 1,
     width: 50,
   },
   switchContainer: {
     flexDirection: 'row',
     width: '100%',
     alignItems: 'center',
-    justifyContent: "flex-end"
+    justifyContent: "flex-end",
   }
 });
 

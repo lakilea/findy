@@ -1,6 +1,6 @@
 //import liraries
 import React, { useContext, useState, useEffect } from 'react';
-import { FlatList, Text, StyleSheet, View, SafeAreaView, TouchableOpacity } from 'react-native';
+import { FlatList, Text, StyleSheet, View, SafeAreaView, TouchableOpacity, Image } from 'react-native';
 import { AuthContext } from '../../../navigation/AuthProvider';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -59,7 +59,7 @@ const ManageAddressesScreen = ({ navigation, route }) => {
         textStyle={{ color: '#FFF' }}
       />
 
-      <Text style={[ styles.textStyle, { marginBottom: 10, marginTop: 10, fontWeight: 'bold' } ]}>
+      <Text style={[ styles.textStyle, { marginBottom: 10, marginTop: 10 } ]}>
         Currently you've {addresses.length} address record(s), you can add more addresses by using the 'plus' icon.
       </Text>
 
@@ -69,19 +69,18 @@ const ManageAddressesScreen = ({ navigation, route }) => {
         renderItem={({ item }) => (
           <View >
             <TouchableOpacity 
-              style={[styles.itemStyle, item.enabled ? styles.activeItem : styles.deactiveItem]} 
+              style={styles.itemStyle} 
               onPress={()=> {
                 navigation.navigate("AddAddress", { 
                   address : item, 
                   title:"Edit Address"})
               }}>
+              {item.enabled ? <Image style={{ height: 20, width: 20 }} source={require(',,/../../assets/icons/confirm.png')} /> : null}
               <View style={{width:"80%"}}>
                 <Text style={styles.itemTextStyle}>{item.address}</Text>
                 {item.country ? <Text style={styles.itemTextStyle}>{item.country}</Text> : null}
               </View>
-              <View style={styles.iconContainer}>
-                <FontAwesome5 name="angle-right" size={20} />
-              </View>
+              <Image style={{ height: 25, width: 25 }} source={require(',,/../../assets/icons/right.png')} />
             </TouchableOpacity>
           </View>
         )}
@@ -97,35 +96,50 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     alignItems: "flex-start",
-    backgroundColor: "#fff",
+    backgroundColor: "#f4f4f4",
     padding:10
   },
   listStyle: {
     width: "100%"
   },
-  itemStyle: {
-    
-    padding: 10,
+  textStyle : {
+    fontFamily: "SF-Pro-Display",
+    fontSize: 17,
+    fontWeight: "normal",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    color: "#b5c1c9",
     marginBottom: 10,
+    paddingHorizontal : 10
+  },
+  itemStyle: {
+    width: '100%',
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    marginTop : 10,
+    flexDirection: "row",
+    justifyContent: 'space-between',
     borderRadius: 5,
-    borderColor: "#CCCCCC",
-    borderWidth: 1,
-    width: "100%",
-    flexDirection:"row"
-  },
-  activeItem :{
-    backgroundColor: "#FFF",
-  },
-  deactiveItem :{
-    backgroundColor: "#ffcdc9",
+    backgroundColor: "#ffffff",
+    shadowColor: "rgba(0, 0, 0, 0.06)",
+    shadowOffset: {
+      width: 0,
+      height: 5
+    },
+    shadowRadius: 25,
+    shadowOpacity: 1,
+    borderStyle: "solid",
+    borderWidth: 0.5,
+    borderColor: "rgba(171, 180, 189, 0.35)"
   },
   itemTextStyle: {
-    fontSize: 15
+    fontFamily: "SF-Pro-Display",
+    fontSize: 15,
+    fontWeight: "normal",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    color: "#2f2e41"
   },
-  iconContainer: {
-    alignItems:"flex-end",
-    width:"20%"
-  }
 });
 
 //make this component available to the app

@@ -1,6 +1,6 @@
 //import liraries
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Platform, Linking } from 'react-native';
+import { View, Text, StyleSheet, Platform, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import QRCode from 'react-native-qrcode-svg';
 import { windowWidth } from '../../../utils/Dimensions';
@@ -107,21 +107,31 @@ const ShowQRScreen = ({ navigation, route }) => {
         textContent={ 'Loading...' }
         textStyle={{ color: '#FFF' }}
       />
-      <Text style={{ fontSize:30, marginBottom: 5, color: "#000" }}>@findy.ws</Text>
-      <QRCode
-        value={qrKey}
-        size={windowWidth/1.5}
-        getRef={(c)=> setQrGenerator(c)}
-      />
-      <Text style={{ fontSize:20, marginTop: 5, color: "#000", width: "80%", textAlign: "center" }}>
+      
+      <Text style={styles.textStyle}>
         {qr.qrDescription}
       </Text>
-      <TouchableOpacity style={styles.buttonContainer} onPress={saveAsPDF}>
-        <Text style={styles.textStyle}>View QR as a PDF file</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.buttonContainer} onPress={saveAsImage}>
-        <Text style={styles.textStyle}>View QR as an image file</Text>
-      </TouchableOpacity>
+
+      <View style={styles.rectangle}>
+        <QRCode
+          value={qrKey}
+          size={windowWidth/1.5}
+          getRef={(c)=> setQrGenerator(c)}
+        />
+      </View>
+      
+      <View style={{ flexDirection: 'row', width: "100%", justifyContent: 'space-between', alignItems: 'center'}}>
+        <TouchableOpacity style={styles.buttonContainer} onPress={saveAsPDF}>
+          <Image source={require("../../../assets/icons/pdf.png")} style={{ width: 45, height: 45 }}></Image>
+          <Text style={[styles.textStyle, { color: "#f69833" }]}>Save or Share as</Text>
+          <Text style={[styles.textStyle, { color: "#f69833" }]}>a PDF file</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.buttonContainer} onPress={saveAsImage}>
+          <Image source={require("../../../assets/icons/image.png")} style={{ width: 45, height: 45 }}></Image>
+          <Text style={[styles.textStyle, { color: "#f69833" }]}>Save or Share as</Text>
+          <Text style={[styles.textStyle, { color: "#f69833" }]}>an Image file</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -132,24 +142,54 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     alignItems: "center",
-    backgroundColor: "#fff",
-    padding:10
+    backgroundColor: "#f4f4f4",
+    padding:20
+  },
+  rectangle : {
+    borderRadius: 5,
+    backgroundColor: "#ffffff",
+    shadowColor: "rgba(0, 0, 0, 0.06)",
+    shadowOffset: {
+      width: 0,
+      height: 5
+    },
+    shadowRadius: 25,
+    shadowOpacity: 1,
+    borderStyle: "solid",
+    borderWidth: 0.5,
+    borderColor: "rgba(171, 180, 189, 0.35)",
+    elevation: 4,
+    width: "100%",
+    alignItems:'center',
+    padding: 30,
+    marginBottom: 20
   },
   buttonContainer: {
-    padding: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderColor: '#ccc',
     borderRadius: 5,
-    borderWidth: 1,
-    width: '70%',
-    margin: 10,
-    backgroundColor: "#543c52"
+    backgroundColor: "#ffffff",
+    shadowColor: "rgba(0, 0, 0, 0.06)",
+    shadowOffset: {
+      width: 0,
+      height: 5
+    },
+    shadowRadius: 25,
+    shadowOpacity: 1,
+    borderStyle: "solid",
+    borderWidth: 0.5,
+    borderColor: "rgba(171, 180, 189, 0.35)",
+    elevation: 4,
+    padding: 10,
+    alignItems: "center",
+    width: (windowWidth - 60) / 2
   },
   textStyle : {
-    fontFamily: "Lato-Bold",
-    fontSize: 18,
-    color: "#FFFFFF"
+    fontFamily: "SF-Pro-Display",
+    fontSize: 17,
+    fontWeight: "normal",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    color: "#b5c1c9",
+    marginBottom: 10
   },
 });
 

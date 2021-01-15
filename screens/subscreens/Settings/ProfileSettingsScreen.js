@@ -64,6 +64,7 @@ const ProfileSettingsScreen = ({ navigation }) => {
       <Text style={[ styles.textStyle, { marginBottom: 10, marginTop: 10, fontWeight: 'bold' } ]}>
         Bellow fields are not required, When you fill any of your information that will be visible on QR screen.
       </Text>
+
       <FormInput
         labelValue={fullname}
         onChangeText={(fullname) => setFullname(fullname)}
@@ -110,8 +111,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     alignItems: "flex-start",
-    backgroundColor: "#FFF",
-    padding:10
+    backgroundColor: "#f4f4f4",
   },
   pickerStyle: {
     width: '100%',
@@ -120,13 +120,21 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 10,
     width: '100%',
+    height: windowHeight / 15,
     flexDirection: 'row',
     alignItems: 'center',
-    borderColor: '#ccc',
-    borderRadius: 3,
-    borderWidth: 1,
     backgroundColor: '#fff',
-    height: windowHeight / 15,
+    shadowColor: "rgba(0, 0, 0, 0.06)",
+    shadowOffset: {
+      width: 0,
+      height: 5
+    },
+    shadowRadius: 25,
+    shadowOpacity: 1,
+    borderStyle: "solid",
+    borderWidth: 0.5,
+    borderColor: "rgba(171, 180, 189, 0.35)",
+    elevation: 4
   },
   iconStyle: {
     padding: 8,
@@ -134,8 +142,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRightColor: '#ccc',
-    borderRightWidth: 1,
     width: 50,
+  },
+  textStyle : {
+    fontFamily: "SF-Pro-Display",
+    fontSize: 17,
+    fontWeight: "normal",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    color: "#b5c1c9",
+    marginBottom: 10,
+    paddingHorizontal : 10
   },
 });
 

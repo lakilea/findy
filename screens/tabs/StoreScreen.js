@@ -30,31 +30,17 @@ const StoreScreen = ({ navigation }) => {
   
   return (
     <View style={styles.container}>
-      <Text style={styles.descText}>
-        You will be able to order any of the stickers below, keep following... 
-      </Text>
-      <View>
-        <Carousel
-          data={DATA}
-          renderItem={ ({ item }) => (
-            <View style={styles.itemContainer}>
-              <Text style={styles.itemLabel}>{`Item ${item}`}</Text>
-            </View>
-          ) }
-          sliderWidth={SLIDER_WIDTH}
-          itemWidth={ITEM_WIDTH}
-          containerCustomStyle={styles.carouselContainer}
-          inactiveSlideShift={0}
-          onSnapToItem={(index) => setState({ ... state, index : index })}
-          scrollInterpolator={scrollInterpolator}
-          slideInterpolatedStyle={animatedStyles}
-          useScrollView={true}          
-        />
-        <Text style={styles.counter}
-        >
-          {state.index}
+      <View style={styles.headerContainer}>
+        <Text style={styles.headerTextLight}>
+          Welcome to 
+        </Text>
+        <Text style={styles.headerTextBold}>
+          {" "}findy
         </Text>
       </View>
+      <Text style={styles.textStyle}>
+        You will be able to order any of the stickers below, keep following... 
+      </Text>
     </View>
   );
 };
@@ -62,59 +48,38 @@ const StoreScreen = ({ navigation }) => {
 // define your styles
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     justifyContent: 'flex-start',
-    alignItems: 'center',
-    backgroundColor: '#f4f4f4',
+    alignItems: 'flex-start',
+    backgroundColor: "#f4f4f4",
+    padding: 10
   },
-  header: {
-    borderWidth: 1,
-    width: "90%",
-    marginTop: 20,
-    
-    height: windowHeight * 0.2
+  textStyle: {
+    fontFamily: "SF-Pro-Display",
+    fontSize: 17,
+    fontWeight: "normal",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    color: "#889299"
   },
-  headerImage: {
-    height: "100%",
-    width: "100%",
-    alignItems: 'center',
-    justifyContent: 'center',
+  headerContainer: {
+    flexDirection: "row"
   },
-  headerText: {
-    fontSize: 25,
-    textShadowColor: 'rgba(0, 0, 0, 0.75)',
-    textShadowOffset: {width: -1, height: 1},
-    textShadowRadius: 10,
-    color: "#FFF",
-    fontWeight: "bold"
+  headerTextLight: {
+    fontFamily: "SF-Pro-Display",
+    fontSize: 15,
+    fontWeight: "normal",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    color: "#b5c1c9"
   },
-  descText:{
-    fontSize: 25,
-    color: "#333",
+  headerTextBold: {
+    fontFamily: "SF-Pro-Display",
+    fontSize: 15,
     fontWeight: "bold",
-    width: "90%",
-    marginTop: 15,
-    textAlign: 'center'
-  },
-  carouselContainer: {
-    marginTop: 30
-  },
-  itemContainer: {
-    width: ITEM_WIDTH,
-    height: ITEM_HEIGHT,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'dodgerblue'
-  },
-  itemLabel: {
-    color: 'white',
-    fontSize: 24
-  },
-  counter: {
-    marginTop: 25,
-    fontSize: 30,
-    fontWeight: 'bold',
-    textAlign: 'center'
+    fontStyle: "normal",
+    letterSpacing: 0,
+    color: "#b5c1c9"
   }
 });
 

@@ -6,28 +6,12 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 const SaveCancelButton = ({ navigation, onSavePress, page, ... rest }) => {
   return (
     <View style={[styles.container, rest.style]}>
-      <View style={styles.textPrivate}>
-        <Text style={styles.color_textPrivate}>
-          By saving, you confirm that you accept our{' '}
-        </Text>
-        <TouchableOpacity onPress={() => navigation.navigate(page + "/TermsOfService")}>
-          <Text style={[styles.color_textPrivate, {color: '#e88832'}]}>
-            Terms of service
-          </Text>
-        </TouchableOpacity>
-        <Text style={styles.color_textPrivate}> and </Text>
-        <TouchableOpacity onPress={() => navigation.navigate(page + "/PrivacyPolicy")}>
-          <Text style={[styles.color_textPrivate, {color: '#e88832'}]}>
-            Privacy Policy
-          </Text>
-        </TouchableOpacity>
-      </View>
       <View style={styles.buttonsContainer}>
-        <TouchableOpacity style={[styles.buttonContainer, { backgroundColor: "#543c52" }]} onPress={ onSavePress }>
-          <Text style={styles.textStyle}>Save</Text>
+        <TouchableOpacity style={[styles.cancelButtonContainer, {  }]} onPress={()=> navigation.goBack() }>
+          <Text style={styles.cancelButtonText}>Cancel</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.buttonContainer, { backgroundColor: "#f55951" }]} onPress={()=> navigation.goBack() }>
-          <Text style={styles.textStyle}>Cancel</Text>
+        <TouchableOpacity style={[styles.saveButtonContainer, {  }]} onPress={ onSavePress }>
+          <Text style={styles.saveButtonText}>Save</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -37,33 +21,49 @@ const SaveCancelButton = ({ navigation, onSavePress, page, ... rest }) => {
 // define your styles
 const styles = StyleSheet.create({
   container: {
-    position: "absolute",
-    bottom: 0,
     padding: 10
   },
   buttonsContainer: {
     flexDirection: 'row',
-  },
-  buttonContainer: {
-    padding: 10,
+    width: "100%",
     justifyContent: 'center',
-    alignItems: 'center',
-    borderColor: '#ccc',
-    borderRadius: 3,
+    alignItems: "center"
+  },
+  cancelButtonContainer: {
+    borderRadius: 7,
+    borderStyle: "solid",
     borderWidth: 1,
-    width: '48%',
-    margin: 6
+    borderColor: "#f69833",
+    width: "45%",
+    margin: 10,
+    padding: 15,
+    height: 50
   },
-  textStyle : {
-    fontFamily: "Lato-Bold",
+  cancelButtonText : {
+    fontFamily: "SF-Pro-Display",
     fontSize: 15,
-    color: "#FFFFFF"
+    fontWeight: "500",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    textAlign: "center",
+    color: "#f69833"
   },
-  textPrivate: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    marginVertical: 10,
-    justifyContent: 'center',
+  saveButtonContainer: {
+    borderRadius: 7,
+    backgroundColor: "#f69833",
+    width: "45%",
+    margin: 10,
+    padding: 15,
+    height: 50
+  },
+  saveButtonText : {
+    fontFamily: "SF-Pro-Display",
+    fontSize: 15,
+    fontWeight: "500",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    textAlign: "center",
+    color: "#ffffff"
   },
 });
 

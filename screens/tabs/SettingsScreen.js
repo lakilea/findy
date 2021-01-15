@@ -1,6 +1,6 @@
 //import liraries
 import React, { useContext } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native';
 import {AuthContext} from '../../navigation/AuthProvider';
 import { windowHeight, windowWidth } from "../../utils/Dimensions";
 
@@ -15,39 +15,47 @@ const SettingsScreen = ({ navigation }) => {
       </Text>
       <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('ProfileSettings')}>
         <Text style={ styles.buttonText }>Profile Settings</Text>
+        <Image style={styles.iconStyle} source={require('../../assets/icons/right.png')} />
       </TouchableOpacity>
       <Text style={[ styles.textStyle, { marginBottom: 10, fontWeight: 'bold' } ]}>
         Contact preferences
       </Text>
       <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('ManageAddresses')}>
         <Text style={ styles.buttonText }>Manage Addresses</Text>
+        <Image style={styles.iconStyle} source={require('../../assets/icons/right.png')} />
       </TouchableOpacity>
       <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('ManagePhones')}>
         <Text style={ styles.buttonText }>Manage Phone Numbers</Text>
+        <Image style={styles.iconStyle} source={require('../../assets/icons/right.png')} />
       </TouchableOpacity>
       <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('ManageEmails')}>
         <Text style={ styles.buttonText }>Manage Email Addresses</Text>
+        <Image style={styles.iconStyle} source={require('../../assets/icons/right.png')} />
       </TouchableOpacity>
       <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('ManageSocial')}>
         <Text style={ styles.buttonText }>Manage Social Media Accounts</Text>
+        <Image style={styles.iconStyle} source={require('../../assets/icons/right.png')} />
       </TouchableOpacity>
       <Text style={[ styles.textStyle, { marginBottom: 10, fontWeight: 'bold' } ]}>
         You can see which information you've shared
       </Text>
       <TouchableOpacity style={styles.buttonContainer}>
         <Text style={ styles.buttonText }>Show QR</Text>
+        <Image style={styles.iconStyle} source={require('../../assets/icons/right.png')} />
       </TouchableOpacity>
       <Text style={[ styles.textStyle, { marginBottom: 10, fontWeight: 'bold' } ]}>
         You can setup your notification settings here
       </Text>
       <TouchableOpacity style={styles.buttonContainer}>
         <Text style={ styles.buttonText }>Notification Settings</Text>
+        <Image style={styles.iconStyle} source={require('../../assets/icons/right.png')} />
       </TouchableOpacity>
       <Text style={[ styles.textStyle, { marginBottom: 10, fontWeight: 'bold' } ]}>
         Account
       </Text>
       <TouchableOpacity style={styles.buttonContainer} onPress={() => logout()}>
-        <Text style={ styles.buttonText }>Log out</Text>
+        <Text style={[ styles.buttonText, { color : "red"} ]}>Log out</Text>
+        <Image style={styles.iconStyle} source={require('../../assets/icons/right-red.png')} />
       </TouchableOpacity>
     </ScrollView>
   );
@@ -59,24 +67,47 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    padding: 10,
     backgroundColor: "#f4f4f4"
   },
   buttonContainer : {
     width: '100%',
     height: windowHeight / 15,
-    backgroundColor: '#edd2cb',
-    alignItems: "flex-start",
-    justifyContent: "center",
-    borderRadius: 3,
+    backgroundColor: '#FFF',
+    alignItems: "center",
+    justifyContent: "space-between",
+    flexDirection: "row",
     paddingLeft: 10,
-    marginBottom : 10
+    marginBottom : 10,
+    shadowColor: "rgba(0, 0, 0, 0.06)",
+    shadowOffset: {
+      width: 0,
+      height: 5
+    },
+    shadowRadius: 25,
+    shadowOpacity: 1,
+    elevation:4
   },
   textStyle : {
-    fontFamily: "Lato-Bold",
+    fontFamily: "SF-Pro-Display",
+    fontSize: 15,
+    fontWeight: "normal",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    color: "#b5c1c9",
+    marginLeft: 10
   },
   buttonText : {
-    fontFamily: "Lato-Bold",
+    fontFamily: "SF-Pro-Display",
+    fontSize: 15,
+    fontWeight: "normal",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    color: "#2f2e41",
+  },
+  iconStyle: {
+    marginRight: 10,
+    width: 25,
+    height: 25
   }
 });
 

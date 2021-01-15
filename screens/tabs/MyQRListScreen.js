@@ -1,10 +1,11 @@
 //import liraries
 import React, { useContext, useState, useEffect } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, FlatList } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView , TouchableOpacity, FlatList,Image } from 'react-native';
 import { AuthContext } from '../../navigation/AuthProvider';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Spinner from 'react-native-loading-spinner-overlay';
 import firestore from '@react-native-firebase/firestore';
+import { windowHeight, windowWidth } from "../../utils/Dimensions";
 
 // create a component
 const MyQRListScreen = ({ navigation }) => {
@@ -45,9 +46,21 @@ const MyQRListScreen = ({ navigation }) => {
         textStyle={{ color: '#FFF' }}
       />
 
-      <Text style={[ styles.textStyle, { marginBottom: 10, marginTop: 10, fontWeight: 'bold' } ]}>
-        Currently you've {qrs.length} QR code(s), you can create QR by using the 'plus' icon.
+      <Text style={[ styles.textStyle, {marginTop: 5} ]}>
+        Currently you've {qrs.length} QR code(s), you can create
       </Text>
+      <View style={{ width: "100%", flexDirection: 'row', alignItems: "center", marginBottom: 10}}>
+        <Text style={[ styles.textStyle ]}>
+          QR by using{"  "}
+        </Text>
+        <Image
+          source={require('../../assets/icons/new.png')}
+          style={{width: 20,height: 20}}
+        />
+        <Text style={[ styles.textStyle ]}>
+          button!
+        </Text>
+      </View>
 
       <FlatList
         data={qrs}
@@ -55,7 +68,7 @@ const MyQRListScreen = ({ navigation }) => {
         renderItem={({ item }) => (
           <View>
             <TouchableOpacity 
-              style={[styles.itemStyle, item.enabled ? styles.activeItem : styles.deactiveItem]} 
+              style={[styles.itemStyle]} 
               onPress={()=> {
                 navigation.navigate("ShowQR", { 
                   title:"QR : " + item.qrName,
@@ -64,52 +77,78 @@ const MyQRListScreen = ({ navigation }) => {
               }}>
               <View style={{width:"100%", flexDirection:"row"}}>
                 <FontAwesome5 name="qrcode" size={24} color="#000" />
-                <Text style={styles.itemTextStyle}>{item.qrName}</Text>
-                <FontAwesome5 name="angle-right" size={20} style={{ position: "absolute", right: 0 }} />
+                <Text style={styles.itemCaptionStyle}>{item.qrName}</Text>
+                <Image style={{ position: "absolute", right: 0, height: 25, width: 25 }} source={require('../../assets/icons/right.png')} />
               </View>
               <FlatList 
                 data={item.selectedItems}
                 style={{marginTop:5}}
                 renderItem={ ({item}) => (
-                  <Text>{item.name}</Text>
+                  <Text style={styles.itemDetailsStyle}>{item.name}</Text>
                 )}
               />
             </TouchableOpacity>
           </View>
         )}
       />
-    </SafeAreaView>
+    </SafeAreaView >
   );
 };
 
 // define your styles
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
+    flexGrow: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
     backgroundColor: "#f4f4f4",
-    padding:10
+    padding: 10
   },
   listStyle: {
     width: "100%"
   },
+  textStyle: {
+    fontFamily: "SF-Pro-Display",
+    fontSize: 17,
+    fontWeight: "normal",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    color: "#b5c1c9",
+    marginLeft: 10
+  },
   itemStyle: {
-    padding: 10,
-    marginBottom: 10,
-    borderRadius: 5,
-    borderColor: "#CCCCCC",
-    borderWidth: 1,
-    width: "100%",
+    width: '100%',
+    backgroundColor: '#FFF',
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    marginBottom : 15,
+    shadowColor: "rgba(0, 0, 0, 0.06)",
+    shadowOffset: {
+      width: 0,
+      height: 5
+    },
+    shadowRadius: 25,
+    shadowOpacity: 1,
+    elevation:4,
+    borderWidth: 0.5,
+    borderColor: "rgba(171, 180, 189, 0.35)"
   },
-  itemTextStyle: {
+  itemCaptionStyle: {
+    fontFamily: "SF-Pro-Display",
     fontSize: 15,
-    marginTop: 2,
-    marginLeft: 5
+    fontWeight: "bold",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    color: "#2f2e41",
+    marginLeft: 10
   },
-  iconContainer: {
-    alignItems:"flex-end",
-    width:"20%"
+  itemDetailsStyle: {
+    fontFamily: "SFProDisplay",
+    fontSize: 12,
+    fontWeight: "normal",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    color: "#aeaeae"
   }
 });
 
