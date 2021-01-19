@@ -35,6 +35,7 @@ const AppNavigator = () => {
         activeTintColor: '#f69833',
       }}
       tabBar={props => <MyTabBar {...props} />}
+      backBehavior = "none"
     >
       <Tab.Screen 
         name="StoreNavigator" 

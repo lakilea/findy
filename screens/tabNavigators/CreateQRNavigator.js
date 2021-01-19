@@ -1,7 +1,7 @@
 //import liraries
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import CreateQRScreen from '../tabs/CreateQRScreen';
+import CreateQRScreen from '../tabs/CreateQRScreen2';
 import TermsOfServiceScreen from "../TermsOfServiceScreen";
 import PrivacyPolicyScreen from '../PrivacyPolicyScreen';
 import HeaderLogo from '../../components/HeaderLogo';

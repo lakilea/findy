@@ -3,11 +3,11 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 // create a component
-const SaveCancelButton = ({ navigation, onSavePress, page, ... rest }) => {
+const SaveCancelButton = ({ navigation, onSavePress, onCancelPress, page, ... rest }) => {
   return (
     <View style={[styles.container, rest.style]}>
       <View style={styles.buttonsContainer}>
-        <TouchableOpacity style={[styles.cancelButtonContainer, {  }]} onPress={()=> navigation.goBack() }>
+        <TouchableOpacity style={[styles.cancelButtonContainer, {  }]} onPress={()=> { onCancelPress ? onCancelPress() : navigation.goBack() } }>
           <Text style={styles.cancelButtonText}>Cancel</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.saveButtonContainer, {  }]} onPress={ onSavePress }>
