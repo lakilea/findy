@@ -30,8 +30,10 @@ const ManagePhonesScreen = ({ navigation, route }) => {
     })
 
     const subscriber = firestore()
-    .collection('UserPhoneNumbers')
-    .where('userId', '==', user.uid)
+    .collection('Users')
+    .doc(user.uid)
+    .collection('Entities')
+    .where('type', '==', "phone")
     .onSnapshot(querySnapshot => {
       const phones = [];
 
@@ -96,7 +98,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     alignItems: "flex-start",
-    backgroundColor: "#fff",
+    backgroundColor: "#f4f4f4",
     padding:10
   },
   listStyle: {

@@ -12,31 +12,22 @@ const MyQRListScreen = ({ navigation }) => {
   const {user} = useContext(AuthContext);
   const [isLoading,setIsLoading] = useState(false);
   const [qrs,setQrs] = useState([]);
+  
+  useEffect(()=>{
+    firestore().collection("UserQRCodes").where("userId", "==", user.uid).onSnapshot(userQRCodeResult => {
+      const qrList = [];
+      userQRCodeResult.forEach(userQRCode => {
+        let qrItem = {
+          ... userQRCode.data(),
+          key: userQRCode.id,
+        };
 
-  useEffect(() => {
-    setIsLoading(true);
-
-    const subscriber = firestore()
-    .collection('UserQRCodes')
-    .where('userId', '==', user.uid)
-    .onSnapshot(querySnapshot => {
-      const qrs = [];
-
-      querySnapshot.forEach(documentSnapshot => {
-        qrs.push({
-          ...documentSnapshot.data(),
-          key: documentSnapshot.id,
-        });
+        qrList.push(qrItem);
       });
 
-      setQrs(qrs);
-      setIsLoading(false);
+      setQrs(qrList);
     });
-
-    // Unsubscribe from events when no longer in use
-    return () => subscriber();
-
-  }, []);
+  },[]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -83,9 +74,31 @@ const MyQRListScreen = ({ navigation }) => {
               <FlatList 
                 data={item.selectedItems}
                 style={{marginTop:5}}
-                renderItem={ ({item}) => (
-                  <Text style={styles.itemDetailsStyle}>{item.name}</Text>
-                )}
+                renderItem={ ({item}) => {
+                
+                  let text = "";
+
+                  if (item.type==="address") {
+                    text = item.address + " " + item.country
+                  }
+
+                  if (item.type==="email") {
+                    text = item.emailAddress;
+                  }
+
+                  if (item.type==="phone") {
+                    text = item.phoneNumber;
+                  }
+
+                  if (item.type==="social") {
+                    text = item.platform+"/"+item.socialAccount;
+                  }
+
+                  item.text = text;
+
+                return (
+                  <Text style={styles.itemDetailsStyle}>{item.text}</Text>
+                )}}
               />
             </TouchableOpacity>
           </View>

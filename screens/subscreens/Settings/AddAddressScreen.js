@@ -15,10 +15,10 @@ const AddAddressScreen = ({ navigation, route }) => {
 
   const [isLoading,setIsLoading] = useState(false);
   const [state,setState] = useState({
-    userId:user.uid,
     country:"",
     address:"",
     enabled:true,
+    type:"address"
   });
   
   const toggleSwitch = () => setState({ ... state, enabled : !state.enabled });
@@ -33,11 +33,12 @@ const AddAddressScreen = ({ navigation, route }) => {
             onPress={()=> {
               setIsLoading(true);
               firestore()
-              .collection('UserAddresses')
+              .collection('Users')
+              .doc(user.uid)
+              .collection('Entities')
               .doc(route.params.address.key)
               .delete()
               .then(() => {
-                console.log('Address deleted!');
                 setIsLoading(false);
                 navigation.goBack();
               });
@@ -57,14 +58,20 @@ const AddAddressScreen = ({ navigation, route }) => {
       setIsLoading(true);
 
       if (route.params.address) {
-        firestore().collection('UserAddresses').doc(route.params.address.key)
+        firestore()
+        .collection('Users')
+        .doc(user.uid)
+        .collection('Entities')
+        .doc(route.params.address.key)
         .update(state)
         .then(() => {
           setIsLoading(false);
           navigation.goBack();
         });
       } else {
-        firestore().collection('UserAddresses')
+        firestore().collection('Users')
+        .doc(user.uid)
+        .collection("Entities")
         .add(state).then(() => {
           setIsLoading(false);
           navigation.goBack();

@@ -15,9 +15,9 @@ const AddEmailScreen = ({ navigation, route }) => {
 
   const [isLoading,setIsLoading] = useState(false);
   const [state,setState] = useState({
-    userId:user.uid,
     emailAddress:"",
     enabled:true,
+    type:"email"
   });
   
   const toggleSwitch = () => setState({ ... state, enabled : !state.enabled });
@@ -32,7 +32,9 @@ const AddEmailScreen = ({ navigation, route }) => {
             onPress={()=> {
               setIsLoading(true);
               firestore()
-              .collection('UserEmailAddresses')
+              .collection('Users')
+              .doc(user.uid)
+              .collection('Entities')
               .doc(route.params.email.key)
               .delete()
               .then(() => {
@@ -56,14 +58,21 @@ const AddEmailScreen = ({ navigation, route }) => {
       setIsLoading(true);
 
       if (route.params.email) {
-        firestore().collection('UserEmailAddresses').doc(route.params.email.key)
+        firestore()
+        .collection('Users')
+        .doc(user.uid)
+        .collection('Entities')
+        .doc(route.params.email.key)
         .update(state)
         .then(() => {
           setIsLoading(false);
           navigation.goBack();
         });
       } else {
-        firestore().collection('UserEmailAddresses')
+        firestore()
+        .collection('Users')
+        .doc(user.uid)
+        .collection('Entities')
         .add(state).then(() => {
           setIsLoading(false);
           navigation.goBack();

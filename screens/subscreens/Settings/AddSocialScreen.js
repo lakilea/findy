@@ -15,10 +15,10 @@ const AddSocialScreen = ({ navigation, route }) => {
 
   const [isLoading,setIsLoading] = useState(false);
   const [state,setState] = useState({
-    userId:user.uid,
     platform:"",
     socialAccount:"",
     enabled:true,
+    type:"social"
   });
   
   const toggleSwitch = () => setState({ ... state, enabled : !state.enabled });
@@ -33,7 +33,9 @@ const AddSocialScreen = ({ navigation, route }) => {
             onPress={()=> {
               setIsLoading(true);
               firestore()
-              .collection('UserSocialAccounts')
+              .collection('Users')
+              .doc(user.uid)
+              .collection('Entities')
               .doc(route.params.social.key)
               .delete()
               .then(() => {
@@ -57,14 +59,20 @@ const AddSocialScreen = ({ navigation, route }) => {
       setIsLoading(true);
 
       if (route.params.social) {
-        firestore().collection('UserSocialAccounts').doc(route.params.social.key)
+        firestore()
+        .collection('Users')
+        .doc(user.uid)
+        .collection('Entities').doc(route.params.social.key)
         .update(state)
         .then(() => {
           setIsLoading(false);
           navigation.goBack();
         });
       } else {
-        firestore().collection('UserSocialAccounts')
+        firestore()
+        .collection('Users')
+        .doc(user.uid)
+        .collection('Entities')
         .add(state).then(() => {
           setIsLoading(false);
           navigation.goBack();

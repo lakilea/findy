@@ -30,8 +30,10 @@ const ManageEmailsScreen = ({ navigation, route }) => {
     })
 
     const subscriber = firestore()
-    .collection('UserEmailAddresses')
-    .where('userId', '==', user.uid)
+    .collection('Users')
+    .doc(user.uid)
+    .collection('Entities')
+    .where('type', '==', "email")
     .onSnapshot(querySnapshot => {
       const emails = [];
 

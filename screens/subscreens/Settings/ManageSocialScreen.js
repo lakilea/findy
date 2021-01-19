@@ -30,8 +30,10 @@ const ManageSocialScreen = ({ navigation, route }) => {
     })
 
     const subscriber = firestore()
-    .collection('UserSocialAccounts')
-    .where('userId', '==', user.uid)
+    .collection('Users')
+    .doc(user.uid)
+    .collection('Entities')
+    .where('type', '==', "social")
     .onSnapshot(querySnapshot => {
       const socials = [];
 
@@ -96,7 +98,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     alignItems: "flex-start",
-    backgroundColor: "#fff",
+    backgroundColor: "#f4f4f4",
     padding:10
   },
   listStyle: {
@@ -119,6 +121,7 @@ const styles = StyleSheet.create({
     marginBottom : 10,
     flexDirection: "row",
     justifyContent: 'space-between',
+    alignItems: 'center',
     borderRadius: 5,
     backgroundColor: "#ffffff",
     shadowColor: "rgba(0, 0, 0, 0.06)",

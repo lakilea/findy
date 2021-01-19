@@ -15,10 +15,10 @@ const AddPhoneScreen = ({ navigation, route }) => {
 
   const [isLoading,setIsLoading] = useState(false);
   const [state,setState] = useState({
-    userId:user.uid,
     country:"",
     phoneNumber:"",
     enabled:true,
+    type:"phone"
   });
   
   const toggleSwitch = () => setState({ ... state, enabled : !state.enabled });
@@ -33,7 +33,9 @@ const AddPhoneScreen = ({ navigation, route }) => {
             onPress={()=> {
               setIsLoading(true);
               firestore()
-              .collection('UserPhoneNumbers')
+              .collection('Users')
+              .doc(user.uid)
+              .collection('Entities')
               .doc(route.params.phone.key)
               .delete()
               .then(() => {
@@ -57,14 +59,20 @@ const AddPhoneScreen = ({ navigation, route }) => {
       setIsLoading(true);
 
       if (route.params.phone) {
-        firestore().collection('UserPhoneNumbers').doc(route.params.phone.key)
+        firestore()
+        .collection('Users')
+        .doc(user.uid)
+        .collection('Entities').doc(route.params.phone.key)
         .update(state)
         .then(() => {
           setIsLoading(false);
           navigation.goBack();
         });
       } else {
-        firestore().collection('UserPhoneNumbers')
+        firestore()
+        .collection('Users')
+        .doc(user.uid)
+        .collection('Entities')
         .add(state).then(() => {
           setIsLoading(false);
           navigation.goBack();

@@ -30,8 +30,10 @@ const ManageAddressesScreen = ({ navigation, route }) => {
     })
 
     const subscriber = firestore()
-    .collection('UserAddresses')
-    .where('userId', '==', user.uid)
+    .collection('Users')
+    .doc(user.uid)
+    .collection("Entities")
+    .where("type","==","address")
     .onSnapshot(querySnapshot => {
       const addresses = [];
 

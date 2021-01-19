@@ -6,6 +6,7 @@ import { AuthContext } from '../../navigation/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
 import { BottomModal, ModalContent, ModalButton, ModalTitle } from 'react-native-modals';
 import SaveCancelButton from '../../components/SaveCancelButton';
+import { firebase } from '@react-native-firebase/auth';
 
 // create a component
 const CreateQRScreen = ({ navigation }) => {
@@ -14,10 +15,10 @@ const CreateQRScreen = ({ navigation }) => {
   const [items,setItems] = useState([]);
   const [showModal,setShowModal] = useState(false);
   const [state,setState] = useState({
-    userId:user.uid,
-    country:"",
-    address:"",
-    enabled:true,
+    qrName : "",
+    qrDescription: "",
+    userId: user.uid,
+    selectedItems: []
   });
 
   useEffect(() => {
@@ -28,140 +29,77 @@ const CreateQRScreen = ({ navigation }) => {
 
     setIsLoading(true);
 
-    const items = [];
+    setItems([]);
 
-    firestore()
-    .collection('UserAddresses')
-    .where('userId', '==', user.uid)
-    .onSnapshot(querySnapshot => {
-
-      const item = {
+    const items = [
+      {
         name:"My Addresses",
         id:"0",
         icon:"address-book",
         children: []
-      };
-
-      querySnapshot.forEach(documentSnapshot => {
-        if (documentSnapshot.data().enabled) {
-
-          let address = documentSnapshot.data().address;
-          
-          console.log(address.length)
-
-          if (address.length > 25)
-            address = address.substring(0, 22) + "..." + documentSnapshot.data().country
-
-          item.children.push({
-            name: address,
-            id: documentSnapshot.id,
-            type: "address",
-          });
-        }
-      });
-
-      items.push(item)
-
-      setItems(items);
-      setIsLoading(false);
-    });
-
-    firestore()
-    .collection('UserPhoneNumbers')
-    .where('userId', '==', user.uid)
-    .onSnapshot(querySnapshot => {
-
-      const item = {
+      },
+      {
         name:"My Phone Numbers",
         id:"1",
         icon:"phone",
         children: []
-      };
-
-      querySnapshot.forEach(documentSnapshot => {
-        if (documentSnapshot.data().enabled) {
-
-          let phoneNumber = documentSnapshot.data().phoneNumber;
-          
-          console.log(phoneNumber.length)
-
-          if (phoneNumber.length > 25)
-            phoneNumber = phoneNumber.substring(0, 22) + "..." + documentSnapshot.data().country;
-          else
-          phoneNumber = phoneNumber + "..." + documentSnapshot.data().country;
-
-          item.children.push({
-            name: phoneNumber,
-            id: documentSnapshot.id,
-            type: "phone"
-          });
-        }
-      });
-
-      items.push(item)
-
-      setItems(items);
-      setIsLoading(false);
-    });
-
-    firestore()
-    .collection('UserEmailAddresses')
-    .where('userId', '==', user.uid)
-    .onSnapshot(querySnapshot => {
-
-      const item = {
+      },
+      {
         name:"My Email Addresses",
         id:"2",
         icon:"envelope",
         children: []
-      };
-
-      querySnapshot.forEach(documentSnapshot => {
-        if (documentSnapshot.data().enabled) {
-
-          let emailAddress = documentSnapshot.data().emailAddress;
-
-          item.children.push({
-            name: emailAddress,
-            id: documentSnapshot.id,
-            type: "email"
-          });
-        }
-      });
-
-      items.push(item)
-
-      setItems(items);
-      setIsLoading(false);
-    });
-
-    firestore()
-    .collection('UserSocialAccounts')
-    .where('userId', '==', user.uid)
-    .onSnapshot(querySnapshot => {
-
-      const item = {
+      },
+      {
         name:"My Social Accounts",
         id:"3",
         icon:"user",
         children: []
-      };
+      }
+    ];
+
+    firestore()
+    .collection('Users')
+    .doc(user.uid)
+    .collection('Entities')
+    .onSnapshot(querySnapshot => {
 
       querySnapshot.forEach(documentSnapshot => {
         if (documentSnapshot.data().enabled) {
 
-          let socialAccount = documentSnapshot.data().socialAccount;
-          let platform = documentSnapshot.data().platform;
+          if (documentSnapshot.data().type === "address")
+          {
+            items[0].children.push({
+              id: documentSnapshot.id,
+              ... documentSnapshot.data()
+            });
+          }
 
-          item.children.push({
-            name: platform + "/"+ socialAccount,
-            id: documentSnapshot.id,
-            type: "social"
-          });
+          if (documentSnapshot.data().type === "phone")
+          {
+            items[1].children.push({
+              id: documentSnapshot.id,
+              ... documentSnapshot.data()
+            });
+          }
+
+          if (documentSnapshot.data().type === "email")
+          {
+            items[2].children.push({
+              id: documentSnapshot.id,
+              ... documentSnapshot.data()
+            });
+          }
+
+          if (documentSnapshot.data().type === "social")
+          {
+            items[3].children.push({
+              id: documentSnapshot.id,
+              ... documentSnapshot.data()
+            });
+          }
         }
       });
-
-      items.push(item)
 
       setItems(items);
       setIsLoading(false);
@@ -184,9 +122,44 @@ const CreateQRScreen = ({ navigation }) => {
     if (selectedCount === 0)
       return "Choose Items";
     else if (selectedCount === 1)
-      return "You've selected "+selectedItems[0].name+"."
+      return "You've selected "+selectedItems[0].text+"."
     else
       return "You've selected "+selectedCount+" items."
+  }
+
+  createQrCode = ()=> {
+    
+    if (state.qrName.length === 0) {
+      console.log("empty");
+      return
+    }
+
+    state.selectedItems = [];
+
+    setIsLoading(true);
+
+    items.forEach(item => {
+      item.children.forEach(children => {
+        if (children.checked) {
+          state.selectedItems.push(children);
+        }
+      });
+    });
+
+    if (state.selectedItems.length === 0) {
+      console.log("empty");
+      return
+    }
+
+    firestore().collection('UserQRCodes').add(state).then((docRef) => {
+      firestore().collection('UserQRCodes').doc(docRef.id).get().then(documentSnapshot => {
+        if (documentSnapshot.exists) {
+          setIsLoading(false);
+          console.log('User data: ', documentSnapshot.data());
+          navigation.navigate("ShowQR", { qr : documentSnapshot.data(), title: "QR : " + state.qrName });
+        }
+      })
+    });
   }
 
   return (
@@ -194,22 +167,23 @@ const CreateQRScreen = ({ navigation }) => {
       <View style={styles.inputContainer}>
         <Image source={require("../../assets/icons/qrCode.png")} style={styles.qrCodeIcon} />
         <TextInput 
-          value={""}
+          value={state.qrName}
           style={styles.inputText}
           numberOfLines={1}
           placeholder="Enter QR name (ex: My Blue Bag)"
           placeholderTextColor="#b5c1c9"
           maxLength={30}
+          onChangeText={(x) => setState({ ...state, qrName: x })}
         />
       </View>
 
       <TextInput
-        value={state.address}
+        value={state.qrDescription}
         style={[styles.textArea]}
         numberOfLines={4}
         placeholder="Description (when someone scan this QR code, this message will appear)"
         placeholderTextColor="#b5c1c9"
-        onChangeText={(x) => setState({ ...state, address: x })}
+        onChangeText={(x) => setState({ ...state, qrDescription: x })}
         multiline={true}
       />
 
@@ -226,6 +200,7 @@ const CreateQRScreen = ({ navigation }) => {
       <SaveCancelButton 
         navigation={ navigation }
         onCancelPress = { ()=> navigation.navigate("Store") }
+        onSavePress={createQrCode}
         page="CreateQR"
       />
 
@@ -249,17 +224,39 @@ const CreateQRScreen = ({ navigation }) => {
                 return (
                   <View>
                     <Text style={styles.listCaptionStyle}>{item.name}</Text>
-                    <FlatList data={item.children} style={{ width: "100%"}} renderItem={({ item, index }) => (
-                      <TouchableOpacity style={styles.listItemContainer}>
-                        <Text style={styles.textStyle}>{item.name}</Text>
-                        <ModalButton
-                          text=""
-                          onPress={() => { items[parentItemIndex].children[index].checked=!items[parentItemIndex].children[index].checked; setItems(items => [ ... items ]); }}
-                          style={{position: 'absolute', width: "100%"}}
-                        />
-                        { item.checked ? <Image source={require("../../assets/icons/confirm.png")} style={{width:20, height: 20}} /> : null}
-                      </TouchableOpacity>
-                    )} />
+                    <FlatList data={item.children} style={{ width: "100%"}} renderItem={({ item, index }) => {
+                      let text = "";
+
+                      if (item.type==="address") {
+                        text = item.address + " " + item.country
+                      }
+
+                      if (item.type==="email") {
+                        text = item.emailAddress;
+                      }
+
+                      if (item.type==="phone") {
+                        text = item.phoneNumber;
+                      }
+
+                      if (item.type==="social") {
+                        text = item.platform+"/"+item.socialAccount;
+                      }
+
+                      item.text = text;
+
+                      return (
+                        <TouchableOpacity style={styles.listItemContainer}>
+                          <Text style={styles.textStyle}>{text}</Text>
+                          <ModalButton
+                            text=""
+                            onPress={() => { items[parentItemIndex].children[index].checked=!items[parentItemIndex].children[index].checked; setItems(items => [ ... items ]); }}
+                            style={{position: 'absolute', width: "100%"}}
+                          />
+                          { item.checked ? <Image source={require("../../assets/icons/confirm.png")} style={{width:20, height: 20}} /> : null}
+                        </TouchableOpacity>
+                      )
+                    }} />
                   </View>
               )}} />
             </SafeAreaView>
