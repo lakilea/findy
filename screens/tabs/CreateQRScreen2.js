@@ -1,14 +1,15 @@
 //import liraries
 import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, TextInput, FlatList, SafeAreaView, Keyboard, TouchableOpacity, BackHandler } from 'react-native';
-import { windowWidth } from '../../utils/Dimensions';
+import { windowHeight, windowWidth } from '../../utils/Dimensions';
 import { AuthContext } from '../../navigation/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
 import { BottomModal, ModalContent, ModalButton, ModalTitle } from 'react-native-modals';
 import SaveCancelButton from '../../components/SaveCancelButton';
+import { useFocusEffect } from '@react-navigation/native';
 
 // create a component
-const CreateQRScreen = ({ navigation }) => {
+const CreateQRScreen = ({ navigation, route }) => {
   const {user} = useContext(AuthContext);
   const [isLoading,setIsLoading] = useState(false);
   const [items,setItems] = useState([]);
@@ -20,91 +21,97 @@ const CreateQRScreen = ({ navigation }) => {
     selectedItems: []
   });
 
-  useEffect(() => {
-
-    BackHandler.addEventListener('hardwareBackPress', () => {
-      return true;
-    });
-
-    setIsLoading(true);
-
-    setItems([]);
-
-    const items = [
-      {
-        name:"My Addresses",
-        id:"0",
-        icon:"address-book",
-        children: []
-      },
-      {
-        name:"My Phone Numbers",
-        id:"1",
-        icon:"phone",
-        children: []
-      },
-      {
-        name:"My Email Addresses",
-        id:"2",
-        icon:"envelope",
-        children: []
-      },
-      {
-        name:"My Social Accounts",
-        id:"3",
-        icon:"user",
-        children: []
-      }
-    ];
-
-    firestore()
-    .collection('Users')
-    .doc(user.uid)
-    .collection('Entities')
-    .onSnapshot(querySnapshot => {
-
-      querySnapshot.forEach(documentSnapshot => {
-        if (documentSnapshot.data().enabled) {
-
-          if (documentSnapshot.data().type === "address")
-          {
-            items[0].children.push({
-              id: documentSnapshot.id,
-              ... documentSnapshot.data()
-            });
-          }
-
-          if (documentSnapshot.data().type === "phone")
-          {
-            items[1].children.push({
-              id: documentSnapshot.id,
-              ... documentSnapshot.data()
-            });
-          }
-
-          if (documentSnapshot.data().type === "email")
-          {
-            items[2].children.push({
-              id: documentSnapshot.id,
-              ... documentSnapshot.data()
-            });
-          }
-
-          if (documentSnapshot.data().type === "social")
-          {
-            items[3].children.push({
-              id: documentSnapshot.id,
-              ... documentSnapshot.data()
-            });
-          }
+  useFocusEffect(
+    React.useCallback(() => {
+      BackHandler.addEventListener('hardwareBackPress', () => {
+        if (showModal) {
+          setShowModal(false);
+          return true;
         }
+        return false;
       });
-
-      setItems(items);
-      setIsLoading(false);
-    });
-
-  }, []);
+  
+      setIsLoading(true);
+  
+      setItems([]);
+  
+      const items = [
+        {
+          name:"My Addresses",
+          id:"0",
+          icon:"address-book",
+          children: []
+        },
+        {
+          name:"My Phone Numbers",
+          id:"1",
+          icon:"phone",
+          children: []
+        },
+        {
+          name:"My Email Addresses",
+          id:"2",
+          icon:"envelope",
+          children: []
+        },
+        {
+          name:"My Social Accounts",
+          id:"3",
+          icon:"user",
+          children: []
+        }
+      ];
+  
+      const unsubscribe = firestore()
+      .collection('Users')
+      .doc(user.uid)
+      .collection('Entities')
+      .onSnapshot(querySnapshot => {
+  
+        querySnapshot.forEach(documentSnapshot => {
+          if (documentSnapshot.data().enabled) {
+  
+            if (documentSnapshot.data().type === "address")
+            {
+              items[0].children.push({
+                id: documentSnapshot.id,
+                ... documentSnapshot.data()
+              });
+            }
+  
+            if (documentSnapshot.data().type === "phone")
+            {
+              items[1].children.push({
+                id: documentSnapshot.id,
+                ... documentSnapshot.data()
+              });
+            }
+  
+            if (documentSnapshot.data().type === "email")
+            {
+              items[2].children.push({
+                id: documentSnapshot.id,
+                ... documentSnapshot.data()
+              });
+            }
+  
+            if (documentSnapshot.data().type === "social")
+            {
+              items[3].children.push({
+                id: documentSnapshot.id,
+                ... documentSnapshot.data()
+              });
+            }
+          }
+        });
+  
+        setItems(items);
+        setIsLoading(false);
+      });
+  
+      return ()=> unsubscribe();
+    }, [])
+  );
 
   getSelectedItemCount = () => {
     let selectedItems = [];
@@ -161,7 +168,20 @@ const CreateQRScreen = ({ navigation }) => {
     });
   }
 
+  isAnyInformationDefined = ()=> {
+    let informationCount = 0;
+    items.forEach(item => {
+      item.children.forEach(children => {
+        informationCount++;
+      });
+    });
+
+    console.log(informationCount)
+    return informationCount > 0;
+  }
+
   return (
+    isAnyInformationDefined() ?
     <View style={styles.container}>
       <View style={styles.inputContainer}>
         <Image source={require("../../assets/icons/qrCode.png")} style={styles.qrCodeIcon} />
@@ -222,7 +242,7 @@ const CreateQRScreen = ({ navigation }) => {
                 let parentItemIndex = index;
                 return (
                   <View>
-                    <Text style={styles.listCaptionStyle}>{item.name}</Text>
+                    <Text style={styles.listCaptionStyle}>{item.name} ({item.children.length})</Text>
                     <FlatList data={item.children} style={{ width: "100%"}} renderItem={({ item, index }) => {
                       let text = "";
 
@@ -262,6 +282,30 @@ const CreateQRScreen = ({ navigation }) => {
           </ModalContent>
         </BottomModal>
     </View>
+    :
+    <SafeAreaView style={styles.noInfoContainer}>
+      <Image source={require('../../assets/onboarding/step2.png')} />
+      <Text style={[styles.noInfoText, {fontSize:18}]}>Before create a QR, you need to provide at least 1 contact details.</Text>
+      <View style={{flexDirection:'row'}}>
+        <Text style={styles.noInfoText}>You can provide from </Text>
+        <TouchableOpacity onPress={()=> navigation.navigate("Settings")}>
+          <Text style={[styles.noInfoText,{color:"#f69833"}]}>[Settings]</Text>
+        </TouchableOpacity>
+      </View>
+      <Text style={[styles.noInfoText,{color:"#e0dfdf"}]}>OR</Text>
+      <TouchableOpacity onPress={()=> navigation.navigate("CreateQR/AddAddress", { title: "Add Address" })}>
+        <Text style={[styles.noInfoText,{color:"#f69833"}]}>[Add Address]</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={()=> navigation.navigate("CreateQR/AddPhone", { title: "Add Phone Number" })}>
+        <Text style={[styles.noInfoText,{color:"#f69833"}]}>[Add Phone Number]</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={()=> navigation.navigate("CreateQR/AddSocial", { title: "Add Social Media Account" })}>
+        <Text style={[styles.noInfoText,{color:"#f69833"}]}>[Add Social Media Account]</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={()=> navigation.navigate("CreateQR/AddEmail", { title: "Add Email Address" })}>
+        <Text style={[styles.noInfoText,{color:"#f69833"}]}>[Add Email Address]</Text>
+      </TouchableOpacity>
+    </SafeAreaView>
   );
 };
 
@@ -273,6 +317,23 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     backgroundColor: "#f4f4f4",
     paddingTop: 20
+  },
+  noInfoContainer: {
+    flex:1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: "#f4f4f4",
+    padding: 30
+  },
+  noInfoText:{
+    fontFamily: "SF-Pro-Display",
+    fontSize: 15,
+    fontWeight: "normal",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    color: "#889299",
+    textAlign: 'center',
+    marginBottom: 10
   },
   inputContainer: {
     flexDirection: 'row',

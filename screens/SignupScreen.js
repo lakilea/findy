@@ -1,23 +1,15 @@
 import React, {useContext, useState} from 'react';
 import {View, Text, TouchableOpacity, Platform, StyleSheet, Image, TextInput } from 'react-native';
-import { BottomModal, ModalContent } from 'react-native-modals';
-import FormInput from '../components/FormInput';
-import FormButton from '../components/FormButton';
-import SocialButton from '../components/SocialButton';
 import {AuthContext} from '../navigation/AuthProvider';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Spinner from 'react-native-loading-spinner-overlay';
-import { windowHeight, windowWidth } from '../utils/Dimensions';
+import { windowHeight } from '../utils/Dimensions';
+import Toast from 'react-native-simple-toast';
 
 const SignupScreen = ({navigation}) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
-  const [state, setState] = useState({ 
-    isFormValid: true, 
-    error: "",
-    isLoading: false
-  });
+  const [state, setState] = useState({ isLoading: false });
 
   const {register} = useContext(AuthContext);
 
@@ -25,21 +17,22 @@ const SignupScreen = ({navigation}) => {
     if (email && password && confirmPassword) {
       let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
       if (reg.test(email) === false) {
-        setState({ isFormValid : false, error : "Email address is not valid." });
+        Toast.show("Email address is not valid.");
       } else {
         if (password.length < 6) {
-          setState({ isFormValid : false, error : "Check your password length. (min:6)" });
+          Toast.show("Check your password length. (min:6)");
         } else if (password !== confirmPassword) {
-          setState({ isFormValid : false, error : "The given passwords does not match." });
+          Toast.show("The given passwords does not match.");
         } else {
-          setState({ isLoading : true, isFormValid : true });
+          setState({ isLoading : true });
           register(email, password, function (e) {
-            setState({ isFormValid : false, isLoading : false, error : "Something went wrong. " + e });
+            Toast.show("Something went wrong. " + e);
+            setState({ isLoading : false });
           });
         }
       }
     } else {
-      setState({ isFormValid : false, error : "Please provide email and password" });
+      Toast.show("Please provide email and password");
     }
   }
 
@@ -159,27 +152,6 @@ const SignupScreen = ({navigation}) => {
             </Text>
           </TouchableOpacity>
         </View>
-
-        <BottomModal
-            visible={!state.isFormValid}
-            onTouchOutside={() => {
-              setState({ isFormValid : true }); 
-            }}
-          >
-          <ModalContent
-            style={{
-              backgroundColor: 'fff',
-            }}
-          >
-            <View style={styles.errorText}>
-              <FontAwesome name="info-circle" size={20} color="#f55951" />
-              <Text style={{color:"#f55951"}}>
-                {"  "}{state.error}
-              </Text>
-            </View>
-            
-          </ModalContent>
-        </BottomModal>
     </View>
   );
 };

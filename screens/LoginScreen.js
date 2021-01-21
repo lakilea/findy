@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect} from 'react';
+import React, {useContext, useState} from 'react';
 import {
   View,
   Text,
@@ -9,23 +9,15 @@ import {
   ScrollView,
   TextInput
 } from 'react-native';
-import { BottomModal, ModalContent, SlideAnimation } from 'react-native-modals';
-import FormInput from '../components/FormInput';
-import FormButton from '../components/FormButton';
-import SocialButton from '../components/SocialButton';
 import {AuthContext} from '../navigation/AuthProvider';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Spinner from 'react-native-loading-spinner-overlay';
-import { windowHeight, windowWidth } from '../utils/Dimensions';
+import { windowHeight } from '../utils/Dimensions';
+import Toast from 'react-native-simple-toast';
 
 const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [state, setState] = useState({ 
-    isFormValid: true, 
-    error: "",
-    isLoading: false
-  });
+  const [state, setState] = useState({ isLoading: false });
 
   const {login, googleLogin} = useContext(AuthContext);
 
@@ -33,19 +25,20 @@ const LoginScreen = ({navigation}) => {
     if (email && password) {
       let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
       if (reg.test(email) === false) {
-        setState({ isFormValid : false, error : "Email address is not valid." });
+        Toast.show("Email address is not valid.");
       } else {
         if (password.length < 6) {
-          setState({ isFormValid : false, error : "Check your password length. (min:6)" });
+          Toast.show("Check your password length. (min:6)");
         } else {
-          setState({ isLoading : true, isFormValid : true });
+          setState({ isLoading : true });
           login(email, password, function (e) {
-            setState({ isFormValid : false, isLoading : false, error : "The email or password is wrong. " + e });
+            Toast.show("The email or password is wrong.");
+            setState({ isLoading : false });
           });
         }
       }
     } else {
-      setState({ isFormValid : false, error : "Please provide email and password." });
+      Toast.show("Please provide email and password.");
     }
   };
 
@@ -142,27 +135,6 @@ const LoginScreen = ({navigation}) => {
             </Text>
           </TouchableOpacity>
         </View>
-
-        <BottomModal
-            visible={!state.isFormValid}
-            onTouchOutside={() => {
-              setState({ isFormValid : true }); 
-            }}
-          >
-          <ModalContent
-            style={{
-              backgroundColor: 'fff',
-            }}
-          >
-            <View style={styles.errorText}>
-              <FontAwesome name="info-circle" size={20} color="#f55951" />
-              <Text style={{color:"#f55951"}}>
-                {"  "}{state.error}
-              </Text>
-            </View>
-            
-          </ModalContent>
-        </BottomModal>
     </ScrollView>
   );
 };

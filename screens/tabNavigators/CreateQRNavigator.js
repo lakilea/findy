@@ -5,16 +5,24 @@ import CreateQRScreen from '../tabs/CreateQRScreen2';
 import TermsOfServiceScreen from "../TermsOfServiceScreen";
 import PrivacyPolicyScreen from '../PrivacyPolicyScreen';
 import HeaderLogo from '../../components/HeaderLogo';
+import AddAddressScreen from '../subscreens/Settings/AddAddressScreen';
+import AddPhoneScreen from '../subscreens/Settings/AddPhoneScreen';
+import AddEmailScreen from '../subscreens/Settings/AddEmailScreen';
+import AddSocialScreen from '../subscreens/Settings/AddSocialScreen';
 
 const Stack = createStackNavigator();
 
 // create a component
 const CreateQRNavigator = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName="CreateQR">
       <Stack.Screen name="CreateQR" component={CreateQRScreen} options={{ title:"Create QR", headerLeft: ()=> null, header: HeaderLogo }} />
       <Stack.Screen name="CreateQR/TermsOfService" component={TermsOfServiceScreen} options={{ title:"Terms Of Service" }}/>
       <Stack.Screen name="CreateQR/PrivacyPolicy" component={PrivacyPolicyScreen} options={{ title:"Privacy Policy" }}/>
+      <Stack.Screen name="CreateQR/AddAddress" component={AddAddressScreen} options={({ route }) => ({ title: route.params.title })} />
+      <Stack.Screen name="CreateQR/AddPhone" component={AddPhoneScreen} options={({ route }) => ({ title: route.params.title })} />
+      <Stack.Screen name="CreateQR/AddEmail" component={AddEmailScreen} options={({ route }) => ({ title: route.params.title })} />
+      <Stack.Screen name="CreateQR/AddSocial" component={AddSocialScreen} options={({ route }) => ({ title: route.params.title })} />
     </Stack.Navigator>
   );
 };
