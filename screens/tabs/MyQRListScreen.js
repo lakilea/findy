@@ -5,7 +5,6 @@ import { AuthContext } from '../../navigation/AuthProvider';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Spinner from 'react-native-loading-spinner-overlay';
 import firestore from '@react-native-firebase/firestore';
-import { windowHeight, windowWidth } from "../../utils/Dimensions";
 
 // create a component
 const MyQRListScreen = ({ navigation }) => {

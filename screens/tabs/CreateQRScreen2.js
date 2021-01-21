@@ -6,7 +6,6 @@ import { AuthContext } from '../../navigation/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
 import { BottomModal, ModalContent, ModalButton, ModalTitle } from 'react-native-modals';
 import SaveCancelButton from '../../components/SaveCancelButton';
-import { firebase } from '@react-native-firebase/auth';
 
 // create a component
 const CreateQRScreen = ({ navigation }) => {

@@ -2,7 +2,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, FlatList,Image } from 'react-native';
 import { AuthContext } from '../../navigation/AuthProvider';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Spinner from 'react-native-loading-spinner-overlay';
 import firestore from '@react-native-firebase/firestore';
 
@@ -21,7 +20,7 @@ const NotificationsScreen = ({navigation}) => {
     .onSnapshot(querySnapshot => {
       const notifications = [];
 
-      querySnapshot.forEach(documentSnapshot => {
+      querySnapshot.forEach(documentSnapshot => { 
         notifications.push({
           ...documentSnapshot.data(),
           key: documentSnapshot.id,

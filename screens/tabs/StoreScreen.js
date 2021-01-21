@@ -1,25 +1,12 @@
 //import liraries
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { View, Text, StyleSheet, ImageBackground } from 'react-native';
-import Carousel from 'react-native-snap-carousel';
-import { scrollInterpolator, animatedStyles } from "../../utils/Animations";
-import { windowHeight, windowWidth } from "../../utils/Dimensions";
-
-const SLIDER_WIDTH = windowWidth;
-const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.9);
-const ITEM_HEIGHT = Math.round(ITEM_WIDTH * 3 / 4);
-
-const DATA = [];
-for (let i = 0; i < 3; i++) {
-  DATA.push(i)
-}
+import { View, Text, StyleSheet } from 'react-native';
+import { windowWidth } from "../../utils/Dimensions";
 
 // create a component
 const StoreScreen = ({ navigation }) => {
-
-  const [state,setState] = useState({ index : 0 });
-
+  
   useEffect(()=> {
     navigation.setOptions({ title : "Store" });
   }, [])
