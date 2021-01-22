@@ -11,7 +11,7 @@ const SignupScreen = ({navigation}) => {
   const [confirmPassword, setConfirmPassword] = useState();
   const [state, setState] = useState({ isLoading: false });
 
-  const {register} = useContext(AuthContext);
+  const {register,googleLogin} = useContext(AuthContext);
 
   signUpWithEmailAndPassword = (email, password, confirmPassword) => {
     if (email && password && confirmPassword) {

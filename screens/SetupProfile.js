@@ -7,15 +7,17 @@ import firestore from '@react-native-firebase/firestore';
 import Spinner from 'react-native-loading-spinner-overlay';
 import FormInput from '../components/FormInput'
 import { Picker} from '@react-native-picker/picker';
-import { windowHeight, windowWidth } from '../utils/Dimensions';
+import { windowHeight } from '../utils/Dimensions';
 import AsyncStorage from '@react-native-community/async-storage'
+import messaging from "@react-native-firebase/messaging";
 
 // create a component
 const SetupProfile = ({ navigation }) => {
-  const {user, setUser} = useContext(AuthContext);
+  const {user} = useContext(AuthContext);
   
   const [fullname,setFullname] = useState("");
   const [language,setLanguage] = useState("English");
+  const [fcmToken,setFcmToken] = useState(null);
   const [isLoading,setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -28,6 +30,7 @@ const SetupProfile = ({ navigation }) => {
         if (x.data()) {
           setFullname(x.data().fullname);
           setLanguage(x.data().language);
+          setFcmToken(x.data().fcmToken)
         }
         setIsLoading(false);
       });
@@ -35,14 +38,14 @@ const SetupProfile = ({ navigation }) => {
     return () => subscriber();
   }, []);
 
-  onSavePress = () => {
+  const onSavePress = () => {
     setIsLoading(true);
 
     firestore().collection('Users').doc(user.uid)
       .set({
         fullname: fullname,
         language: language,
-      })
+      }, {merge: true})
       .then(() => {
         console.log('User saved!');
 
@@ -52,6 +55,38 @@ const SetupProfile = ({ navigation }) => {
           navigation.navigate("App");
         }, 500);
       });
+  }
+
+  useEffect(()=>{
+    if (!fcmToken)
+      checkPermission();
+  }, []);
+
+  const checkPermission = async ()=>{
+    const enabled = await messaging().hasPermission();
+    if (enabled)
+      getToken();
+    else
+      requestPermissions();
+  }
+
+  const getToken = async ()=>{
+    const token = await messaging().getToken();
+    firestore().collection('Users').doc(user.uid).set({
+      fcmToken : token
+    }, {merge: true});
+  }
+
+  const requestPermissions = async ()=>{
+    const authorizationStatus = await messaging().requestPermission();
+
+    if (authorizationStatus === messaging.AuthorizationStatus.AUTHORIZED) {
+      await getToken();
+    } else if (authorizationStatus === messaging.AuthorizationStatus.PROVISIONAL) {
+      console.log('User has provisional notification permissions.');
+    } else {
+      console.log('User has notification permissions disabled');
+    }
   }
 
   return (

@@ -66,3 +66,18 @@ add following settings to **AndroidManifest.xml**
   </application>
 </manifest>
 ```
+
+## Release Settings
+
+go android > app > buld.gradle and increase 
+
+```java
+versionCode 1
+versionName "1.0.0"
+```
+
+then run following command
+
+```java
+./gradlew bundleRelease
+```

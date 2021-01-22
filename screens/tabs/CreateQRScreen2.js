@@ -1,12 +1,15 @@
 //import liraries
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, Text, StyleSheet, Image, TextInput, FlatList, SafeAreaView, Keyboard, TouchableOpacity, BackHandler } from 'react-native';
-import { windowHeight, windowWidth } from '../../utils/Dimensions';
+import { windowWidth } from '../../utils/Dimensions';
 import { AuthContext } from '../../navigation/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
 import { BottomModal, ModalContent, ModalButton, ModalTitle } from 'react-native-modals';
 import SaveCancelButton from '../../components/SaveCancelButton';
 import { useFocusEffect } from '@react-navigation/native';
+import Spinner from 'react-native-loading-spinner-overlay';
+import Toast from 'react-native-simple-toast';
+import analytics from '@react-native-firebase/analytics';
 
 // create a component
 const CreateQRScreen = ({ navigation, route }) => {
@@ -133,10 +136,10 @@ const CreateQRScreen = ({ navigation, route }) => {
       return "You've selected "+selectedCount+" items."
   }
 
-  createQrCode = ()=> {
+  createQrCode = async ()=> {
     
     if (state.qrName.length === 0) {
-      console.log("empty");
+      Toast.show("Please enter a QR name.");
       return
     }
 
@@ -153,16 +156,20 @@ const CreateQRScreen = ({ navigation, route }) => {
     });
 
     if (state.selectedItems.length === 0) {
-      console.log("empty");
+      Toast.show("Please select at least 1 contact item.");
       return
     }
 
-    firestore().collection('UserQRCodes').add(state).then((docRef) => {
-      firestore().collection('UserQRCodes').doc(docRef.id).get().then(documentSnapshot => {
+    await analytics().logEvent('createQr', state);
+
+    firestore().collection('UserQRCodes').add(state).then(async (docRef) => {
+      await analytics().logEvent('createQr', { docRefid : docRef.id});
+      firestore().collection('UserQRCodes').doc(docRef.id).get().then(async documentSnapshot => {
+        await analytics().logEvent('createQr', { isExist : documentSnapshot.exists});
         if (documentSnapshot.exists) {
           setIsLoading(false);
           console.log('User data: ', documentSnapshot.data());
-          navigation.navigate("ShowQR", { qr : documentSnapshot.data(), title: "QR : " + state.qrName });
+          navigation.navigate("CreateQR/ShowQR", { qr : documentSnapshot.data(), title: "QR : " + state.qrName });
         }
       })
     });
@@ -183,6 +190,12 @@ const CreateQRScreen = ({ navigation, route }) => {
   return (
     isAnyInformationDefined() ?
     <View style={styles.container}>
+      <Spinner
+        visible={isLoading}
+        textContent={'Loading...'}
+        textStyle={styles.spinnerTextStyle}
+      />
+
       <View style={styles.inputContainer}>
         <Image source={require("../../assets/icons/qrCode.png")} style={styles.qrCodeIcon} />
         <TextInput 
@@ -193,6 +206,7 @@ const CreateQRScreen = ({ navigation, route }) => {
           placeholderTextColor="#b5c1c9"
           maxLength={30}
           onChangeText={(x) => setState({ ...state, qrName: x })}
+          onFocus={(x) => setShowModal(false)}
         />
       </View>
 
@@ -204,6 +218,7 @@ const CreateQRScreen = ({ navigation, route }) => {
         placeholderTextColor="#b5c1c9"
         onChangeText={(x) => setState({ ...state, qrDescription: x })}
         multiline={true}
+        onFocus={(x) => setShowModal(false)}
       />
 
       <View style={styles.contactContainer}>

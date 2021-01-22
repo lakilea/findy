@@ -5,7 +5,7 @@ const App = () => {
   return (
     <Providers>
     </Providers>
-    );
+  );
 }
 
 export default App;

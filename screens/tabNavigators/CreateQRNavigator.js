@@ -9,6 +9,7 @@ import AddAddressScreen from '../subscreens/Settings/AddAddressScreen';
 import AddPhoneScreen from '../subscreens/Settings/AddPhoneScreen';
 import AddEmailScreen from '../subscreens/Settings/AddEmailScreen';
 import AddSocialScreen from '../subscreens/Settings/AddSocialScreen';
+import ShowQRScreen from "../subscreens/CreateQR/ShowQRScreen";
 
 const Stack = createStackNavigator();
 
@@ -23,6 +24,7 @@ const CreateQRNavigator = () => {
       <Stack.Screen name="CreateQR/AddPhone" component={AddPhoneScreen} options={({ route }) => ({ title: route.params.title })} />
       <Stack.Screen name="CreateQR/AddEmail" component={AddEmailScreen} options={({ route }) => ({ title: route.params.title })} />
       <Stack.Screen name="CreateQR/AddSocial" component={AddSocialScreen} options={({ route }) => ({ title: route.params.title })} />
+      <Stack.Screen name="CreateQR/ShowQR" component={ShowQRScreen} options={({ route }) => ({ title: route.params.title })} />
     </Stack.Navigator>
   );
 };

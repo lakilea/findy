@@ -1,19 +1,13 @@
 //import liraries
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { windowWidth } from "../../utils/Dimensions";
 
 // create a component
 const StoreScreen = ({ navigation }) => {
   
   useEffect(()=> {
     navigation.setOptions({ title : "Store" });
-  }, [])
-  
-  const cellWidth = windowWidth / 5;
-
-  console.log(cellWidth)
+  }, []);
   
   return (
     <View style={styles.container}>

@@ -10,7 +10,6 @@ const Stack = createStackNavigator();
 
 // create a component
 const AppStack = () => {
-
   const {user} = useContext(AuthContext);
   
   const [alreadyLogined, setAlreadyLogined] = useState(null);
