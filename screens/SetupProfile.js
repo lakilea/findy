@@ -47,12 +47,18 @@ const SetupProfile = ({ navigation }) => {
         language: language,
       }, {merge: true})
       .then(() => {
-        console.log('User saved!');
-
         setTimeout(() => {
-          setIsLoading(false);
-          AsyncStorage.setItem('alreadyLogined','true');
-          navigation.navigate("App");
+          firestore().collection('UserNotifications').add({
+            text:"Welcome to findy, to create a first QR, you need to add a contact item on the 'Settings' screen.",
+            isRead:false,
+            navigation:"Settings",
+            userId: user.uid,
+            timestamp: new Date().getTime()
+          }).then(x=> {
+            setIsLoading(false);
+            AsyncStorage.setItem('alreadyLogined','true');
+            navigation.navigate("App");
+          });
         }, 500);
       });
   }

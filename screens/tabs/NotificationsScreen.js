@@ -42,7 +42,8 @@ const NotificationsScreen = ({navigation}) => {
           isRead : true
         })
         .then(() => {
-          navigation.navigate(item.navigation);
+          if (item.navigation)
+            navigation.navigate(item.navigation);
         });
   };
 
@@ -69,7 +70,7 @@ const NotificationsScreen = ({navigation}) => {
             <View style={{width:"80%"}}>
               <Text style={[styles.itemTextStyle, { color : item.isRead ? "#b5c1c9" : "#2f2e41" }]}>{item.text}</Text>
             </View>
-            <Image style={{ height: 25, width: 25 }} source={require('../../assets/icons/right.png')} />
+            {item.navigation ? <Image style={{ height: 25, width: 25 }} source={require('../../assets/icons/right.png')} /> : null }
           </TouchableOpacity>
         )}
       />

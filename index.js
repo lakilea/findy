@@ -6,15 +6,6 @@ import analytics from '@react-native-firebase/analytics';
 import App from './App';
 
 messaging().setBackgroundMessageHandler(async remoteMessage => {
-  // const currentUser = auth().currentUser;
-  // if (currentUser) {
-  //   firestore().collection('UserNotifications').add({
-  //     text:remoteMessage.notification.body,
-  //     isRead:false,
-  //     userId: currentUser.uid,
-  //     ...remoteMessage.data
-  //   });
-  // }
   await analytics().logEvent('notificationReceived', remoteMessage);
 });
 

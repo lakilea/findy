@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import AsyncStorage from '@react-native-community/async-storage'
 import {AuthContext} from './AuthProvider';
 import firestore from '@react-native-firebase/firestore';
 import SetupProfile from "../screens/SetupProfile";
@@ -16,23 +15,14 @@ const AppStack = () => {
   let routeName;
 
   useEffect(() => {
-    AsyncStorage.getItem('alreadyLogined').then(value => {
-      if(value == null) {
-        firestore().collection('UserNotifications').where('userId', '==', user.uid).onSnapshot(querySnapshot => { 
-          if (querySnapshot._docs.length === 0) {
-            firestore().collection('UserNotifications').add({
-              text:"Welcome to findy, to create a first QR, you need to add a contact item on the 'Settings' screen.",
-              isRead:false,
-              navigation:"Settings",
-              userId: user.uid
-            });
-          }
-        });
-        setAlreadyLogined(false);
-      } else {
+    firestore().collection('Users').doc(user.uid).onSnapshot(querySnapshot => { 
+      if (querySnapshot.data() && querySnapshot.data().fcmToken) {
         setAlreadyLogined(true);
+      } else {
+        setAlreadyLogined(false);
       }
     });
+    
   }, []);
 
   if (alreadyLogined === null) {
