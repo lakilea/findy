@@ -6,12 +6,17 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({children})=> {
   const [user, setUser] = useState(null);
+  const [appSettings,setAppSettings] = useState({
+    language:null
+  });
 
   return (
     <AuthContext.Provider
       value={{
         user,
         setUser,
+        appSettings,
+        setAppSettings,
         login: async (email, password, errorCallback) => {
           try {
             await auth().signInWithEmailAndPassword(email, password);

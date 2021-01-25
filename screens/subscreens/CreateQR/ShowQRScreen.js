@@ -1,6 +1,6 @@
 //import liraries
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Platform, Image } from 'react-native';
+import { View, Text, StyleSheet, Platform, Image, Linking } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import QRCode from 'react-native-qrcode-svg';
 import { windowWidth } from '../../../utils/Dimensions';
@@ -10,6 +10,7 @@ import firestore from '@react-native-firebase/firestore';
 import * as Print from 'expo-print';
 import * as Sharing from "expo-sharing";
 import * as FileSystem from "expo-file-system";
+import i18n from 'i18n-js';
 
 // create a component
 const ShowQRScreen = ({ navigation, route }) => {
@@ -108,9 +109,12 @@ const ShowQRScreen = ({ navigation, route }) => {
         textStyle={{ color: '#FFF' }}
       />
       
+      { qr.qrDescription ? 
       <Text style={styles.textStyle}>
         {qr.qrDescription}
       </Text>
+      :
+      null}
 
       <View style={styles.rectangle}>
         <QRCode
@@ -123,15 +127,20 @@ const ShowQRScreen = ({ navigation, route }) => {
       <View style={{ flexDirection: 'row', width: "100%", justifyContent: 'space-between', alignItems: 'center'}}>
         <TouchableOpacity style={styles.buttonContainer} onPress={saveAsPDF}>
           <Image source={require("../../../assets/icons/pdf.png")} style={{ width: 45, height: 45 }}></Image>
-          <Text style={[styles.textStyle, { color: "#f69833" }]}>Save or Share as</Text>
-          <Text style={[styles.textStyle, { color: "#f69833" }]}>a PDF file</Text>
+          <Text style={[styles.textStyle, { color: "#f69833", marginBottom:0 }]}>{i18n.t("showQRSaveOrShareAs")}</Text>
+          <Text style={[styles.textStyle, { color: "#f69833", marginBottom:0 }]}>{i18n.t("showQRaPDFFile")}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.buttonContainer} onPress={saveAsImage}>
           <Image source={require("../../../assets/icons/image.png")} style={{ width: 45, height: 45 }}></Image>
-          <Text style={[styles.textStyle, { color: "#f69833" }]}>Save or Share as</Text>
-          <Text style={[styles.textStyle, { color: "#f69833" }]}>an Image file</Text>
+          <Text style={[styles.textStyle, { color: "#f69833", marginBottom:0 }]}>{i18n.t("showQRSaveOrShareAs")}</Text>
+          <Text style={[styles.textStyle, { color: "#f69833", marginBottom:0 }]}>{i18n.t("showQRanImageFile")}</Text>
         </TouchableOpacity>
       </View>
+
+      <TouchableOpacity style={{ flexDirection: 'row', width: "100%", alignItems: 'center', marginTop: 15}} onPress={()=> { Linking.openURL(qrKey+"&m=1") }}>
+        <Text style={[styles.textStyle, { color: "#b5c1c9", marginBottom:0 }]}>{i18n.t("showQRLookWhatTheyWillSee")}{" "}</Text>
+        <FontAwesome5 name="external-link-alt" size={15} color="#b5c1c9" />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -184,7 +193,7 @@ const styles = StyleSheet.create({
   },
   textStyle : {
     fontFamily: "SF-Pro-Display",
-    fontSize: 17,
+    fontSize: 16,
     fontWeight: "normal",
     fontStyle: "normal",
     letterSpacing: 0,

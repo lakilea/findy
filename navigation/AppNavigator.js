@@ -10,12 +10,19 @@ import StoreNavigator from "../screens/tabNavigators/StoreNavigator";
 import NotificationsNavigator from "../screens/tabNavigators/NotificationsNavigator";
 import SettingsNavigator from "../screens/tabNavigators/SettingsNavigator";
 import MyTabBar from "../components/MyTabBar";
+import i18n from 'i18n-js';
 
 const Tab = createBottomTabNavigator();
 
 const AppNavigator = () => {
-  const {user} = useContext(AuthContext);
+  const {user,appSettings} = useContext(AuthContext);
   const [notificationCount, setNotificationCount] = useState(null);
+
+  i18n.locale = appSettings.language;
+  i18n.translations = { 
+    en: require("../localizations/en.json"), 
+    tr: require("../localizations/tr.json"),  
+  };
 
   useEffect(() => {
     firestore().collection('UserNotifications')
@@ -41,7 +48,7 @@ const AppNavigator = () => {
         name="StoreNavigator" 
         component={StoreNavigator}
         options={{
-          tabBarLabel: 'Store',
+          tabBarLabel: i18n.t("tabStore"),
           tabBarIcon: ({ color, size }) => (
             <FontAwesome name="store" color={color} size={25} />
           ),
@@ -52,7 +59,7 @@ const AppNavigator = () => {
         name="MyQRList" 
         component={MyQRsNavigator}
         options={{
-          tabBarLabel: 'My QRs',
+          tabBarLabel: i18n.t("tabMyQrList"),
           tabBarIcon: ({ color, size }) => (
             <FontAwesome name="list" color={color} size={25} />
           ),
@@ -63,7 +70,7 @@ const AppNavigator = () => {
         name="Create" 
         component={CreateQRNavigator}
         options={{
-          tabBarLabel: 'Create',
+          tabBarLabel: i18n.t("tabCreate"),
           tabBarIcon: ({ color, size }) => (
             <Image 
               source={require('../assets/icons/new.png')}
@@ -77,7 +84,7 @@ const AppNavigator = () => {
         name="Notifications" 
         component={NotificationsNavigator}
         options={{
-          tabBarLabel: 'Notifications',
+          tabBarLabel: i18n.t("tabNotifications"),
           tabBarIcon: ({ color, size }) => (
             <FontAwesome name="bell" color={color} size={25} />
           ),
@@ -89,7 +96,7 @@ const AppNavigator = () => {
         name="Settings" 
         component={SettingsNavigator}
         options={{
-          tabBarLabel: 'Settings',
+          tabBarLabel: i18n.t("tabSettings"),
           tabBarIcon: ({ color, size }) => (
             <FontAwesome name="cog" color={color} size={25} />
           )

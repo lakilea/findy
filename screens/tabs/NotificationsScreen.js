@@ -63,14 +63,12 @@ const NotificationsScreen = ({navigation}) => {
         data = {notifications}
         style={styles.listStyle}
         renderItem = { ({ item })=> (
-          <TouchableOpacity 
-            style={[styles.itemStyle]} 
-            onPress={ ()=> onNotificationPress(item)}>
+          <TouchableOpacity style={[styles.itemStyle]} onPress={ ()=> onNotificationPress(item)}>
             {item.isRead ? null : <View style={styles.oval}></View>}
-            <View style={{width:"80%"}}>
+            <View>
               <Text style={[styles.itemTextStyle, { color : item.isRead ? "#b5c1c9" : "#2f2e41" }]}>{item.text}</Text>
             </View>
-            {item.navigation ? <Image style={{ height: 25, width: 25 }} source={require('../../assets/icons/right.png')} /> : null }
+            {item.navigation ? <Image style={{ height: 25, width: 25, position: "absolute", right: 10 }} source={require('../../assets/icons/right.png')} /> : null }
           </TouchableOpacity>
         )}
       />
@@ -97,7 +95,7 @@ const styles = StyleSheet.create({
     fontStyle: "normal",
     letterSpacing: 0,
     color: "#b5c1c9",
-    marginLeft: 10
+    marginLeft: 10,
   },
   itemStyle: {
     width: '100%',
@@ -105,7 +103,8 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     marginTop : 15,
     flexDirection: "row",
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
+    alignItems: "center",
     borderRadius: 5,
     backgroundColor: "#ffffff",
     shadowColor: "rgba(0, 0, 0, 0.06)",
@@ -117,7 +116,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     borderStyle: "solid",
     borderWidth: 0.5,
-    borderColor: "rgba(171, 180, 189, 0.35)"
+    borderColor: "rgba(171, 180, 189, 0.35)",
+    paddingRight: 20
   },
   itemTextStyle: {
     fontFamily: "SF-Pro-Display",
@@ -126,7 +126,8 @@ const styles = StyleSheet.create({
     fontStyle: "normal",
     letterSpacing: 0,
     color: "#2f2e41",
-    lineHeight: 18
+    lineHeight: 18,
+    marginLeft: 5
   },
   oval : {
     width: 12,

@@ -1,0 +1,20 @@
+{
+  "welcomeNotification": "Welcome to findy, to create a first QR, you need to add a contact item on the 'Settings' screen.",
+  "continue" : "Continue",
+  "beforeWelcome": "Welcome to ",
+  "afterWelcome": "",
+  "storeTopInfo": "You will be able to order any of the stickers below, keep following...",
+  "tabStore": "Store",
+  "tabMyQrList": "My QRs",
+  "tabCreate": "Create",
+  "tabNotifications": "Notifications",
+  "tabSettings": "Settings",
+  "myQRListHeaderBeforeCount": "Currently you've",
+  "myQRListHeaderAfterCount": "QR code(s), you can create",
+  "myQRListHeaderBeforeIcon": "QR by using ",
+  "myQRListHeaderAfterIcon": "button!",
+  "showQRSaveOrShareAs": "Save or Share as",
+  "showQRaPDFFile": "a PDF file",
+  "showQRanImageFile": "an Image file",
+  "showQRLookWhatTheyWillSee": "Look, what they will see?"
+}

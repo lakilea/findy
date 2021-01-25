@@ -63,7 +63,8 @@ export default function MyTabBar({ state, descriptors, navigation }) {
               onLongPress={onLongPress}
               style={{ width: "20%", alignItems: "center", justifyContent: "flex-end", marginTop: -55 }}
             >
-              { Icon? <Icon color={isFocused ? '#f69833' : '#b5c1c9'}></Icon> : null }
+              <Icon color={isFocused ? '#f69833' : '#b5c1c9'}></Icon>
+              {options.tabBarBadge ? <View style={{width:10,height:10, borderRadius:10, backgroundColor:"#f69833", position: "absolute", top:25, right: 20}}></View> : null }
               <Text style={[{ color: isFocused ? '#f69833' : '#b5c1c9' }, styles.textStyle ]}>
                 {label}
               </Text>

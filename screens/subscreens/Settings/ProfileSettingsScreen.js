@@ -42,7 +42,7 @@ const ProfileSettingsScreen = ({ navigation }) => {
       .set({
         fullname: fullname,
         language: language,
-      })
+      }, { merge : true })
       .then(() => {
         console.log('User saved!');
       });

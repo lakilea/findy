@@ -1,0 +1,20 @@
+{
+  "welcomeNotification": "findy'e hoşgeldınız, ilk QR kodunuzu oluşturmadan önce 'Ayarlar' ekranında bir iletişim bilgisi girmeliniz.",
+  "continue" : "ilerle",
+  "beforeWelcome": "",
+  "afterWelcome": "e hoşgeldiniz",
+  "storeTopInfo": "Çok yakında aşağıdaki ürünlerden herhangi birini sipariş verebileceksiniz, takip etmeye devam edin...",
+  "tabStore": "Mağaza",
+  "tabMyQrList": "QR Listem",
+  "tabCreate": "Oluştur",
+  "tabNotifications": "Bildirimler",
+  "tabSettings": "Ayarlar",
+  "myQRListHeaderBeforeCount": "Toplamda",
+  "myQRListHeaderAfterCount": "QR oluşturdunuz, daha fazla",
+  "myQRListHeaderBeforeIcon": "oluşturmak için ",
+  "myQRListHeaderAfterIcon": "simgesine dokunun!",
+  "showQRSaveOrShareAs": "Kaydet veya Paylaş",
+  "showQRaPDFFile": "PDF Dosyası",
+  "showQRanImageFile": "Resim Dosyası",
+  "showQRLookWhatTheyWillSee": "Bu QR'ı okutanların ne göreceğine bak"
+}

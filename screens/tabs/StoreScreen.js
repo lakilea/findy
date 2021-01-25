@@ -1,9 +1,14 @@
 //import liraries
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { AuthContext } from '../../navigation/AuthProvider';
+import i18n from 'i18n-js';
 
 // create a component
 const StoreScreen = ({ navigation }) => {
+  const {appSettings} = useContext(AuthContext);
+
+  console.log(appSettings)
   
   useEffect(()=> {
     navigation.setOptions({ title : "Store" });
@@ -13,14 +18,17 @@ const StoreScreen = ({ navigation }) => {
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <Text style={styles.headerTextLight}>
-          Welcome to 
+          {i18n.t("beforeWelcome")} 
         </Text>
         <Text style={styles.headerTextBold}>
-          {" "}findy
+          findy
+        </Text>
+        <Text style={styles.headerTextLight}>
+          {i18n.t("afterWelcome")} 
         </Text>
       </View>
       <Text style={styles.textStyle}>
-        You will be able to order any of the stickers below, keep following... 
+        {i18n.t("storeTopInfo")} 
       </Text>
     </View>
   );

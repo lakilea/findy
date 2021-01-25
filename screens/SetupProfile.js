@@ -10,13 +10,31 @@ import { Picker} from '@react-native-picker/picker';
 import { windowHeight } from '../utils/Dimensions';
 import AsyncStorage from '@react-native-community/async-storage'
 import messaging from "@react-native-firebase/messaging";
+import * as Localization from 'expo-localization';
+import i18n from 'i18n-js';
 
 // create a component
 const SetupProfile = ({ navigation }) => {
-  const {user} = useContext(AuthContext);
+  const {user,appSettings,setAppSettings} = useContext(AuthContext);
+
+  i18n.translations = { 
+    en: require("../localizations/en.json"), 
+    tr: require("../localizations/tr.json"),  
+  };
+
+  let deviceLocalization = "";
+
+  if (Localization.locale.indexOf("tr")!=-1) {
+    deviceLocalization = "Turkish";
+    i18n.locale = "tr"
+  }
+  else {
+    deviceLocalization = "English";
+    i18n.locale = "en"
+  }
   
   const [fullname,setFullname] = useState("");
-  const [language,setLanguage] = useState("English");
+  const [language,setLanguage] = useState(deviceLocalization);
   const [fcmToken,setFcmToken] = useState(null);
   const [isLoading,setIsLoading] = useState(false);
 
@@ -27,7 +45,8 @@ const SetupProfile = ({ navigation }) => {
       .collection('Users')
       .doc(user.uid)
       .onSnapshot(x => {
-        if (x.data()) {
+        console.log(x)
+        if (x && x.data()) {
           setFullname(x.data().fullname);
           setLanguage(x.data().language);
           setFcmToken(x.data().fcmToken)
@@ -48,8 +67,16 @@ const SetupProfile = ({ navigation }) => {
       }, {merge: true})
       .then(() => {
         setTimeout(() => {
+          if (language === "Turkish") {
+            setAppSettings({language:"tr"});
+            i18n.locale = "tr";
+          }else {
+            setAppSettings({language:"en"});
+            i18n.locale = "en";
+          }
+
           firestore().collection('UserNotifications').add({
-            text:"Welcome to findy, to create a first QR, you need to add a contact item on the 'Settings' screen.",
+            text:i18n.t('welcomeNotification'),
             isRead:false,
             navigation:"Settings",
             userId: user.uid,
@@ -79,7 +106,8 @@ const SetupProfile = ({ navigation }) => {
   const getToken = async ()=>{
     const token = await messaging().getToken();
     firestore().collection('Users').doc(user.uid).set({
-      fcmToken : token
+      fcmToken : token,
+      language : language
     }, {merge: true});
   }
 
@@ -126,17 +154,23 @@ const SetupProfile = ({ navigation }) => {
           selectedValue={language}
           style={styles.pickerStyle}
           onValueChange={(itemValue, itemIndex) => {
-            setLanguage(itemValue)
+            if (itemValue === "Turkish") {
+              setAppSettings({language:"tr"});
+              i18n.locale = "tr";
+            }else {
+              setAppSettings({language:"en"});
+              i18n.locale = "en";
+            }
+            setLanguage(itemValue);
           }}
         >
-          <Picker.Item label="Preffered Language" value="" />
           <Picker.Item label="English" value="English" />
           <Picker.Item label="Turkish" value="Turkish" />
         </Picker>
       </View>
 
       <TouchableOpacity style={[styles.buttonContainer, { backgroundColor: "#543c52" }]} onPress={onSavePress}>
-        <Text style={styles.buttonText}>Continue</Text>
+        <Text style={styles.buttonText}>{i18n.t('continue')}</Text>
       </TouchableOpacity>
     </View>
   );

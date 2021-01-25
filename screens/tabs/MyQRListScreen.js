@@ -5,6 +5,7 @@ import { AuthContext } from '../../navigation/AuthProvider';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Spinner from 'react-native-loading-spinner-overlay';
 import firestore from '@react-native-firebase/firestore';
+import i18n from 'i18n-js';
 
 // create a component
 const MyQRListScreen = ({ navigation }) => {
@@ -37,18 +38,18 @@ const MyQRListScreen = ({ navigation }) => {
       />
 
       <Text style={[ styles.textStyle, {marginTop: 5} ]}>
-        Currently you've {qrs.length} QR code(s), you can create
+        {i18n.t("myQRListHeaderBeforeCount")} {qrs.length} {i18n.t("myQRListHeaderAfterCount")}
       </Text>
       <View style={{ width: "100%", flexDirection: 'row', alignItems: "center", marginBottom: 10}}>
         <Text style={[ styles.textStyle ]}>
-          QR by using{"  "}
+          {i18n.t("myQRListHeaderBeforeIcon")}
         </Text>
         <Image
           source={require('../../assets/icons/new.png')}
           style={{width: 20,height: 20}}
         />
         <Text style={[ styles.textStyle ]}>
-          button!
+          {i18n.t("myQRListHeaderAfterIcon")}
         </Text>
       </View>
 
