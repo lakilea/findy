@@ -9,6 +9,7 @@
   "tabCreate": "Create",
   "tabNotifications": "Notifications",
   "tabSettings": "Settings",
+  "tabChats": "Chat",
   "myQRListHeaderBeforeCount": "Currently you've",
   "myQRListHeaderAfterCount": "QR code(s), you can create",
   "myQRListHeaderBeforeIcon": "QR by using ",
@@ -16,5 +17,6 @@
   "showQRSaveOrShareAs": "Save or Share as",
   "showQRaPDFFile": "a PDF file",
   "showQRanImageFile": "an Image file",
-  "showQRLookWhatTheyWillSee": "Look, what they will see?"
+  "showQRLookWhatTheyWillSee": "Look, what they will see?",
+  "createQrAllowUsersChat": "Allow users to chat with me"
 }

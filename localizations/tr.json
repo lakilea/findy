@@ -9,6 +9,7 @@
   "tabCreate": "Oluştur",
   "tabNotifications": "Bildirimler",
   "tabSettings": "Ayarlar",
+  "tabChats": "Mesajlar",
   "myQRListHeaderBeforeCount": "Toplamda",
   "myQRListHeaderAfterCount": "QR oluşturdunuz, daha fazla",
   "myQRListHeaderBeforeIcon": "oluşturmak için ",
@@ -16,5 +17,6 @@
   "showQRSaveOrShareAs": "Kaydet veya Paylaş",
   "showQRaPDFFile": "PDF Dosyası",
   "showQRanImageFile": "Resim Dosyası",
-  "showQRLookWhatTheyWillSee": "Bu QR'ı okutanların ne göreceğine bak"
+  "showQRLookWhatTheyWillSee": "Bu QR'ı okutanların ne göreceğine bak",
+  "createQrAllowUsersChat": "Kullanıcılar benimle mesajlaşabilsin"
 }

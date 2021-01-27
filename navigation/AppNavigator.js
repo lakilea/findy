@@ -1,40 +1,26 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, Image } from 'react-native';
+import { Image } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {AuthContext} from './AuthProvider';
-import firestore from '@react-native-firebase/firestore';
 import MyQRsNavigator from "../screens/tabNavigators/MyQRsNavigator";
 import CreateQRNavigator from "../screens/tabNavigators/CreateQRNavigator";
 import StoreNavigator from "../screens/tabNavigators/StoreNavigator";
-import NotificationsNavigator from "../screens/tabNavigators/NotificationsNavigator";
 import SettingsNavigator from "../screens/tabNavigators/SettingsNavigator";
 import MyTabBar from "../components/MyTabBar";
 import i18n from 'i18n-js';
+import ChatNavigator from "../screens/tabNavigators/ChatNavigator";
 
 const Tab = createBottomTabNavigator();
 
 const AppNavigator = () => {
-  const {user,appSettings} = useContext(AuthContext);
-  const [notificationCount, setNotificationCount] = useState(null);
+  const {appSettings} = useContext(AuthContext);
 
   i18n.locale = appSettings.language;
   i18n.translations = { 
     en: require("../localizations/en.json"), 
     tr: require("../localizations/tr.json"),  
   };
-
-  useEffect(() => {
-    firestore().collection('UserNotifications')
-    .where('userId', '==', user.uid)
-    .where('isRead', '==', false)
-    .onSnapshot(querySnapshot => { 
-      if (querySnapshot._docs.length === 0)
-        setNotificationCount(null);
-      else
-        setNotificationCount(querySnapshot._docs.length);
-    });
-  }, []);
 
   return (
     <Tab.Navigator
@@ -81,14 +67,14 @@ const AppNavigator = () => {
         key={3} 
       />
       <Tab.Screen 
-        name="Notifications" 
-        component={NotificationsNavigator}
+        name="Chats" 
+        component={ChatNavigator}
         options={{
-          tabBarLabel: i18n.t("tabNotifications"),
+          tabBarLabel: i18n.t("tabChats"),
           tabBarIcon: ({ color, size }) => (
-            <FontAwesome name="bell" color={color} size={25} />
+            <FontAwesome name="comments" color={color} size={25} />
           ),
-          tabBarBadge: notificationCount
+          //tabBarBadge: notificationCount
         }}
         key={4} 
       />

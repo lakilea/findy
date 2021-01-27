@@ -1,6 +1,6 @@
 //import liraries
 import React, { useContext, useState } from 'react';
-import { View, Text, StyleSheet, Image, TextInput, FlatList, SafeAreaView, Keyboard, TouchableOpacity, BackHandler } from 'react-native';
+import { View, Text, StyleSheet, Image, TextInput, FlatList, SafeAreaView, Keyboard, TouchableOpacity, BackHandler, Switch } from 'react-native';
 import { windowWidth } from '../../utils/Dimensions';
 import { AuthContext } from '../../navigation/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
@@ -10,6 +10,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import Toast from 'react-native-simple-toast';
 import analytics from '@react-native-firebase/analytics';
+import i18n from 'i18n-js';
 
 // create a component
 const CreateQRScreen = ({ navigation, route }) => {
@@ -21,7 +22,8 @@ const CreateQRScreen = ({ navigation, route }) => {
     qrName : "",
     qrDescription: "",
     userId: user.uid,
-    selectedItems: []
+    selectedItems: [],
+    isChatEnabled: false
   });
 
   useFocusEffect(
@@ -231,6 +233,17 @@ const CreateQRScreen = ({ navigation, route }) => {
         </TouchableOpacity>
       </View>
 
+      <View style={styles.switchContainer}>
+        <Text style={{ color : "#000" }}>{i18n.t("createQrAllowUsersChat")}</Text>
+        <Switch
+          trackColor={{ false: "#767577", true: "#767577" }}
+          thumbColor={state.isChatEnabled ? "#f69833" : "#f4f3f4"}
+          ios_backgroundColor="#3e3e3e"
+          onValueChange={() => setState({ ... state, isChatEnabled : !state.isChatEnabled })}
+          value={state.isChatEnabled}
+        />
+      </View>
+
       <SaveCancelButton 
         navigation={ navigation }
         onCancelPress = { ()=> navigation.navigate("Store") }
@@ -333,6 +346,26 @@ const styles = StyleSheet.create({
     backgroundColor: "#f4f4f4",
     paddingTop: 20
   },
+  switchContainer: {
+    flexDirection: 'row',
+    width: '100%',
+    alignItems: 'center',
+    backgroundColor: "#ffffff",
+    shadowColor: "rgba(0, 0, 0, 0.06)",
+    shadowOffset: {
+      width: 0,
+      height: 5
+    },
+    shadowRadius: 25,
+    shadowOpacity: 1,
+    borderStyle: "solid",
+    borderWidth: 0.5,
+    borderColor: "rgba(171, 180, 189, 0.35)",
+    elevation: 4,
+    paddingVertical: 10,
+    paddingHorizontal: 17,
+    justifyContent: "space-between"
+  },
   noInfoContainer: {
     flex:1,
     justifyContent: 'center',
@@ -424,7 +457,8 @@ const styles = StyleSheet.create({
     borderColor: "rgba(171, 180, 189, 0.35)",
     elevation: 4,
     paddingVertical: 15,
-    paddingLeft: 17
+    paddingLeft: 17,
+    marginBottom: 20
   },
   textStyle: {
     fontFamily: "SF-Pro-Display",
