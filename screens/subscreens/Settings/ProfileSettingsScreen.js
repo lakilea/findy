@@ -9,6 +9,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import SaveCancelButton from '../../../components/SaveCancelButton';
 import Spinner from 'react-native-loading-spinner-overlay';
 import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 
 // create a component
 const ProfileSettingsScreen = ({ navigation }) => {
@@ -37,6 +38,10 @@ const ProfileSettingsScreen = ({ navigation }) => {
 
   onSavePress = () => {
     setIsLoading(true);
+
+    auth().currentUser.updateProfile({
+      displayName: fullname
+    });
 
     firestore().collection('Users').doc(user.uid)
       .set({

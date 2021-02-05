@@ -10,6 +10,7 @@ import { Picker} from '@react-native-picker/picker';
 import { windowHeight } from '../utils/Dimensions';
 import AsyncStorage from '@react-native-community/async-storage'
 import messaging from "@react-native-firebase/messaging";
+import auth from '@react-native-firebase/auth';
 import * as Localization from 'expo-localization';
 import i18n from 'i18n-js';
 
@@ -59,6 +60,10 @@ const SetupProfile = ({ navigation }) => {
 
   const onSavePress = () => {
     setIsLoading(true);
+
+    auth().currentUser.updateProfile({
+      displayName: fullname
+    });
 
     firestore().collection('Users').doc(user.uid)
       .set({

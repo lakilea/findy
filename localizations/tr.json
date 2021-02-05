@@ -18,5 +18,13 @@
   "showQRaPDFFile": "PDF Dosyası",
   "showQRanImageFile": "Resim Dosyası",
   "showQRLookWhatTheyWillSee": "Bu QR'ı okutanların ne göreceğine bak",
-  "createQrAllowUsersChat": "Kullanıcılar benimle mesajlaşabilsin"
+  "createQrAllowUsersChat": "Mesaj gönderilmesine izin ver",
+  "createQrQrNamePlaceHolder": "QR'a bir isim ver (örnek: Mavi Valizim)",
+  "createQrQrDescriptionPlaceHolder": "Açıklama (birisi QR'ını okuttuğunda buraya yazdığın metni görebilecek)",
+  "createQrSelectorText": "Bu QR okutulduğunda hangi bilgilerinin görünmesini istersin?",
+  "createQrSelectorPlaceHolder": "İletişim bilgisi seç",
+  "createQrSelector1ItemLeftText": "",
+  "createQrSelector1ItemRightText": " seçtin.",
+  "createQrSelectorMultipleItemLeftText": "",
+  "createQrSelectorMultipleItemRightText": " iletişim bilgisi seçtin."
 }

@@ -23,7 +23,7 @@ const CreateQRScreen = ({ navigation, route }) => {
     qrDescription: "",
     userId: user.uid,
     selectedItems: [],
-    isChatEnabled: false
+    isChatEnabled: true
   });
 
   useFocusEffect(
@@ -131,11 +131,11 @@ const CreateQRScreen = ({ navigation, route }) => {
     });
 
     if (selectedCount === 0)
-      return "Choose Items";
+      return i18n.t("createQrSelectorPlaceHolder");
     else if (selectedCount === 1)
-      return "You've selected "+selectedItems[0].text+"."
+      return i18n.t("createQrSelectorPlaceHolder")+selectedItems[0].text+i18n.t("createQrSelectorPlaceHolder")
     else
-      return "You've selected "+selectedCount+" items."
+      return i18n.t("createQrSelectorMultipleItemLeftText")+selectedCount+i18n.t("createQrSelectorMultipleItemRightText")
   }
 
   createQrCode = async ()=> {
@@ -171,7 +171,7 @@ const CreateQRScreen = ({ navigation, route }) => {
         if (documentSnapshot.exists) {
           setIsLoading(false);
           console.log('User data: ', documentSnapshot.data());
-          navigation.navigate("CreateQR/ShowQR", { qr : documentSnapshot.data(), title: "QR : " + state.qrName });
+          navigation.navigate("CreateQR/ShowQR", { qr : { key: documentSnapshot.id, ...documentSnapshot.data() }, title: "QR : " + state.qrName });
         }
       })
     });
@@ -204,7 +204,7 @@ const CreateQRScreen = ({ navigation, route }) => {
           value={state.qrName}
           style={styles.inputText}
           numberOfLines={1}
-          placeholder="Enter QR name (ex: My Blue Bag)"
+          placeholder={i18n.t("createQrQrNamePlaceHolder")}
           placeholderTextColor="#b5c1c9"
           maxLength={30}
           onChangeText={(x) => setState({ ...state, qrName: x })}
@@ -216,7 +216,7 @@ const CreateQRScreen = ({ navigation, route }) => {
         value={state.qrDescription}
         style={[styles.textArea]}
         numberOfLines={4}
-        placeholder="Description (when someone scan this QR code, this message will appear)"
+        placeholder={i18n.t("createQrQrDescriptionPlaceHolder")}
         placeholderTextColor="#b5c1c9"
         onChangeText={(x) => setState({ ...state, qrDescription: x })}
         multiline={true}
@@ -225,7 +225,7 @@ const CreateQRScreen = ({ navigation, route }) => {
 
       <View style={styles.contactContainer}>
         <Text style={styles.textStyle}>
-          Which informations you’re allowing for this QR?
+          {i18n.t("createQrSelectorText")}
         </Text>
         <TouchableOpacity style={styles.chooseItemsContainer} onPress={()=> { setShowModal(true); Keyboard.dismiss(); }}>
           <Text style={[styles.textStyle, {color:"#b5c1c9"}]}>{getSelectedItemCount()}</Text>

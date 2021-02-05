@@ -18,5 +18,13 @@
   "showQRaPDFFile": "a PDF file",
   "showQRanImageFile": "an Image file",
   "showQRLookWhatTheyWillSee": "Look, what they will see?",
-  "createQrAllowUsersChat": "Allow users to chat with me"
+  "createQrAllowUsersChat": "Allow users to chat with me",
+  "createQrQrNamePlaceHolder": "Enter QR name (ex: My Blue Bag)",
+  "createQrQrDescriptionPlaceHolder": "Description (when someone scan this QR code, this message will appear)",
+  "createQrSelectorText": "Which informations you’re allowing for this QR?",
+  "createQrSelectorPlaceHolder": "Choose Items",
+  "createQrSelector1ItemLeftText": "You've selected ",
+  "createQrSelector1ItemRightText": ".",
+  "createQrSelectorMultipleItemLeftText": "You've selected ",
+  "createQrSelectorMultipleItemRightText": "items."
 }

@@ -136,8 +136,8 @@ android {
         applicationId 'com.croone.findy'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 8
-        versionName "1.0.7"
+        versionCode 10
+        versionName "1.0.9"
         multiDexEnabled true
         missingDimensionStrategy 'react-native-camera', 'general'
     }

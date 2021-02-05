@@ -30,22 +30,24 @@ const ScanQRScreen = ({navigation}) => {
 
         if (qrData && qrData.isChatEnabled) {
           if (qrData.userId !== user.uid) {
-            firestore().collection('ChatRooms').where("users","in",[qrData.userId,user.uid]).onSnapshot(chatRooms=>{
-              const chatRoomData = chatRooms.data();
-              if (chatRoomData) {
-                //chatroom exist
+            firestore().collection('ChatRooms').where("users","array-contains-any",[qrData.userId,user.uid]).onSnapshot(chatRooms=>{
+              console.log(chatRooms.docs);
+              const chatRoomData = chatRooms.docs.length > 0 ? chatRooms.docs[0] : chatRooms;
+              if (chatRoomData.data()) {
+                navigation.navigate("Chat/Room", { id : chatRoomData.id });
               } else {
                 firestore().collection('ChatRooms').add({
                   users : [qrData.userId,user.uid],
                   createdAt : new Date().getTime(),
-                  lastMessageAt : new Date().getTime(),
-                  qrCode: qrCode,
-                  messages : [{
-                    sender: "findy",
-                    message: "Chat group created",
-                    createdAt: new Date().getTime()
-                  }]
+                  latestMessage: "Chat room created",
+                  latestMessageAt : new Date().getTime(),
+                  qrCode: qrCode
                 }).then((docRef)=>{
+                  docRef.collection("Messages").add({
+                    message: "Chat room created",
+                    createdAt: new Date().getTime(),
+                    system: true
+                  });
                   navigation.navigate("Chat/Room", { id : docRef.id });
                 });
               }
