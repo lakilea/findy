@@ -26,5 +26,7 @@
   "createQrSelector1ItemLeftText": "",
   "createQrSelector1ItemRightText": " seçtin.",
   "createQrSelectorMultipleItemLeftText": "",
-  "createQrSelectorMultipleItemRightText": " iletişim bilgisi seçtin."
+  "createQrSelectorMultipleItemRightText": " iletişim bilgisi seçtin.",
+  "storeProductKeychainDescription": "Yuvarlak anahtarlık",
+  "storeProductBusinessCardDescription": "Özelleştirilebilir kartvizit"
 }

@@ -3,7 +3,7 @@
   "continue" : "Continue",
   "beforeWelcome": "Welcome to ",
   "afterWelcome": "",
-  "storeTopInfo": "You will be able to order any of the stickers below, keep following...",
+  "storeTopInfo": "You will be able to order any of the stickers, keychains, key cards below, keep following...",
   "tabStore": "Store",
   "tabMyQrList": "My QRs",
   "tabCreate": "Create",
@@ -26,5 +26,7 @@
   "createQrSelector1ItemLeftText": "You've selected ",
   "createQrSelector1ItemRightText": ".",
   "createQrSelectorMultipleItemLeftText": "You've selected ",
-  "createQrSelectorMultipleItemRightText": "items."
+  "createQrSelectorMultipleItemRightText": "items.",
+  "storeProductKeychainDescription": "Oval keychain",
+  "storeProductBusinessCardDescription": "Customizable business card"
 }

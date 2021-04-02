@@ -61,7 +61,7 @@ const ManagePhonesScreen = ({ navigation, route }) => {
         textStyle={{ color: '#FFF' }}
       />
 
-      <Text style={[ styles.textStyle, { marginBottom: 10, marginTop: 10 } ]}>
+      <Text style={[ styles.textStyle, { marginBottom: 10, marginTop: 10, fontWeight: 'bold' } ]}>
         Currently you've {phones.length} phone number record(s), you can add more phone numbers by using the 'plus' icon.
       </Text>
 

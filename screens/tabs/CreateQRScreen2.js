@@ -28,13 +28,6 @@ const CreateQRScreen = ({ navigation, route }) => {
 
   useFocusEffect(
     React.useCallback(() => {
-      BackHandler.addEventListener('hardwareBackPress', () => {
-        if (showModal) {
-          setShowModal(false);
-          return true;
-        }
-        return false;
-      });
   
       setIsLoading(true);
   
@@ -133,7 +126,7 @@ const CreateQRScreen = ({ navigation, route }) => {
     if (selectedCount === 0)
       return i18n.t("createQrSelectorPlaceHolder");
     else if (selectedCount === 1)
-      return i18n.t("createQrSelectorPlaceHolder")+selectedItems[0].text+i18n.t("createQrSelectorPlaceHolder")
+      return i18n.t("createQrSelector1ItemLeftText")+selectedItems[0].text+i18n.t("createQrSelector1ItemRightText")
     else
       return i18n.t("createQrSelectorMultipleItemLeftText")+selectedCount+i18n.t("createQrSelectorMultipleItemRightText")
   }

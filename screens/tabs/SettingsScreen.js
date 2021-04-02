@@ -37,16 +37,9 @@ const SettingsScreen = ({ navigation }) => {
         <Image style={styles.iconStyle} source={require('../../assets/icons/right.png')} />
       </TouchableOpacity>
       <Text style={[ styles.textStyle, { marginBottom: 10, fontWeight: 'bold' } ]}>
-        You can see which information you've shared
-      </Text>
-      <TouchableOpacity style={styles.buttonContainer}>
-        <Text style={ styles.buttonText }>Show QR</Text>
-        <Image style={styles.iconStyle} source={require('../../assets/icons/right.png')} />
-      </TouchableOpacity>
-      <Text style={[ styles.textStyle, { marginBottom: 10, fontWeight: 'bold' } ]}>
         You can setup your notification settings here
       </Text>
-      <TouchableOpacity style={styles.buttonContainer}>
+      <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('NotificationSettings')}>
         <Text style={ styles.buttonText }>Notification Settings</Text>
         <Image style={styles.iconStyle} source={require('../../assets/icons/right.png')} />
       </TouchableOpacity>

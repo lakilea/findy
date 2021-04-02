@@ -17,12 +17,13 @@ const AppStack = () => {
 
   useEffect(() => {
     firestore().collection('Users').doc(user.uid).onSnapshot(querySnapshot => { 
-      console.log(querySnapshot.data())
-      if (querySnapshot.data() && querySnapshot.data().fcmToken) {
-        setAlreadyLogined(true);
-        setAppSettings({language:querySnapshot.data().language==="Turkish"?"tr":"en"});
-      } else {
-        setAlreadyLogined(false);
+      if (querySnapshot) {
+        if (querySnapshot.data() && querySnapshot.data().fcmToken) {
+          setAlreadyLogined(true);
+          setAppSettings({language:querySnapshot.data().language==="Turkish"?"tr":"en"});
+        } else {
+          setAlreadyLogined(false);
+        }
       }
     });
     

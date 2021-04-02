@@ -61,7 +61,7 @@ const ManageAddressesScreen = ({ navigation, route }) => {
         textStyle={{ color: '#FFF' }}
       />
 
-      <Text style={[ styles.textStyle, { marginBottom: 10, marginTop: 10 } ]}>
+      <Text style={[ styles.textStyle, { marginBottom: 10, marginTop: 10, fontWeight: 'bold' } ]}>
         Currently you've {addresses.length} address record(s), you can add more addresses by using the 'plus' icon.
       </Text>
 

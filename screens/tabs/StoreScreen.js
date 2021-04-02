@@ -1,6 +1,6 @@
 //import liraries
 import React, { useEffect, useContext } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import { AuthContext } from '../../navigation/AuthProvider';
 import i18n from 'i18n-js';
 
@@ -16,20 +16,32 @@ const StoreScreen = ({ navigation }) => {
   
   return (
     <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <Text style={styles.headerTextLight}>
-          {i18n.t("beforeWelcome")} 
-        </Text>
-        <Text style={styles.headerTextBold}>
-          findy
-        </Text>
-        <Text style={styles.headerTextLight}>
-          {i18n.t("afterWelcome")} 
+      <View>
+        <View style={styles.headerContainer}>
+          <Text style={styles.headerTextLight}>
+            {i18n.t("beforeWelcome")} 
+          </Text>
+          <Text style={styles.headerTextBold}>
+            findy
+          </Text>
+          <Text style={styles.headerTextLight}>
+            {i18n.t("afterWelcome")} 
+          </Text>
+        </View>
+        <Text style={styles.textStyle}>
+          {i18n.t("storeTopInfo")} 
         </Text>
       </View>
-      <Text style={styles.textStyle}>
-        {i18n.t("storeTopInfo")} 
-      </Text>
+
+      <View style={styles.productContainer}>
+        <Image source={require("../../assets/products/keychain-oval.jpg")} style={styles.productImage}></Image>
+        <Text style={styles.textStyle}>{i18n.t("storeProductKeychainDescription")}</Text>
+      </View>
+
+      <View style={styles.productContainer}>
+        <Image source={require("../../assets/products/business-card.jpg")} style={styles.productImage}></Image>
+        <Text style={styles.textStyle}>{i18n.t("storeProductBusinessCardDescription")}</Text>
+      </View>
     </View>
   );
 };
@@ -69,6 +81,18 @@ const styles = StyleSheet.create({
     fontStyle: "normal",
     letterSpacing: 0,
     color: "#b5c1c9"
+  },
+  productContainer:{
+    width: "100%",
+    marginTop: 15
+  },
+  productImage: {
+    width: "100%",
+    height: 200,
+    borderRadius: 10,
+    overflow: "hidden",
+    borderWidth: 3,
+    borderColor: "#b5c1c9"
   }
 });
 
