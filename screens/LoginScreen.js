@@ -19,7 +19,7 @@ const LoginScreen = ({navigation}) => {
   const [password, setPassword] = useState();
   const [state, setState] = useState({ isLoading: false });
 
-  const {login, googleLogin} = useContext(AuthContext);
+  const {login, googleLogin, fbLogin} = useContext(AuthContext);
 
   loginWithUserNamePass = (email,password) => {
     if (email && password) {
@@ -41,6 +41,18 @@ const LoginScreen = ({navigation}) => {
       Toast.show("Please provide email and password.");
     }
   };
+
+  loginWithFacebook = () => {
+    fbLogin(function(code) {
+      Toast.show("An account already exists with the same email address but different sign-in credentials. Sign in using a provider associated with this email address.");
+    });
+  }
+
+  loginWithGoogle = () => {
+    googleLogin(function(code) {
+      Toast.show("An account already exists with the same email address but different sign-in credentials. Sign in using a provider associated with this email address.");
+    });
+  }
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -103,7 +115,7 @@ const LoginScreen = ({navigation}) => {
         {Platform.OS === 'android' ? (
           <View style={{flexDirection:"row", marginTop: 35, justifyContent: 'space-between', width: "100%"}}>
             <TouchableOpacity style={styles.socialButton} 
-              onPress={() => googleLogin()}
+              onPress={() => loginWithGoogle()}
               >
               <Image
                 source={require('../assets/icons/google.png')}
@@ -113,7 +125,7 @@ const LoginScreen = ({navigation}) => {
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.socialButton} 
-              //onPress={() => fbLogin()}
+              onPress={() => loginWithFacebook()}
               >
               <Image
                 source={require('../assets/icons/facebook.png')}
