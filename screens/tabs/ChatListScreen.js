@@ -16,26 +16,27 @@ const ChatListScreen = ({navigation}) => {
     useCallback(()=>{
       let items = [];
       firestore().collection('ChatRooms').where("users","array-contains-any",[user.uid]).onSnapshot(chatRooms=>{
-        chatRooms.forEach(chatRoom => {
-          if (!items.find(x=>x.key === chatRoom.id)) {
-            items.push({
-              key: chatRoom.id,
-              ... chatRoom.data()
-            });
-          }
-        });
-        setChats(items);
-        console.log(items);
+        if (chatRooms) {
+          chatRooms.forEach(chatRoom => {
+            if (!items.find(x=>x.key === chatRoom.id)) {
+              items.push({
+                key: chatRoom.id,
+                ... chatRoom.data()
+              });
+            }
+          });
+          setChats(items);
+        }
       });
     },[])
   );
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text>To start a conversation you need to scan QR code.</Text>
+      <Text style={styles.textStyle}>To start a conversation you need to scan QR code.</Text>
 
       <TouchableHighlight onPress={()=> navigation.navigate("Chat/ScanQR")} style={{marginBottom:15}}>
-        <Text style={{color:"#f69833"}}>Scan QR Code</Text>
+        <Text style={[styles.textStyle, {color:"#f69833"}]}>Scan QR Code</Text>
       </TouchableHighlight>
 
       <FlatList
@@ -91,6 +92,14 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderWidth: 0.5,
     borderColor: "rgba(171, 180, 189, 0.35)"
+  },
+  textStyle: {
+    fontFamily: "SF-Pro-Display",
+    fontSize: 17,
+    fontWeight: "normal",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    color: "#b5c1c9",
   },
 });
 

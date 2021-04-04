@@ -20,10 +20,12 @@ export default HeaderLogo = ({ navigation }) => {
     .where('userId', '==', user.uid)
     .where('isRead', '==', false)
     .onSnapshot(querySnapshot => { 
-      if (querySnapshot._docs.length === 0)
-        setNotificationCount(null);
-      else
-        setNotificationCount(querySnapshot._docs.length);
+      if (querySnapshot) {
+        if (querySnapshot._docs.length === 0)
+          setNotificationCount(null);
+        else
+          setNotificationCount(querySnapshot._docs.length);
+      }
     });
   }, []);
   

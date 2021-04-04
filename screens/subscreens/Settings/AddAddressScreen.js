@@ -8,6 +8,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import SaveCancelButton from '../../../components/SaveCancelButton';
 import Spinner from 'react-native-loading-spinner-overlay';
 import firestore from '@react-native-firebase/firestore';
+import countryList from '../../../staticdata/countries.json';
 
 // create a component
 const AddAddressScreen = ({ navigation, route }) => {
@@ -110,8 +111,9 @@ const AddAddressScreen = ({ navigation, route }) => {
           }}
         >
           <Picker.Item label="Country" value="" />
-          <Picker.Item label="Turkiye" value="Turkiye" />
-          <Picker.Item label="United Kingdom" value="United Kingdom" />
+          { countryList.map((key,i) => {
+            return <Picker.Item label={key} value={key} key={i} />
+          }) }
         </Picker>
       </View>
 

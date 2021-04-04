@@ -91,7 +91,7 @@ const SignupScreen = ({navigation}) => {
           <Text style={[styles.navButtonText, {fontSize: 13}]}>
             By registering, you accept the{' '}
           </Text>
-          <TouchableOpacity onPress={() => alert('Terms Clicked!')}>
+          <TouchableOpacity onPress={() => navigation.navigate("Auth/TermsOfService") }>
             <Text style={[styles.navButtonText, {color: '#e88832',fontSize: 13}]}>
               Terms of service
             </Text>

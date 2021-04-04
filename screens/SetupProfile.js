@@ -1,6 +1,6 @@
 //import liraries
 import React, { useContext, useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, DevSettings } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, DevSettings, Image } from 'react-native';
 import { AuthContext } from '../navigation/AuthProvider';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import firestore from '@react-native-firebase/firestore';
@@ -34,7 +34,7 @@ const SetupProfile = ({ navigation }) => {
     i18n.locale = "en"
   }
   
-  const [fullname,setFullname] = useState("");
+  const [fullname,setFullname] = useState(user.displayName);
   const [language,setLanguage] = useState(deviceLocalization);
   const [fcmToken,setFcmToken] = useState(null);
   const [isLoading,setIsLoading] = useState(false);
@@ -42,13 +42,17 @@ const SetupProfile = ({ navigation }) => {
   useEffect(() => {
     setIsLoading(true);
 
+    setAppSettings({language:"en"});
+    i18n.locale = "en";
+    setLanguage("English");
+
     const subscriber = firestore()
       .collection('Users')
       .doc(user.uid)
       .onSnapshot(x => {
         console.log(x)
         if (x && x.data()) {
-          setFullname(x.data().fullname);
+          setFullname((x.data().fullname || user.displayName));
           setLanguage(x.data().language);
           setFcmToken(x.data().fcmToken)
         }
@@ -136,6 +140,12 @@ const SetupProfile = ({ navigation }) => {
         textStyle={{ color: '#FFF' }}
       />
 
+      <Image source={require('../assets/logo.png')} />
+
+      <Text style={[ styles.textStyle, {marginBottom: 10} ]}>
+        Let's start with first time setup
+      </Text>
+
       <FormInput
         labelValue={fullname}
         onChangeText={(fullname) => setFullname(fullname)}
@@ -151,7 +161,7 @@ const SetupProfile = ({ navigation }) => {
         style={{ color : "#CCCCCC"}}
       />
 
-      <View style={styles.pickerContainer}>
+      {/* <View style={styles.pickerContainer}>
         <View style={styles.iconStyle}>
           <FontAwesome5 name="language" size={25} color="#666" />
         </View>
@@ -172,9 +182,9 @@ const SetupProfile = ({ navigation }) => {
           <Picker.Item label="English" value="English" />
           <Picker.Item label="Turkish" value="Turkish" />
         </Picker>
-      </View>
+      </View> */}
 
-      <TouchableOpacity style={[styles.buttonContainer, { backgroundColor: "#543c52" }]} onPress={onSavePress}>
+      <TouchableOpacity style={[styles.buttonContainer]} onPress={onSavePress}>
         <Text style={styles.buttonText}>{i18n.t('continue')}</Text>
       </TouchableOpacity>
     </View>
@@ -222,14 +232,26 @@ const styles = StyleSheet.create({
     padding: 10,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 3
+    borderRadius: 7,
+    backgroundColor: "#f69833",
   },
   buttonText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: "#ffffff",
-    fontFamily: "Lato-Regular"
-  }
+    fontFamily: "SF-Pro-Display",
+    fontSize: 15,
+    fontWeight: "500",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    textAlign: "center",
+    color: "#ffffff"
+  },
+  textStyle: {
+    fontFamily: "SF-Pro-Display",
+    fontSize: 17,
+    fontWeight: "normal",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    color: "#b5c1c9",
+  },
 });
 
 //make this component available to the app

@@ -6,6 +6,8 @@ import { GoogleSignin } from '@react-native-community/google-signin';
 import OnBoardingScreen from '../screens/OnBoardingScreen';
 import LoginScreen from '../screens/LoginScreen';
 import SignupScreen from '../screens/SignupScreen';
+import TermsOfServiceScreen from "../screens/TermsOfServiceScreen";
+import PrivacyPolicyScreen from '../screens/PrivacyPolicyScreen';
 
 const Stack = createStackNavigator();
 
@@ -41,6 +43,8 @@ const AuthStack = () => {
       <Stack.Screen name="OnBoarding" component={OnBoardingScreen} options={{header: ()=> null}} />
       <Stack.Screen name="Login" component={LoginScreen} options={{header: ()=> null}} />
       <Stack.Screen name="Signup" component={SignupScreen} options={{header: ()=> null}} />
+      <Stack.Screen name="Auth/TermsOfService" component={TermsOfServiceScreen} options={{ title:"Terms Of Service" }}/>
+      <Stack.Screen name="Auth/PrivacyPolicy" component={PrivacyPolicyScreen} options={{ title:"Privacy Policy" }}/>
     </Stack.Navigator>
   );
 }

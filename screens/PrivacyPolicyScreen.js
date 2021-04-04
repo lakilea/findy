@@ -1,13 +1,12 @@
 //import liraries
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { WebView } from 'react-native-webview';
 
 // create a component
 const PrivacyPolicyScreen = () => {
   return (
-    <View style={styles.container}>
-      <Text>PrivacyPolicyScreen</Text>
-    </View>
+    <WebView source={{ uri: 'https://findy.croone.co.uk/findy-privacy-policy' }} />
   );
 };
 

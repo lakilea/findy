@@ -16,16 +16,18 @@ const MyQRListScreen = ({ navigation }) => {
   useEffect(()=>{
     firestore().collection("UserQRCodes").where("userId", "==", user.uid).onSnapshot(userQRCodeResult => {
       const qrList = [];
-      userQRCodeResult.forEach(userQRCode => {
-        let qrItem = {
-          ... userQRCode.data(),
-          key: userQRCode.id,
-        };
+      if (userQRCodeResult) {
+        userQRCodeResult.forEach(userQRCode => {
+          let qrItem = {
+            ... userQRCode.data(),
+            key: userQRCode.id,
+          };
 
-        qrList.push(qrItem);
-      });
+          qrList.push(qrItem);
+        });
 
-      setQrs(qrList);
+        setQrs(qrList);
+      }
     });
   },[]);
 
@@ -127,7 +129,6 @@ const styles = StyleSheet.create({
     fontStyle: "normal",
     letterSpacing: 0,
     color: "#b5c1c9",
-    marginLeft: 10
   },
   itemStyle: {
     width: '100%',
