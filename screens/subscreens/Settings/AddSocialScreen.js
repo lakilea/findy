@@ -113,6 +113,7 @@ const AddSocialScreen = ({ navigation, route }) => {
           <Picker.Item label="Platform" value="" />
           <Picker.Item label="Facebook" value="facebook.com" />
           <Picker.Item label="Twitter" value="twitter.com" />
+          <Picker.Item label="Instagram" value="instagram.com" />
         </Picker>
       </View>
 

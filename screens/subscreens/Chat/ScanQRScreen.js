@@ -33,18 +33,18 @@ const ScanQRScreen = ({navigation}) => {
             firestore().collection('ChatRooms').where("users","array-contains-any",[qrData.userId,user.uid]).onSnapshot(chatRooms=>{
               console.log(chatRooms.docs);
               const chatRoomData = chatRooms.docs.length > 0 ? chatRooms.docs[0] : chatRooms;
-              if (chatRoomData.data()) {
+              if (chatRoomData.data && chatRoomData.data()) {
                 navigation.navigate("Chat/Room", { id : chatRoomData.id });
               } else {
                 firestore().collection('ChatRooms').add({
                   users : [qrData.userId,user.uid],
                   createdAt : new Date().getTime(),
-                  latestMessage: "Chat room created",
+                  latestMessage: "Chat room has been created",
                   latestMessageAt : new Date().getTime(),
                   qrCode: qrCode
                 }).then((docRef)=>{
                   docRef.collection("Messages").add({
-                    message: "Chat room created",
+                    message: "Chat room has been created",
                     createdAt: new Date().getTime(),
                     system: true
                   });
