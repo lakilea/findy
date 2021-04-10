@@ -1,8 +1,9 @@
 //import liraries
 import React, { useContext } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native';
+import { Text, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native';
 import {AuthContext} from '../../navigation/AuthProvider';
-import { windowHeight, windowWidth } from "../../utils/Dimensions";
+import { windowHeight } from "../../utils/Dimensions";
+import i18n from 'i18n-js';
 
 // create a component
 const SettingsScreen = ({ navigation }) => {
@@ -11,43 +12,43 @@ const SettingsScreen = ({ navigation }) => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={[ styles.textStyle, { marginBottom: 10, marginTop: 10, fontWeight: 'bold' } ]}>
-        Before you create a QR, you need to fill some info.
+        { i18n.t("settingTopInfoText") }
       </Text>
       <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('ProfileSettings')}>
-        <Text style={ styles.buttonText }>Profile Settings</Text>
+        <Text style={ styles.buttonText }>{ i18n.t("settingProfileSettingText") }</Text>
         <Image style={styles.iconStyle} source={require('../../assets/icons/right.png')} />
       </TouchableOpacity>
       <Text style={[ styles.textStyle, { marginBottom: 10, fontWeight: 'bold' } ]}>
-        Contact preferences
+        { i18n.t("settingContactPreferencesText") }
       </Text>
       <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('ManageAddresses')}>
-        <Text style={ styles.buttonText }>Manage Addresses</Text>
+        <Text style={ styles.buttonText }>{ i18n.t("settingManageAddressesText") }</Text>
         <Image style={styles.iconStyle} source={require('../../assets/icons/right.png')} />
       </TouchableOpacity>
       <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('ManagePhones')}>
-        <Text style={ styles.buttonText }>Manage Phone Numbers</Text>
+        <Text style={ styles.buttonText }>{ i18n.t("settingManagePhoneNumbersText") }</Text>
         <Image style={styles.iconStyle} source={require('../../assets/icons/right.png')} />
       </TouchableOpacity>
       <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('ManageEmails')}>
-        <Text style={ styles.buttonText }>Manage Email Addresses</Text>
+        <Text style={ styles.buttonText }>{ i18n.t("settingManageEmailAddressesText") }</Text>
         <Image style={styles.iconStyle} source={require('../../assets/icons/right.png')} />
       </TouchableOpacity>
       <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('ManageSocial')}>
-        <Text style={ styles.buttonText }>Manage Social Media Accounts</Text>
+        <Text style={ styles.buttonText }>{ i18n.t("settingManageSocialMediaAccountsText") }</Text>
         <Image style={styles.iconStyle} source={require('../../assets/icons/right.png')} />
       </TouchableOpacity>
       <Text style={[ styles.textStyle, { marginBottom: 10, fontWeight: 'bold' } ]}>
-        You can setup your notification settings here
+        { i18n.t("settingNotificationInfoText") }
       </Text>
       <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('NotificationSettings')}>
-        <Text style={ styles.buttonText }>Notification Settings</Text>
+        <Text style={ styles.buttonText }>{ i18n.t("settingNotificationSettingsText") }</Text>
         <Image style={styles.iconStyle} source={require('../../assets/icons/right.png')} />
       </TouchableOpacity>
       <Text style={[ styles.textStyle, { marginBottom: 10, fontWeight: 'bold' } ]}>
-        Account
+        { i18n.t("settingAccountText") }
       </Text>
       <TouchableOpacity style={styles.buttonContainer} onPress={() => logout()}>
-        <Text style={[ styles.buttonText, { color : "red"} ]}>Log out</Text>
+        <Text style={[ styles.buttonText, { color : "red"} ]}>{ i18n.t("settingLogOutText") }</Text>
         <Image style={styles.iconStyle} source={require('../../assets/icons/right-red.png')} />
       </TouchableOpacity>
     </ScrollView>

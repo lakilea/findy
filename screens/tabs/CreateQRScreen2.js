@@ -35,25 +35,25 @@ const CreateQRScreen = ({ navigation, route }) => {
   
       const items = [
         {
-          name:"My Addresses",
+          name:i18n.t("createQrMyAddressesText"),
           id:"0",
           icon:"address-book",
           children: []
         },
         {
-          name:"My Phone Numbers",
+          name:i18n.t("createQrMyPhoneNumbersText"),
           id:"1",
           icon:"phone",
           children: []
         },
         {
-          name:"My Email Addresses",
+          name:i18n.t("createQrMyEmailAddressesText"),
           id:"2",
           icon:"envelope",
           children: []
         },
         {
-          name:"My Social Accounts",
+          name:i18n.t("createQrMySocialAccountsText"),
           id:"3",
           icon:"user",
           children: []
@@ -250,7 +250,7 @@ const CreateQRScreen = ({ navigation, route }) => {
           height={0.5}
           width={1}
           onSwipeOut={() => setShowModal(false)}
-          modalTitle={<ModalTitle title="Which informations you’re allowing for this QR?" />}
+          modalTitle={<ModalTitle title={i18n.t("createQrSelectorText")} />}
         >
           <ModalContent
             style={{
@@ -306,25 +306,25 @@ const CreateQRScreen = ({ navigation, route }) => {
     :
     <SafeAreaView style={styles.noInfoContainer}>
       <Image source={require('../../assets/onboarding/step2.png')} />
-      <Text style={[styles.noInfoText, {fontSize:18}]}>Before create a QR, you need to provide at least 1 contact details.</Text>
+      <Text style={[styles.noInfoText, {fontSize:18}]}>{i18n.t("createQrBeforeCreateWarningText")}</Text>
       <View style={{flexDirection:'row'}}>
-        <Text style={styles.noInfoText}>You can provide from </Text>
+        <Text style={styles.noInfoText}>{i18n.t("createQrProvideFromText")}</Text>
         <TouchableOpacity onPress={()=> navigation.navigate("Settings")}>
-          <Text style={[styles.noInfoText,{color:"#f69833"}]}>[Settings]</Text>
+          <Text style={[styles.noInfoText,{color:"#f69833"}]}>{i18n.t("createQrSettingsLinkText")}</Text>
         </TouchableOpacity>
       </View>
-      <Text style={[styles.noInfoText,{color:"#e0dfdf"}]}>OR</Text>
+      <Text style={[styles.noInfoText,{color:"#e0dfdf"}]}>{i18n.t("createQrORText")}</Text>
       <TouchableOpacity onPress={()=> navigation.navigate("CreateQR/AddAddress", { title: "Add Address" })}>
-        <Text style={[styles.noInfoText,{color:"#f69833"}]}>[Add Address]</Text>
+        <Text style={[styles.noInfoText,{color:"#f69833"}]}>{i18n.t("createQrAddAddressLinkText")}</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={()=> navigation.navigate("CreateQR/AddPhone", { title: "Add Phone Number" })}>
-        <Text style={[styles.noInfoText,{color:"#f69833"}]}>[Add Phone Number]</Text>
+        <Text style={[styles.noInfoText,{color:"#f69833"}]}>{i18n.t("createQrAddPhoneNumberLinkText")}</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={()=> navigation.navigate("CreateQR/AddSocial", { title: "Add Social Media Account" })}>
-        <Text style={[styles.noInfoText,{color:"#f69833"}]}>[Add Social Media Account]</Text>
+        <Text style={[styles.noInfoText,{color:"#f69833"}]}>{i18n.t("createQrAddSocialMediaAccountLinkText")}</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={()=> navigation.navigate("CreateQR/AddEmail", { title: "Add Email Address" })}>
-        <Text style={[styles.noInfoText,{color:"#f69833"}]}>[Add Email Address]</Text>
+        <Text style={[styles.noInfoText,{color:"#f69833"}]}>{i18n.t("createQrAddEmailAddressLinkText")}</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
