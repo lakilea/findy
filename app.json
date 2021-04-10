@@ -6,8 +6,8 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "cover",
+      "image": "./assets/splash/mdpi/splash.png",
+      "resizeMode": "contain",
       "backgroundColor": "#f69833"
     },
     "updates": {
@@ -25,6 +25,15 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
+      },
+      "splash": {
+        "mdpi": "./assets/splash/mdpi/splash.png",
+        "hdpi": "./assets/splash/hdpi/splash.png",
+        "xhdpi": "./assets/splash/xhdpi/splash.png",
+        "xxhdpi": "./assets/splash/xxhdpi/splash.png",
+        "xxxhdpi": "./assets/splash/xxxhdpi/splash.png",
+        "resizeMode": "cover",
+        "backgroundColor": "#f69833"
       }
     },
     "web": {
