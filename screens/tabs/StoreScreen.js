@@ -1,8 +1,9 @@
 //import liraries
 import React, { useEffect, useContext } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, ImageBackground } from 'react-native';
 import { AuthContext } from '../../navigation/AuthProvider';
 import i18n from 'i18n-js';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 // create a component
 const StoreScreen = ({ navigation }) => {
@@ -34,14 +35,25 @@ const StoreScreen = ({ navigation }) => {
       </View>
 
       <View style={styles.productContainer}>
-        <Image source={require("../../assets/products/keychain-oval.jpg")} style={styles.productImage}></Image>
-        <Text style={styles.textStyle}>{i18n.t("storeProductKeychainDescription")}</Text>
+        <ImageBackground source={require("../../assets/products/1/luggage-tag-5.jpg")} style={styles.productImage}>
+          <View style={styles.legend}>
+            <Text style={[styles.textStyle, { color:"#000",fontSize:30 }]}>Luggage Tag</Text>
+            <Text style={[styles.textStyle, { color:"#000" }]}>with</Text>
+            <Text style={[styles.textStyle, { color:"#000" }]}>findy QR</Text>
+            <Text style={[styles.textStyle, { color:"#000" }]}>9.90 £</Text>
+          </View>
+          <TouchableOpacity style={styles.orderNowButton} onPress={()=> navigation.navigate("MyQRList") }>
+            <Text style={[styles.textStyle, { color:"#FFF" }]}>Choose QR and Order</Text>
+          </TouchableOpacity>
+        </ImageBackground>
+        
+       
       </View>
 
-      <View style={styles.productContainer}>
+      {/* <View style={styles.productContainer}>
         <Image source={require("../../assets/products/business-card.jpg")} style={styles.productImage}></Image>
         <Text style={styles.textStyle}>{i18n.t("storeProductBusinessCardDescription")}</Text>
-      </View>
+      </View> */}
     </View>
   );
 };
@@ -84,15 +96,34 @@ const styles = StyleSheet.create({
   },
   productContainer:{
     width: "100%",
-    marginTop: 15
+    marginTop: 15,
+    flex: 1
   },
   productImage: {
     width: "100%",
-    height: 200,
+    height: 300,
     borderRadius: 10,
     overflow: "hidden",
     borderWidth: 3,
-    borderColor: "#b5c1c9"
+    borderColor: "#b5c1c9",
+  },
+  orderNowButton: {
+    width: "90%",
+    justifyContent: 'center',
+    alignItems: "center",
+    backgroundColor: "#f69833",
+    height: 50,
+    marginLeft: "5%",
+    marginTop: 50,
+  },
+  legend: {
+    width: "50%",
+    backgroundColor: "#CCC",
+    opacity: 0.7,
+    marginLeft: "5%",
+    marginTop: 50,
+    borderRadius: 10,
+    padding: 15
   }
 });
 

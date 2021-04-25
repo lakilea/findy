@@ -7,6 +7,7 @@ import { windowWidth } from '../../../utils/Dimensions';
 import Spinner from 'react-native-loading-spinner-overlay';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import firestore from '@react-native-firebase/firestore';
+import { Picker} from '@react-native-picker/picker';
 import * as Print from 'expo-print';
 import * as Sharing from "expo-sharing";
 import * as FileSystem from "expo-file-system";
@@ -15,9 +16,13 @@ import i18n from 'i18n-js';
 // create a component
 const ShowQRScreen = ({ navigation, route }) => {
   const qr = route.params.qr;
-  const qrKey = "https://findy.croone.co.uk/qr?code=" + qr.key;
+  
   const [qrGenerator, setQrGenerator] = useState();
   const [isLoading,setIsLoading] = useState(false);
+  const [product,setProduct] = useState(1);
+
+  const qrKey = "https://findy.croone.co.uk/qr?code=" + qr.key;
+  const orderUrl = "https://findy.croone.co.uk/order?code=" + qr.key+"&product="+product;
 
   saveAsPDF = async () => {
     await qrGenerator.toDataURL(async (dataURL) => {
@@ -119,7 +124,7 @@ const ShowQRScreen = ({ navigation, route }) => {
       <View style={styles.rectangle}>
         <QRCode
           value={qrKey}
-          size={windowWidth/1.5}
+          size={windowWidth/2}
           getRef={(c)=> setQrGenerator(c)}
         />
       </View>
@@ -137,9 +142,27 @@ const ShowQRScreen = ({ navigation, route }) => {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={{ flexDirection: 'row', width: "100%", alignItems: 'center', marginTop: 15}} onPress={()=> { Linking.openURL(qrKey+"&m=1") }}>
+      <TouchableOpacity style={{ flexDirection: 'row', width: "100%", alignItems: 'center', marginTop: 25}} onPress={()=> { Linking.openURL(qrKey+"&m=1") }}>
         <Text style={[styles.textStyle, { color: "#b5c1c9", marginBottom:0 }]}>{i18n.t("showQRLookWhatTheyWillSee")}{" "}</Text>
         <FontAwesome5 name="external-link-alt" size={15} color="#b5c1c9" />
+      </TouchableOpacity>
+
+      <View style={{flexDirection:"row", width:"100%", justifyContent:"space-between", alignItems:"center", marginTop: 10}}>
+        <Text style={[styles.textStyle, { color: "#000", marginBottom:0 }]}>Get this QR as : </Text>
+        <Picker selectedValue={product}
+          style={styles.pickerStyle}
+          onValueChange={(itemValue, itemIndex) => {
+            setProduct(itemValue)
+          }}> 
+          <Picker.Item label="Luggage Tag (9.90£)" value="1" />
+        </Picker>
+      </View>
+
+      <TouchableOpacity style={{ flexDirection: 'row', width: "100%", alignItems: 'center', marginTop: 15, backgroundColor: "#f69833", borderRadius: 7, padding: 15}} 
+        onPress={()=> { Linking.openURL(orderUrl) }}
+      >
+        <Text style={[styles.textStyle, { color: "#FFF", marginBottom:0 }]}>Order Now! {" "}</Text>
+        <FontAwesome5 name="external-link-alt" size={15} color="#FFF" />
       </TouchableOpacity>
     </View>
   );
@@ -199,6 +222,9 @@ const styles = StyleSheet.create({
     letterSpacing: 0,
     color: "#b5c1c9",
     marginBottom: 10
+  },
+  pickerStyle: {
+    width: '70%',
   },
 });
 
