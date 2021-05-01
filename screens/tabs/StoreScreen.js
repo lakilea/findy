@@ -1,6 +1,6 @@
 //import liraries
 import React, { useEffect, useContext } from 'react';
-import { View, Text, StyleSheet, Image, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, ImageBackground } from 'react-native';
 import { AuthContext } from '../../navigation/AuthProvider';
 import i18n from 'i18n-js';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -16,7 +16,7 @@ const StoreScreen = ({ navigation }) => {
   }, []);
   
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <View>
         <View style={styles.headerContainer}>
           <Text style={styles.headerTextLight}>
@@ -46,15 +46,27 @@ const StoreScreen = ({ navigation }) => {
             <Text style={[styles.textStyle, { color:"#FFF" }]}>Choose QR and Order</Text>
           </TouchableOpacity>
         </ImageBackground>
-        
-       
+      </View>
+
+      <View style={styles.productContainer}>
+        <ImageBackground source={require("../../assets/products/2/keyring.jpg")} style={styles.productImage}>
+          <View style={styles.legend}>
+            <Text style={[styles.textStyle, { color:"#000",fontSize:30 }]}>Key Tag</Text>
+            <Text style={[styles.textStyle, { color:"#000" }]}>with</Text>
+            <Text style={[styles.textStyle, { color:"#000" }]}>findy QR</Text>
+            <Text style={[styles.textStyle, { color:"#000" }]}>9.90 £</Text>
+          </View>
+          <TouchableOpacity style={styles.orderNowButton} onPress={()=> navigation.navigate("MyQRList") }>
+            <Text style={[styles.textStyle, { color:"#FFF" }]}>Choose QR and Order</Text>
+          </TouchableOpacity>
+        </ImageBackground>
       </View>
 
       {/* <View style={styles.productContainer}>
         <Image source={require("../../assets/products/business-card.jpg")} style={styles.productImage}></Image>
         <Text style={styles.textStyle}>{i18n.t("storeProductBusinessCardDescription")}</Text>
       </View> */}
-    </View>
+    </ScrollView>
   );
 };
 
@@ -97,7 +109,6 @@ const styles = StyleSheet.create({
   productContainer:{
     width: "100%",
     marginTop: 15,
-    flex: 1
   },
   productImage: {
     width: "100%",
@@ -114,10 +125,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#f69833",
     height: 50,
     marginLeft: "5%",
-    marginTop: 50,
+    marginTop: 40,
   },
   legend: {
-    width: "50%",
+    width: 220,
     backgroundColor: "#CCC",
     opacity: 0.7,
     marginLeft: "5%",

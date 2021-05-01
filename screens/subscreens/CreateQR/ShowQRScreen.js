@@ -1,6 +1,6 @@
 //import liraries
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Platform, Image, Linking } from 'react-native';
+import { View, Text, StyleSheet, Platform, Image, Linking, ScrollView } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import QRCode from 'react-native-qrcode-svg';
 import { windowWidth } from '../../../utils/Dimensions';
@@ -107,7 +107,7 @@ const ShowQRScreen = ({ navigation, route }) => {
   }, [])
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Spinner
         visible={isLoading}
         textContent={ 'Loading...' }
@@ -155,6 +155,7 @@ const ShowQRScreen = ({ navigation, route }) => {
             setProduct(itemValue)
           }}> 
           <Picker.Item label="Luggage Tag (9.90£)" value="1" />
+          <Picker.Item label="Key Tag (9.90£)" value="2" />
         </Picker>
       </View>
 
@@ -164,7 +165,7 @@ const ShowQRScreen = ({ navigation, route }) => {
         <Text style={[styles.textStyle, { color: "#FFF", marginBottom:0 }]}>Order Now! {" "}</Text>
         <FontAwesome5 name="external-link-alt" size={15} color="#FFF" />
       </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 };
 
