@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>122058580594-i5td3a9llktfctjc5gqrh7a68tttl1ic.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.122058580594-i5td3a9llktfctjc5gqrh7a68tttl1ic</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>122058580594-25pdkpm9rdleo969fe7ve31nlg5ec4mk.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyC3LArqg2W5S53XdDYkDCi4vNxobu-ICh4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>122058580594</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.croone.findy</string>
+	<key>PROJECT_ID</key>
+	<string>findme-1f656</string>
+	<key>STORAGE_BUCKET</key>
+	<string>findme-1f656.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:122058580594:ios:bb72e541e3dabec00d58eb</string>
+	<key>DATABASE_URL</key>
+	<string>https://findme-1f656-default-rtdb.europe-west1.firebasedatabase.app</string>
+</dict>
+</plist>
