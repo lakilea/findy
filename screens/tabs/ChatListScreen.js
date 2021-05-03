@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     borderColor: "rgba(171, 180, 189, 0.35)"
   },
   textStyle: {
-    fontFamily: "SF-Pro-Display",
+    fontFamily: "SF Pro Display",
     fontSize: 17,
     fontWeight: "normal",
     fontStyle: "normal",

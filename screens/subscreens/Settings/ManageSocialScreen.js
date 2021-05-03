@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     width: "100%"
   },
   textStyle : {
-    fontFamily: "SF-Pro-Display",
+    fontFamily: "SF Pro Display",
     fontSize: 17,
     fontWeight: "normal",
     fontStyle: "normal",
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     borderColor: "rgba(171, 180, 189, 0.35)"
   },
   itemTextStyle: {
-    fontFamily: "SF-Pro-Display",
+    fontFamily: "SF Pro Display",
     fontSize: 15,
     fontWeight: "normal",
     fontStyle: "normal",

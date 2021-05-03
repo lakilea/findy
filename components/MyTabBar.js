@@ -78,7 +78,7 @@ export default function MyTabBar({ state, descriptors, navigation }) {
 
 const styles = StyleSheet.create({
   textStyle : {
-    fontFamily: "SF-Pro-Display",
+    fontFamily: "SF Pro Display",
     fontSize: 11,
     fontWeight: "500",
     fontStyle: "normal",

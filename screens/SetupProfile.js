@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#f69833",
   },
   buttonText: {
-    fontFamily: "SF-Pro-Display",
+    fontFamily: "SF Pro Display",
     fontSize: 15,
     fontWeight: "500",
     fontStyle: "normal",
@@ -245,7 +245,7 @@ const styles = StyleSheet.create({
     color: "#ffffff"
   },
   textStyle: {
-    fontFamily: "SF-Pro-Display",
+    fontFamily: "SF Pro Display",
     fontSize: 17,
     fontWeight: "normal",
     fontStyle: "normal",

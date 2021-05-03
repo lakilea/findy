@@ -106,13 +106,12 @@ const LoginScreen = ({navigation}) => {
           <View style={[styles.line, {width:"40%"}]}>
 
           </View>
-          <Text style={{width:"20%", textAlign: 'center', fontFamily: "SFProDisplay",fontSize: 13, color: "#e0dfdf" }}>OR</Text>
+          <Text style={{width:"20%", textAlign: 'center', fontFamily: "SF Pro Display",fontSize: 13, color: "#e0dfdf" }}>OR</Text>
           <View style={[styles.line, {width:"40%"}]}>
 
           </View>
         </View>
 
-        {Platform.OS === 'android' ? (
           <View style={{flexDirection:"row", marginTop: 35, justifyContent: 'space-between', width: "100%"}}>
             <TouchableOpacity style={styles.socialButton} 
               onPress={() => loginWithGoogle()}
@@ -134,7 +133,6 @@ const LoginScreen = ({navigation}) => {
               <Text style={styles.socialButtonText}>Facebook</Text>
             </TouchableOpacity>
           </View>
-        ) : null}
 
         <View style={{flexDirection:"row", marginTop: 50, alignItems: 'center', justifyContent: 'center', width: "100%"}}>
           <Text style={styles.navButtonText}>
@@ -192,7 +190,7 @@ const styles = StyleSheet.create({
   input : {
     paddingHorizontal: 20,
     paddingVertical: 20,
-    fontFamily: "SF-Pro-Display",
+    fontFamily: "SF Pro Display",
     fontSize: 14,
     fontStyle: "normal",
     letterSpacing: 0,
@@ -207,7 +205,7 @@ const styles = StyleSheet.create({
   },
   forgotText: {
     paddingVertical: 20,
-    fontFamily: "SF-Pro-Display",
+    fontFamily: "SF Pro Display",
     fontSize: 13,
     fontWeight: "bold",
     fontStyle: "normal",
@@ -226,7 +224,7 @@ const styles = StyleSheet.create({
     marginTop: 35
   },
   buttonText: {
-    fontFamily: "SF-Pro-Display",
+    fontFamily: "SF Pro Display",
     fontSize: 15,
     fontWeight: "bold",
     fontStyle: "normal",
@@ -255,7 +253,7 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   socialButtonText: {
-    fontFamily: "SF-Pro-Display",
+    fontFamily: "SF Pro Display",
     fontSize: 12,
     fontWeight: "normal",
     fontStyle: "normal",
@@ -264,7 +262,7 @@ const styles = StyleSheet.create({
     marginLeft: 5
   },
   navButtonText: {
-    fontFamily: "SF-Pro-Display",
+    fontFamily: "SF Pro Display",
     fontSize: 15,
     fontWeight: "normal",
     fontStyle: "normal",

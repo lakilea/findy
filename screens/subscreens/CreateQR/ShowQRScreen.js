@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
     width: (windowWidth - 60) / 2
   },
   textStyle : {
-    fontFamily: "SF-Pro-Display",
+    fontFamily: "SF Pro Display",
     fontSize: 16,
     fontWeight: "normal",
     fontStyle: "normal",

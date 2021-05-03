@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     height: 50
   },
   cancelButtonText : {
-    fontFamily: "SF-Pro-Display",
+    fontFamily: "SF Pro Display",
     fontSize: 15,
     fontWeight: "500",
     fontStyle: "normal",
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     height: 50
   },
   saveButtonText : {
-    fontFamily: "SF-Pro-Display",
+    fontFamily: "SF Pro Display",
     fontSize: 15,
     fontWeight: "500",
     fontStyle: "normal",

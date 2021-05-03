@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     padding: 10
   },
   textStyle: {
-    fontFamily: "SF-Pro-Display",
+    fontFamily: "SF Pro Display",
     fontSize: 17,
     fontWeight: "normal",
     fontStyle: "normal",
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   headerTextLight: {
-    fontFamily: "SF-Pro-Display",
+    fontFamily: "SF Pro Display",
     fontSize: 15,
     fontWeight: "normal",
     fontStyle: "normal",
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     color: "#b5c1c9"
   },
   headerTextBold: {
-    fontFamily: "SF-Pro-Display",
+    fontFamily: "SF Pro Display",
     fontSize: 15,
     fontWeight: "bold",
     fontStyle: "normal",

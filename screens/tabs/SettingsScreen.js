@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     elevation:4
   },
   textStyle : {
-    fontFamily: "SF-Pro-Display",
+    fontFamily: "SF Pro Display",
     fontSize: 15,
     fontWeight: "normal",
     fontStyle: "normal",
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     marginLeft: 10
   },
   buttonText : {
-    fontFamily: "SF-Pro-Display",
+    fontFamily: "SF Pro Display",
     fontSize: 15,
     fontWeight: "normal",
     fontStyle: "normal",

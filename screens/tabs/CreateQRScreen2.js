@@ -367,7 +367,7 @@ const styles = StyleSheet.create({
     padding: 30
   },
   noInfoText:{
-    fontFamily: "SF-Pro-Display",
+    fontFamily: "SF Pro Display",
     fontSize: 15,
     fontWeight: "normal",
     fontStyle: "normal",
@@ -397,7 +397,7 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
   inputText: {
-    fontFamily: "SF-Pro-Display",
+    fontFamily: "SF Pro Display",
     fontSize: 14,
     fontWeight: "normal",
     fontStyle: "normal",
@@ -426,7 +426,7 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: "rgba(171, 180, 189, 0.35)",
     elevation: 4,
-    fontFamily: "SF-Pro-Display",
+    fontFamily: "SF Pro Display",
     fontSize: 14,
     fontWeight: "normal",
     fontStyle: "normal",
@@ -454,7 +454,7 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
   textStyle: {
-    fontFamily: "SF-Pro-Display",
+    fontFamily: "SF Pro Display",
     fontSize: 14,
     fontWeight: "normal",
     fontStyle: "normal",
@@ -470,7 +470,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15
   },
   listCaptionStyle: {
-    fontFamily: "SF-Pro-Display",
+    fontFamily: "SF Pro Display",
     fontSize: 15,
     fontWeight: "bold",
     fontStyle: "normal",

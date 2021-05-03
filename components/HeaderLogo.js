@@ -39,7 +39,7 @@ export default HeaderLogo = ({ navigation }) => {
         <FontAwesome5 name="bell" color="#000" size={20} />
         { notificationCount ? 
         <View style={{width:12,height:12, borderRadius:10, backgroundColor:"#f69833", position: "absolute", top:5, right: 5, alignItems:"center", justifyContent:"center"}}>
-          <Text style={{fontSize:9,fontFamily: "SF-Pro-Display",color:"#FFF"}}>{notificationCount}</Text>
+          <Text style={{fontSize:9,fontFamily: "SF Pro Display",color:"#FFF"}}>{notificationCount}</Text>
         </View>
         :
         null

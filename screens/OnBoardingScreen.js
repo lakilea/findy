@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   titleStyle : {
     marginTop: -50,
     paddingLeft: 20,
-    fontFamily: "SF-Pro-Display",
+    fontFamily: "SF Pro Display",
     fontSize: 24,
     fontWeight: "bold",
     fontStyle: "normal",
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
   },
   subTitleStyle: {
     paddingLeft: 20,
-    fontFamily: "SF-Pro-Display",
+    fontFamily: "SF Pro Display",
     fontSize: 17,
     letterSpacing: 0,
     textAlign: 'left',
