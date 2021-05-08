@@ -12,7 +12,7 @@ const StoreNavigator = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Store" component={StoreScreen} options={{ title:"Store", headerLeft: ()=> null, header: HeaderLogo }} />
-      <Stack.Screen name="Notifications" component={NotificationsScreen} options={{ title:"Notifications" }} />
+      <Stack.Screen name="Notifications" component={NotificationsScreen} options={{ title:"Notifications", headerStyle: { height: 62 } }} />
     </Stack.Navigator>
   );
 };

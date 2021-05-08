@@ -161,7 +161,9 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderWidth: 0.5,
     borderColor: "rgba(171, 180, 189, 0.35)",
-    elevation: 4
+    elevation: 4,
+    height: windowHeight / 15,
+    fontSize: 16
   },
   pickerStyle: {
     width: '100%',

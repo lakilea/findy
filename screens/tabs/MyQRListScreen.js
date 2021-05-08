@@ -1,6 +1,6 @@
 //import liraries
 import React, { useContext, useState, useEffect } from 'react';
-import { View, Text, StyleSheet, SafeAreaView , TouchableOpacity, FlatList,Image } from 'react-native';
+import { View, Text, StyleSheet, ScrollView , TouchableOpacity, FlatList,Image } from 'react-native';
 import { AuthContext } from '../../navigation/AuthProvider';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -31,8 +31,16 @@ const MyQRListScreen = ({ navigation }) => {
     });
   },[]);
 
+  const getHeader = () => {
+    return <Text></Text>;
+  };
+
+  const getFooter = () => {
+    return <Text></Text>;
+  };
+
   return (
-    <SafeAreaView style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Spinner
         visible={isLoading}
         textContent={ 'Loading...' }
@@ -58,6 +66,8 @@ const MyQRListScreen = ({ navigation }) => {
       <FlatList
         data={qrs}
         style={styles.listStyle}
+        ListHeaderComponent={getHeader}
+        ListFooterComponent={getFooter}
         renderItem={({ item }) => (
           <View>
             <TouchableOpacity 
@@ -106,7 +116,7 @@ const MyQRListScreen = ({ navigation }) => {
           </View>
         )}
       />
-    </SafeAreaView >
+    </ScrollView >
   );
 };
 

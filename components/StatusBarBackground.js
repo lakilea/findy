@@ -14,7 +14,7 @@ class StatusBarBackground extends Component{
 
 const styles = StyleSheet.create({
   statusBarBackground: {
-    height: (Platform.OS === 'ios') ? getStatusBarHeight() : StatusBar.currentHeight, //this is just to test if the platform is iOS to give it a height of 18, else, no height (Android apps have their own status bar)
+    height: (Platform.OS === 'ios') ? getStatusBarHeight() : 0,
     backgroundColor: "white",
   }
 

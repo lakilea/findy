@@ -142,12 +142,14 @@ const ShowQRScreen = ({ navigation, route }) => {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={{ flexDirection: 'row', width: "100%", alignItems: 'center', marginTop: 25}} onPress={()=> { Linking.openURL(qrKey+"&m=1") }}>
-        <Text style={[styles.textStyle, { color: "#b5c1c9", marginBottom:0 }]}>{i18n.t("showQRLookWhatTheyWillSee")}{" "}</Text>
-        <FontAwesome5 name="external-link-alt" size={15} color="#b5c1c9" />
-      </TouchableOpacity>
+      <View style={{ width: "100%", alignItems: "center", justifyContent: "center" }}>
+        <TouchableOpacity style={{ flexDirection: 'row', width: "100%", alignItems: 'center', marginTop: 25}} onPress={()=> { Linking.openURL(qrKey+"&m=1") }}>
+          <Text style={[styles.textStyle, { color: "#b5c1c9", marginBottom:0 }]}>{i18n.t("showQRLookWhatTheyWillSee")}{" "}</Text>
+          <FontAwesome5 name="external-link-alt" size={15} color="#b5c1c9" />
+        </TouchableOpacity> 
+      </View>
 
-      <View style={{flexDirection:"row", width:"100%", justifyContent:"space-between", alignItems:"center", marginTop: 10}}>
+      <View style={{flexDirection:"row", width:"100%", justifyContent:"space-between", alignItems:"center", marginTop: 5}}>
         <Text style={[styles.textStyle, { color: "#000", marginBottom:0 }]}>Get this QR as : </Text>
         <Picker selectedValue={product}
           style={styles.pickerStyle}
@@ -159,12 +161,15 @@ const ShowQRScreen = ({ navigation, route }) => {
         </Picker>
       </View>
 
-      <TouchableOpacity style={{ flexDirection: 'row', width: "100%", alignItems: 'center', marginTop: 15, backgroundColor: "#f69833", borderRadius: 7, padding: 15}} 
-        onPress={()=> { Linking.openURL(orderUrl) }}
-      >
-        <Text style={[styles.textStyle, { color: "#FFF", marginBottom:0 }]}>Order Now! {" "}</Text>
-        <FontAwesome5 name="external-link-alt" size={15} color="#FFF" />
-      </TouchableOpacity>
+      <View style={{ width: "100%", alignItems: "center", justifyContent: "center" }}>
+        <TouchableOpacity style={{ flexDirection: 'row', backgroundColor: "#f69833", borderRadius: 7, padding: 15}} 
+          onPress={()=> { Linking.openURL(orderUrl) }}
+        >
+          <Text style={[styles.textStyle, { color: "#FFF", marginBottom:0 }]}>Order Now! {" "}</Text>
+          <FontAwesome5 name="external-link-alt" size={15} color="#FFF" />
+        </TouchableOpacity> 
+      </View>
+      
     </ScrollView>
   );
 };
@@ -172,11 +177,11 @@ const ShowQRScreen = ({ navigation, route }) => {
 // define your styles
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "flex-start",
-    alignItems: "center",
+    flexGrow: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
     backgroundColor: "#f4f4f4",
-    padding:20
+    padding: 10
   },
   rectangle : {
     borderRadius: 5,

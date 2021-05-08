@@ -12,7 +12,7 @@ const MyQRsNavigator = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen name="MyQRs" component={MyQRListScreen} options={{ title:"My QRs", headerLeft: ()=> null, header: HeaderLogo }}  />
-      <Stack.Screen name="ShowQR" component={ShowQRScreen} options={({ route }) => ({ title: route.params.title })} />
+      <Stack.Screen name="ShowQR" component={ShowQRScreen} options={({ route }) => ({ title: route.params.title, headerStyle: { height: 62 } })} />
     </Stack.Navigator>
   );
 };
