@@ -149,7 +149,8 @@ const styles = StyleSheet.create({
   textArea: {
     width: '100%',
     textAlignVertical: "top",
-    paddingLeft: 10,
+    paddingHorizontal: windowWidth * 5 / 100,
+    paddingVertical: windowHeight * 2 / 100,
     marginTop : 15,
     backgroundColor: "#ffffff",
     shadowColor: "rgba(0, 0, 0, 0.06)",
@@ -162,7 +163,8 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderWidth: 0.5,
     borderColor: "rgba(171, 180, 189, 0.35)",
-    elevation: 4
+    elevation: 4,
+    fontSize: 16
   },
   pickerStyle: {
     width: '100%',

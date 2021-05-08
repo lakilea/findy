@@ -86,6 +86,8 @@ const MyQRListScreen = ({ navigation }) => {
               <FlatList 
                 data={item.selectedItems}
                 style={{marginTop:5}}
+                ListHeaderComponent={getHeader}
+                ListFooterComponent={getFooter}
                 renderItem={ ({item}) => {
                 
                   let text = "";
