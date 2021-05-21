@@ -1,6 +1,6 @@
 //import liraries
 import React, { useContext, useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView , TouchableOpacity, FlatList,Image } from 'react-native';
+import { View, Text, StyleSheet, ScrollView , TouchableOpacity, FlatList,Image, SafeAreaView } from 'react-native';
 import { AuthContext } from '../../navigation/AuthProvider';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -40,7 +40,7 @@ const MyQRListScreen = ({ navigation }) => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Spinner
         visible={isLoading}
         textContent={ 'Loading...' }
@@ -50,7 +50,7 @@ const MyQRListScreen = ({ navigation }) => {
       <Text style={[ styles.textStyle, {marginTop: 5} ]}>
         {i18n.t("myQRListHeaderBeforeCount")} {qrs.length} {i18n.t("myQRListHeaderAfterCount")}
       </Text>
-      <View style={{ width: "100%", flexDirection: 'row', alignItems: "center", marginBottom: 10}}>
+      <View style={{ width: "100%", flexDirection: 'row', alignItems: "center", marginBottom: 0}}>
         <Text style={[ styles.textStyle ]}>
           {i18n.t("myQRListHeaderBeforeIcon")}
         </Text>
@@ -118,7 +118,7 @@ const MyQRListScreen = ({ navigation }) => {
           </View>
         )}
       />
-    </ScrollView >
+    </SafeAreaView>
   );
 };
 
@@ -129,7 +129,8 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     backgroundColor: "#f4f4f4",
-    padding: 10
+    paddingHorizontal: 10,
+    paddingVertical: 10
   },
   listStyle: {
     width: "100%"

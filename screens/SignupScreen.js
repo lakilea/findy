@@ -173,7 +173,6 @@ const styles = StyleSheet.create({
   },
   rectangle : {
     width: "100%",
-    height: 210,
     borderRadius: 5,
     backgroundColor: "#ffffff",
     shadowColor: "rgba(171, 180, 189, 0.21)",

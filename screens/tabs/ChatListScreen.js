@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     backgroundColor: '#f4f4f4',
     paddingHorizontal: 10,
-    paddingTop: 20
+    paddingVertical: 10
   },
   listStyle: {
     width: "100%"

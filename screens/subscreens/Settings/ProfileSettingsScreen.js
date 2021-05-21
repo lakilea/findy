@@ -92,6 +92,7 @@ const ProfileSettingsScreen = ({ navigation }) => {
         <Picker
           selectedValue={language}
           style={styles.pickerStyle}
+          itemStyle={styles.pickerItem}
           onValueChange={(itemValue, itemIndex) => {
             setLanguage(itemValue)
           }}
@@ -119,7 +120,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#f4f4f4",
   },
   pickerStyle: {
-    width: '100%',
+    width: '70%',
+    height: 44
+  },
+  pickerItem: {
+    height: 44
   },
   pickerContainer: {
     marginTop: 5,

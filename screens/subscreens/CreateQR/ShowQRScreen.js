@@ -11,6 +11,8 @@ import { Picker} from '@react-native-picker/picker';
 import * as Print from 'expo-print';
 import * as Sharing from "expo-sharing";
 import * as FileSystem from "expo-file-system";
+import * as Permissions from 'expo-permissions';
+
 import i18n from 'i18n-js';
 
 // create a component
@@ -69,12 +71,23 @@ const ShowQRScreen = ({ navigation, route }) => {
     await qrGenerator.toDataURL(async (dataURL) => {
       
       const filename = FileSystem.documentDirectory + qr.qrName + ".png";
+      
+      if (Platform.OS === "ios") {
+        
+          await FileSystem.writeAsStringAsync(filename, dataURL, {
+            encoding: FileSystem.EncodingType.Base64,
+          });
+  
+          await Sharing.shareAsync(filename);
+      } else {
+        await FileSystem.writeAsStringAsync(filename, dataURL, {
+          encoding: FileSystem.EncodingType.Base64,
+        });
 
-      await FileSystem.writeAsStringAsync(filename, dataURL, {
-        encoding: FileSystem.EncodingType.Base64,
-      });
+        await Sharing.shareAsync(filename);
+      }
 
-      await Sharing.shareAsync(filename);
+      
     });
   }
 
@@ -149,10 +162,11 @@ const ShowQRScreen = ({ navigation, route }) => {
         </TouchableOpacity> 
       </View>
 
-      <View style={{flexDirection:"row", width:"100%", justifyContent:"space-between", alignItems:"center", marginTop: 5}}>
+      <View style={{flexDirection:"row", width:"100%", justifyContent:"space-between", alignItems:"center", marginTop: 15}}>
         <Text style={[styles.textStyle, { color: "#000", marginBottom:0 }]}>Get this QR as : </Text>
         <Picker selectedValue={product}
           style={styles.pickerStyle}
+          itemStyle={styles.pickerItem}
           onValueChange={(itemValue, itemIndex) => {
             setProduct(itemValue)
           }}> 
@@ -161,7 +175,7 @@ const ShowQRScreen = ({ navigation, route }) => {
         </Picker>
       </View>
 
-      <View style={{ width: "100%", alignItems: "center", justifyContent: "center" }}>
+      <View style={{ width: "100%", alignItems: "center", justifyContent: "center", marginTop:15 }}>
         <TouchableOpacity style={{ flexDirection: 'row', backgroundColor: "#f69833", borderRadius: 7, padding: 15}} 
           onPress={()=> { Linking.openURL(orderUrl) }}
         >
@@ -231,7 +245,11 @@ const styles = StyleSheet.create({
   },
   pickerStyle: {
     width: '70%',
+    height: 44
   },
+  pickerItem: {
+    height: 44
+  }
 });
 
 //make this component available to the app

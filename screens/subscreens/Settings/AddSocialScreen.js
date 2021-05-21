@@ -106,6 +106,7 @@ const AddSocialScreen = ({ navigation, route }) => {
         <Picker
           selectedValue={state.platform}
           style={styles.pickerStyle}
+          itemStyle={styles.pickerItem}
           onValueChange={(itemValue, itemIndex) => {
             setState({ ...state, platform: itemValue })
           }}
@@ -167,7 +168,11 @@ const styles = StyleSheet.create({
     paddingVertical: windowHeight * 2 / 100,
   },
   pickerStyle: {
-    width: '100%',
+    width: '70%',
+    height: 44
+  },
+  pickerItem: {
+    height: 44
   },
   pickerContainer: {
     marginTop: 15,

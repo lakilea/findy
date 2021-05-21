@@ -107,6 +107,7 @@ const AddPhoneScreen = ({ navigation, route }) => {
         <Picker
           selectedValue={state.country}
           style={styles.pickerStyle}
+          itemStyle={styles.pickerItem}
           onValueChange={(itemValue, itemIndex) => {
             setState({ ...state, country: itemValue })
           }}
@@ -167,7 +168,11 @@ const styles = StyleSheet.create({
     fontSize: 16
   },
   pickerStyle: {
-    width: '100%',
+    width: '70%',
+    height: 44
+  },
+  pickerItem: {
+    height: 44
   },
   pickerContainer: {
     marginTop: 15,

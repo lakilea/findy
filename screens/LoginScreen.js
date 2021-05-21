@@ -91,6 +91,8 @@ const LoginScreen = ({navigation}) => {
               placeholderTextColor="#666"
               onChangeText={(userPassword) => setPassword(userPassword)}
               secureTextEntry={true}
+              autoCapitalize="none"
+              autoCorrect={false}
             />
 
             <Text style={[styles.forgotText]}>Forgot?</Text>
@@ -171,7 +173,6 @@ const styles = StyleSheet.create({
   },
   rectangle : {
     width: "100%",
-    height: 135,
     borderRadius: 5,
     backgroundColor: "#ffffff",
     shadowColor: "rgba(171, 180, 189, 0.21)",
@@ -212,7 +213,6 @@ const styles = StyleSheet.create({
     letterSpacing: 0,
     textAlign: "center",
     color: "#f69833",
-    marginTop: 5
   },
   signInButton: {
     width: '100%',
